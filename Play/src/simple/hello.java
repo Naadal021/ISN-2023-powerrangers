@@ -1,1 +1,5 @@
-hahahahha
+package simple;
+
+public class hello {
+    
+}

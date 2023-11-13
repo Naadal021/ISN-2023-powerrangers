@@ -1,7 +1,7 @@
 package tile;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
-import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -23,29 +23,29 @@ public class TileManager{
      public void getTileimage(){
         try{
             tile[0]= new Tile(); 
-            tile[0].image = ImageIO.read(new File("Play/src/images/floor/floor_1.png"));
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/floor_1.png"));
             tile[1]= new Tile(); 
-            tile[1].image = ImageIO.read(new File("images/wall/wall_top_left.png"));
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_top_left.png"));
             tile[2]= new Tile(); 
-            tile[2].image = ImageIO.read(new File("images/wall/wall_left.png"));
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_left.png"));
             tile[3]= new Tile(); 
-            tile[3].image = ImageIO.read(new File("images/wall/wall_right.png"));
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_right.png"));
             tile[4]= new Tile(); 
-            tile[4].image = ImageIO.read(new File("images/wall/wall_edge_top_left.png"));
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_top_left.png"));
             tile[5]= new Tile(); 
-            tile[5].image = ImageIO.read(new File("images/wall/wall_edge_tshape_bottom_left.png"));
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_tshape_bottom_left.png"));
             tile[6]= new Tile(); 
-            tile[6].image = ImageIO.read(new File("images/wall/wall_edge_tshape_bottom_right.png"));
+            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_tshape_bottom_right.png"));
             tile[7]= new Tile(); 
-            tile[7].image = ImageIO.read(new File("images/wall/wall_edge_tshape_left.png"));
+            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_tshape_left.png"));
             tile[8]= new Tile(); 
-            tile[8].image = ImageIO.read(new File("images/wall/wall_edge_tshape_right.png"));
+            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_tshape_right.png"));
             tile[9]= new Tile(); 
-            tile[9].image = ImageIO.read(new File("images/wall/wall_edge_tshape_left.png"));
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_tshape_left.png"));
             tile[10]= new Tile(); 
-            tile[10].image = ImageIO.read(new File("images/wall/wall_top_mid.png"));
+            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_top_mid.png"));
             tile[11]= new Tile(); 
-            tile[11].image = ImageIO.read(new File("images/wall/wall_fountain_basin_red_anim_f2.png"));
+            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_fountain_basin_red_anim_f2.png"));
         }catch(IOException e){
             e.printStackTrace();
         }

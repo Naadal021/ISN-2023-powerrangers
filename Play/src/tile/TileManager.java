@@ -15,12 +15,15 @@ public class TileManager{
     int mapTileNum[][];
      public TileManager(Interface gp){
         this.gp = gp;
-        tile = new Tile [11];
+        tile = new Tile [12];
         mapTileNum= new int[gp.maxScreenCol][gp.maxscreenRow];
         getTileimage();
         loadMap();
      }
-     public void getTileimage(){
+     /**
+     * 
+     */
+    public void getTileimage(){
         try{
             tile[0]= new Tile(); 
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/floor_1.png"));
@@ -46,6 +49,7 @@ public class TileManager{
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_top_mid.png"));
             tile[11]= new Tile(); 
             tile[11].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_fountain_basin_red_anim_f2.png"));
+            
         }catch(IOException e){
             e.printStackTrace();
         }

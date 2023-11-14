@@ -14,6 +14,7 @@ public class Gamelauncher {
     window.pack();
     window.setLocationRelativeTo(null);
     window.setVisible(true);
+    pacrangers.startGame();
 
     }
 }

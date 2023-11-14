@@ -80,22 +80,23 @@ public class TileManager{
         }
     }
      
-     public void draw(Graphics2D g2){
-        int col =0;
-        int row= 0;
-        int x =0;
-        int y= 0;
-        while(col< gp.maxScreenCol && row <gp.maxscreenRow ){
+     
+    public void draw(Graphics2D g2){
+        int col = 0;
+        int row = 0;
+        int x = 0;
+        int y = 0;
+        while (col < gp.maxScreenCol && row < gp.maxscreenRow) {
             int tileNum = mapTileNum[col][row]; 
-            g2.drawImage(tile[tileNum].image, 0,0,gp.titleSize,gp.titleSize,null );
+            g2.drawImage(tile[tileNum].image, x, y, gp.titleSize, gp.titleSize, null);
             col++;
-            x+=gp.titleSize;
-            if(col== gp.maxScreenCol){
-                col=0;
-                x=0;
+            x += gp.titleSize;
+            if (col == gp.maxScreenCol) {
+                col = 0;
+                x = 0;
                 row++;
-                y+=gp.titleSize;
+                y += gp.titleSize;
             }
         }
-     }
-} 
+    }
+    }

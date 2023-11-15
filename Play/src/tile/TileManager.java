@@ -44,7 +44,7 @@ public class TileManager{
             tile[8]= new Tile(); 
             tile[8].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_tshape_right.png"));
             tile[9]= new Tile(); 
-            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_tshape_left.png"));
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_edge_top_up.png"));
             tile[10]= new Tile(); 
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_top_mid.png"));
             tile[11]= new Tile(); 

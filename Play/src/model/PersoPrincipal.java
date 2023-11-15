@@ -69,8 +69,8 @@ public class PersoPrincipal extends Mov {
 	        if (intersects(boule)) {
 	            inter.incrementScore(); // Incrémente le score
 	            iterator.remove(); // Supprime la boule touchée
-	        }
-	    }
+	        } 
+	    } 
 	}
 	
 	private boolean intersects(Boule boule) {

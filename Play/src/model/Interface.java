@@ -3,11 +3,13 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Shape;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import tile.TileManager;
 
@@ -15,6 +17,7 @@ import model.PersoPrincipal;
 import model.Mov;
 
 import java.util.Random;
+import java.util.Timer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,22 +45,30 @@ public class Interface extends JPanel implements Runnable{
     }
     private List<Boule> boules = new ArrayList<>();
     private Random random = new Random();
-    
+    private Timer timer;
     private JLabel scoreLabel;
     
-    public Interface(){
+    public Interface(){ 
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
         
-        score = 0;
-        scoreLabel = new JLabel("Score: " + score);
-        scoreLabel.setForeground(Color.WHITE);
-        scoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        add(scoreLabel);
-         
+        //score = 0;
+        //scoreLabel = new JLabel("Score: " + score);
+        //scoreLabel.setForeground(Color.WHITE);
+        //scoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        //add(scoreLabel);
+        SwingUtilities.invokeLater(() -> {
+            scoreLabel = new JLabel("Score: " + score);
+            scoreLabel.setForeground(Color.WHITE);
+            scoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+            add(scoreLabel);
+            // Ajoutez le scoreLabel à l'interface
+            this.setLayout(new BorderLayout());
+            this.add(scoreLabel, BorderLayout.NORTH);
+        });
     }
     public void startGame(){
     	this.requestFocusInWindow();
@@ -152,7 +163,11 @@ public class Interface extends JPanel implements Runnable{
             boule.draw(g2);
         }
         persoPrincipal.draw(g2);
-        scoreLabel.setText("Score: " + score);
+        //scoreLabel.setText("Score: " + score);
+        //SwingUtilities.invokeLater(() -> scoreLabel.setText("Score: " + score));
+        g2.setColor(Color.WHITE);
+        g2.setFont(new Font("Arial", Font.PLAIN, 16));
+        g2.drawString("Score: " + score, 10, 20);
         g2.dispose();
 
     }

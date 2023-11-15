@@ -8,10 +8,10 @@ import java.util.Set;
 public class KeyHandler extends KeyAdapter {
     private Set<Integer> keysPressed = new HashSet<>();
 
-    private static final int KEY_W = KeyEvent.VK_W;
-    private static final int KEY_S = KeyEvent.VK_S;
-    private static final int KEY_A = KeyEvent.VK_A;
-    private static final int KEY_D = KeyEvent.VK_D;
+    private static final int KEY_UP = KeyEvent.VK_UP;
+    private static final int KEY_DOWN = KeyEvent.VK_DOWN;
+    private static final int KEY_LEFT = KeyEvent.VK_LEFT;
+    private static final int KEY_RIGHT = KeyEvent.VK_RIGHT;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -24,18 +24,18 @@ public class KeyHandler extends KeyAdapter {
     }
 
     public boolean isUpPressed() {
-        return keysPressed.contains(KEY_W);
+        return keysPressed.contains(KEY_UP);
     }
 
     public boolean isDownPressed() {
-        return keysPressed.contains(KEY_S);
+        return keysPressed.contains(KEY_DOWN);
     }
 
     public boolean isLeftPressed() {
-        return keysPressed.contains(KEY_A);
+        return keysPressed.contains(KEY_LEFT);
     }
-
+ 
     public boolean isRightPressed() {
-        return keysPressed.contains(KEY_D);
+        return keysPressed.contains(KEY_RIGHT);
     }
 }

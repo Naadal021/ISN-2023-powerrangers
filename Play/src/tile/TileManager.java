@@ -57,7 +57,7 @@ public class TileManager{
         }
     public void loadMap(){
         try{
-            InputStream is = getClass().getResourceAsStream("/tile/decor.txt");
+            InputStream is = getClass().getResourceAsStream("/tile/final_decor.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             int col =0;
             int row= 0;

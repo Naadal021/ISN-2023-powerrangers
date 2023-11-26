@@ -50,6 +50,9 @@ public class TileManager{
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_fountain_basin_red_anim_f2.png"));
             tile[11]= new Tile(); 
             tile[11].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_banner_red.png"));
+            tile[12]= new Tile(); 
+            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/column.png"));
+
         }catch(IOException e){
             e.printStackTrace();
         }

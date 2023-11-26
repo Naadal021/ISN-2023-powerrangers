@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Gamelauncher",
+            "request": "launch",
+            "mainClass": "model.Gamelauncher",
+            "projectName": "Play"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -15,8 +22,10 @@
             "name": "Gamelauncher",
             "request": "launch",
             "mainClass": "model.Gamelauncher",
-            "projectName": "ISN-2023-powerrangers"
-        },
-      
+            "projectName": "ISN-2023-powerrangers",
+            "noDebug": false,
+            "__progressId": "09aaa4a3-fbdf-4805-b14d-46fdbf587935",
+            "__origin": "internal"
+        }
     ]
 }

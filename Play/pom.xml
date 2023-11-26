@@ -3,7 +3,7 @@
   <groupId>Play</groupId>
   <artifactId>Play</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <build>
+  <build> 
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>

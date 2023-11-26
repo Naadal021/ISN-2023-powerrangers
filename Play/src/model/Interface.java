@@ -28,7 +28,7 @@ public class Interface extends JPanel implements Runnable{
     final int scale=3;
     public final int titleSize = OriginalTitleSize*scale;
     public final int maxScreenCol= 75;
-    public final int maxscreenRow=25;
+    public final int maxscreenRow=28;
     final int screenWidth = titleSize*maxScreenCol;
     final int screenHeight=titleSize*maxscreenRow;
     Thread game;

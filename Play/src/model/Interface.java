@@ -37,6 +37,7 @@ public class Interface extends JPanel implements Runnable{
     int FPS =60;
     private static final int NOMBRE_DE_BOULES = 5;
     KeyHandler keyH=new KeyHandler();
+    public CollisionChecker cChecker=new CollisionChecker(this);
     PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
     
     private int score = 0; //score lorsque le perso touche la boule

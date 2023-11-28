@@ -34,28 +34,53 @@ public class PersoPrincipal extends Mov {
 	KeyHandler keyH;
 	 	
 	public void setDefaultValues() {
-		x= 100;
+		x=100;
 		y=100; 
-		speed=4; 
+		speed=2;
+		direction ="down";
 	}
 	
 	public PersoPrincipal(Interface inter, KeyHandler keyH) {
 		this.inter=inter;
 		this.keyH=keyH;
+		solidArea= new Rectangle();
+		solidArea.x=0;
+		solidArea.y=0;
+		solidArea.width=16;
+		solidArea.height=16;
 		setDefaultValues();
 	}
 
 	public void update() {
 	    if (keyH.isUpPressed() && y - speed >= 0) {
-	        y -= speed;
+	        direction="up";
 	    } else if (keyH.isDownPressed() && y + speed + inter.titleSize <= inter.screenHeight) {
-	        y += speed;
+	        direction="down";
 	    }
 
 	    if (keyH.isLeftPressed() && x - speed >= 0) {
-	        x -= speed;
+	        direction="left";
 	    } else if (keyH.isRightPressed() && x + speed + inter.titleSize <= inter.screenWidth) {
-	        x += speed;
+	        direction="right";
+	    }
+	    collisionOn= false;
+	    inter.cChecker.checkTile(this);
+	    if(collisionOn==false){
+	    	switch(direction) {
+	    			case "up":
+	    				 y -= speed;
+	    			break;
+	    			case "down":
+	    				 y += speed;
+	    			break;
+	    			case "left":
+	    				x -= speed;
+	    			break;
+	    			case "right":
+	    				x += speed;
+	    			break;
+	    			}
+	    	
 	    }
 
 	    checkCollisionWithBoules();

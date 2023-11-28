@@ -51,15 +51,15 @@ public class TileManager{
             tile[11]= new Tile(); 
             tile[11].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_mid.png"));
             tile[12]= new Tile(); 
-            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/doors_frame_top.png"));
+            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/doors_frame_top.png"));
             tile[13]= new Tile(); 
-            tile[13].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/doors_frame_right.png"));
+            tile[13].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/doors_frame_right.png"));
             tile[14]= new Tile(); 
-            tile[14].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/doors_frame_left.png"));
+            tile[14].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/doors_frame_left.png"));
             tile[15]= new Tile(); 
-            tile[15].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/doors_leaf_closed.png"));
+            tile[15].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/doors_leaf_closed.png"));
             tile[16]= new Tile(); 
-            tile[16].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/column_wall.png"));
+            tile[16].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/column_wall.png"));
 
         }catch(IOException e){
             e.printStackTrace();

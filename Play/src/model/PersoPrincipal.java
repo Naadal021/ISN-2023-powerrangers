@@ -36,7 +36,7 @@ public class PersoPrincipal extends Mov {
 	public void setDefaultValues() {
 		x=100;
 		y=200; 
-		speed=2;
+		speed=4;
 		direction =" ";
 	}
 	

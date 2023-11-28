@@ -37,7 +37,7 @@ public class PersoPrincipal extends Mov {
 		x=100;
 		y=200; 
 		speed=2;
-		direction ="down";
+		direction =" ";
 	}
 	
 	public PersoPrincipal(Interface inter, KeyHandler keyH) {
@@ -69,15 +69,19 @@ public class PersoPrincipal extends Mov {
 	    	switch(direction) {
 	    			case "up":
 	    				 y -= speed;
+	    				 direction=" ";
 	    			break;
 	    			case "down":
 	    				 y += speed;
+	    				 direction=" ";
 	    			break;
 	    			case "left":
 	    				x -= speed;
+	    				direction=" ";
 	    			break;
 	    			case "right":
 	    				x += speed;
+	    				direction=" ";
 	    			break;
 	    			}
 	    	

@@ -39,6 +39,7 @@ public class Interface extends JPanel implements Runnable{
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
     PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
+    Ennemis EnnemisPrincipal =new Ennemis(this);
     
     private int score = 0; //score lorsque le perso touche la boule
     public void incrementScore() {
@@ -153,6 +154,8 @@ public class Interface extends JPanel implements Runnable{
     
     public void update(){ 
     	persoPrincipal.update();
+    	EnnemisPrincipal.update();
+    	
      }
     @Override
     public void paintComponent(Graphics g){
@@ -164,6 +167,7 @@ public class Interface extends JPanel implements Runnable{
             boule.draw(g2);
         }
         persoPrincipal.draw(g2);
+        EnnemisPrincipal.draw(g2);
         //scoreLabel.setText("Score: " + score);
         //SwingUtilities.invokeLater(() -> scoreLabel.setText("Score: " + score));
         g2.setColor(Color.WHITE);

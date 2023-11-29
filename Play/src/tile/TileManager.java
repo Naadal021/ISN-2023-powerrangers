@@ -84,6 +84,7 @@ public class TileManager{
             tile[20].collision=true;
             tile[21]= new Tile(); 
             tile[21].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_fountain_mid_red_anim_f2.png"));
+            tile[21].collision=true;
             tile[22]= new Tile(); 
             tile[22].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_fountain_top_2.png"));
           

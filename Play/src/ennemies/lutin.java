@@ -24,7 +24,7 @@ public class lutin extends Mov {
 
     public void setDefaultValues() {
         x = 400;
-        y = 80;
+        y = 380;
         speed = 1;
         direction = " ";
     }
@@ -45,7 +45,7 @@ public class lutin extends Mov {
 
     public void draw(Graphics2D g2) {
         int frameIndex = (currentFrame / animationDelay) % runSprites.length;
-        g2.drawImage(runSprites[frameIndex].getImage(), x, y, 2*inter.titleSize, 2*inter.titleSize, null);
+        g2.drawImage(runSprites[frameIndex].getImage(), x, y, inter.titleSize, inter.titleSize, null);
 
         // Increment frame for the next iteration
         currentFrame++;

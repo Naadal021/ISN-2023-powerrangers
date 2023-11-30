@@ -23,7 +23,7 @@ public class ogre extends Mov {
     Interface inter;
 
     public void setDefaultValues() {
-        x = 200;
+        x = 700;
         y = 130;
         speed = 1;
         direction = " ";

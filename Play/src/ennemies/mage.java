@@ -23,7 +23,7 @@ public class mage extends Mov {
     Interface inter;
 
     public void setDefaultValues() {
-        x = 300;
+        x = 600;
         y = 100;
         speed = 1;
         direction = " ";
@@ -45,7 +45,7 @@ public class mage extends Mov {
 
     public void draw(Graphics2D g2) {
         int frameIndex = (currentFrame / animationDelay) % runSprites.length;
-        g2.drawImage(runSprites[frameIndex].getImage(), x, y, 2*inter.titleSize, 2*inter.titleSize, null);
+        g2.drawImage(runSprites[frameIndex].getImage(), x, y, inter.titleSize, inter.titleSize, null);
 
         // Increment frame for the next iteration
         currentFrame++;

@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import ennemies.Ennemis;
+import ennemies.lutin;
+import ennemies.mage;
+import ennemies.ogre;
 import tile.TileManager;
 
 import model.PersoPrincipal;
@@ -40,6 +44,9 @@ public class Interface extends JPanel implements Runnable{
     public CollisionChecker cChecker=new CollisionChecker(this);
     PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
     Ennemis Demon =new Ennemis(this);
+    lutin lutin1 =new lutin(this);
+    mage mage1 =new mage(this);
+    ogre ogre1=new ogre(this);
     
     private int score = 0; //score lorsque le perso touche la boule
     public void incrementScore() {
@@ -155,6 +162,9 @@ public class Interface extends JPanel implements Runnable{
     public void update(){ 
     	persoPrincipal.update();
     	Demon.update();
+    	lutin1.update();
+    	mage1.update();
+    	ogre1.update();
     	
      }
     @Override
@@ -168,6 +178,9 @@ public class Interface extends JPanel implements Runnable{
         }
         persoPrincipal.draw(g2);
         Demon.draw(g2);
+        lutin1.draw(g2);
+        mage1.draw(g2);
+        ogre1.draw(g2);
         //scoreLabel.setText("Score: " + score);
         //SwingUtilities.invokeLater(() -> scoreLabel.setText("Score: " + score));
         g2.setColor(Color.WHITE);

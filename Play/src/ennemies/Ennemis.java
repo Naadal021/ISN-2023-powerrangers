@@ -1,8 +1,27 @@
-package model;
+package ennemies;
+
+import model.Interface;
 import javax.swing.ImageIcon;
+
+import model.Mov;
+
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.random.*;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
+import java.util.Random;
 
 public class Ennemis extends Mov {
 
@@ -36,7 +55,7 @@ public class Ennemis extends Mov {
     }
 
     public void update() {
-        // Ajoutez ici toute logique de mise à jour de l'ennemi si nécessaire
+    	 
     }
 
     public void draw(Graphics2D g2) {

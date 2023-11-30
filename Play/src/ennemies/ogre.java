@@ -6,6 +6,7 @@ import model.Mov;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Random;
 
 
 public class ogre extends Mov {
@@ -19,6 +20,8 @@ public class ogre extends Mov {
     private int currentFrame = 0;
     private boolean isRunning = false;
     private int animationDelay = 5;
+    private int currentDirection; // added variable to store the current direction
+    private int speedMultiplier = 2;
 
     Interface inter;
 
@@ -27,6 +30,7 @@ public class ogre extends Mov {
         y = 130;
         speed = 1;
         direction = " ";
+        currentDirection = new Random().nextInt(4);
     }
 
     public ogre (Interface inter) {
@@ -40,7 +44,28 @@ public class ogre extends Mov {
     }
 
     public void update() {
-        // Ajoutez ici toute logique de mise à jour de l'ennemi si nécessaire
+        switch (currentDirection) {
+            case 0:
+                if (y - speed * speedMultiplier >= 0) {
+                    y -= speed * speedMultiplier;
+                }
+                break;
+            case 1:
+                if (y + speed * speedMultiplier + this.inter.titleSize <= this.inter.screenHeight) {
+                    y += speed * speedMultiplier;
+                }
+                break;
+            case 2:
+                if (x - speed * speedMultiplier >= 0) {
+                    x -= speed * speedMultiplier;
+                }
+                break;
+            case 3:
+                if (x + speed * speedMultiplier + this.inter.titleSize <= this.inter.screenWidth) {
+                    x += speed * speedMultiplier;
+                }
+                break;
+        }
     }
 
     public void draw(Graphics2D g2) {

@@ -33,8 +33,9 @@ public class Interface extends JPanel implements Runnable{
     public final int titleSize = OriginalTitleSize*scale;
     public final int maxScreenCol= 51;
     public final int maxscreenRow=26;
-    final int screenWidth = titleSize*maxScreenCol;
-    final int screenHeight=titleSize*maxscreenRow;
+    public final int screenWidth = titleSize*maxScreenCol;
+    public final int screenHeight=titleSize*maxscreenRow;
+    
     Thread game;
     TileManager tileM= new TileManager(this);
     //FPS = FRAME PER SECOND
@@ -63,7 +64,7 @@ public class Interface extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-        
+       
         //score = 0;
         //scoreLabel = new JLabel("Score: " + score);
         //scoreLabel.setForeground(Color.WHITE);

@@ -34,6 +34,8 @@ public class Ennemis extends Mov {
     private int currentFrame = 0;
     private boolean isRunning = false;
     private int animationDelay = 5;
+    private int currentDirection; // added variable to store the current direction
+    private int speedMultiplier = 2;
 
     Interface inter;
 
@@ -42,6 +44,7 @@ public class Ennemis extends Mov {
         y = 150;
         speed = 1;
         direction = " ";
+        currentDirection = new Random().nextInt(4);
     }
 
     public Ennemis(Interface inter) {
@@ -54,8 +57,31 @@ public class Ennemis extends Mov {
         setDefaultValues();
     }
 
+
+
     public void update() {
-    	 
+        switch (currentDirection) {
+            case 0:
+                if (y - speed * speedMultiplier >= 0) {
+                    y -= speed * speedMultiplier;
+                }
+                break;
+            case 1:
+                if (y + speed * speedMultiplier + this.inter.titleSize <= this.inter.screenHeight) {
+                    y += speed * speedMultiplier;
+                }
+                break;
+            case 2:
+                if (x - speed * speedMultiplier >= 0) {
+                    x -= speed * speedMultiplier;
+                }
+                break;
+            case 3:
+                if (x + speed * speedMultiplier + this.inter.titleSize <= this.inter.screenWidth) {
+                    x += speed * speedMultiplier;
+                }
+                break;
+        }
     }
 
     public void draw(Graphics2D g2) {

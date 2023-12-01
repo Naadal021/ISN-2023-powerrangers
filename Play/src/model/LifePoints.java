@@ -6,7 +6,7 @@ import java.util.List;
 public class LifePoints {
     private int maxLifePoints;
     private int currentLifePoints;
-    private List<ImageIcon> heartImages;
+    public  List<ImageIcon> heartImages;
 
     public LifePoints(int maxLifePoints) {
         this.maxLifePoints = maxLifePoints;
@@ -35,7 +35,7 @@ public class LifePoints {
     }
 
     // Example method: Initialize heart images
-    private List<ImageIcon> initializeHeartImages() {
+    public List<ImageIcon> initializeHeartImages() {
         List<ImageIcon> hearts = new ArrayList<>();
         hearts.add(new ImageIcon("images/sprites/ui_heart_full.png"));
         hearts.add(new ImageIcon("images/sprites/ui_heart_half.png"));

@@ -12,16 +12,21 @@ import java.util.Random;
 public class mage extends Mov {
 
     private ImageIcon[] runSprites = {
-            new ImageIcon("Play/src/images/ennemies/wizzard_f_run_anim_f0.png"),
-            new ImageIcon("Play/src/images/ennemies/wizzard_f_run_anim__f1.png"),
-            new ImageIcon("Play/src/images/ennemies/wizzard_f_run_anim__f2.png"),
-            new ImageIcon("Play/src/images/ennemies/wizzard_f_run_anim__f3.png")
+            new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f0.png"),
+            new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f1.png"),
+            new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f2.png"),
+         
     };
     private int currentFrame = 0;
     private boolean isRunning = false;
     private int animationDelay = 5;
     private int currentDirection; // added variable to store the current direction
     private int speedMultiplier = 2;
+    private Random random = new Random(); // Initialize Random once
+
+    private int directionChangeTimer = 0;
+    private int directionChangeInterval = 60; // Change direction every 60 frames (adjust as needed)
+
 
     Interface inter;
 
@@ -30,7 +35,7 @@ public class mage extends Mov {
         y = 100;
         speed = 1;
         direction = " ";
-        currentDirection = new Random().nextInt(4);
+        currentDirection =random.nextInt(4);
     }
 
     public mage (Interface inter) {
@@ -44,6 +49,11 @@ public class mage extends Mov {
     }
 
     public void update() {
+        directionChangeTimer++;
+        if (directionChangeTimer >= directionChangeInterval) {
+            currentDirection = random.nextInt(4);
+            directionChangeTimer = 0; // Reset the timer
+        }
         switch (currentDirection) {
             case 0:
                 if (y - speed * speedMultiplier >= 0) {

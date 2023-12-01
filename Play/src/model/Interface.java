@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import ennemies.Ennemis;
+import ennemies.Demon;
 import ennemies.lutin;
 import ennemies.mage;
 import ennemies.ogre;
@@ -37,14 +37,14 @@ public class Interface extends JPanel implements Runnable{
     public final int screenHeight=titleSize*maxscreenRow;
     
     Thread game;
-    TileManager tileM= new TileManager(this);
+    TileManager tileM = new TileManager(this);
     //FPS = FRAME PER SECOND
     int FPS =60;
     private static final int NOMBRE_DE_BOULES = 5;
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
     PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
-    Ennemis Demon =new Ennemis(this);
+    Demon Demon =new Demon(this);
     lutin lutin1 =new lutin(this);
     mage mage1 =new mage(this);
     ogre ogre1=new ogre(this);

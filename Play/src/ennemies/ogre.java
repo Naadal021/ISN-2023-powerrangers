@@ -22,6 +22,10 @@ public class ogre extends Mov {
     private int animationDelay = 5;
     private int currentDirection; // added variable to store the current direction
     private int speedMultiplier = 2;
+    private Random random = new Random(); // Initialize Random once
+
+    private int directionChangeTimer = 0;
+    private int directionChangeInterval = 60; // Change direction every 60 frames (adjust as needed)
 
     Interface inter;
 
@@ -30,7 +34,7 @@ public class ogre extends Mov {
         y = 130;
         speed = 1;
         direction = " ";
-        currentDirection = new Random().nextInt(4);
+        currentDirection = random.nextInt(4);
     }
 
     public ogre (Interface inter) {
@@ -44,6 +48,11 @@ public class ogre extends Mov {
     }
 
     public void update() {
+        directionChangeTimer++;
+        if (directionChangeTimer >= directionChangeInterval) {
+            currentDirection = random.nextInt(4);
+            directionChangeTimer = 0; // Reset the timer
+        }
         switch (currentDirection) {
             case 0:
                 if (y - speed * speedMultiplier >= 0) {

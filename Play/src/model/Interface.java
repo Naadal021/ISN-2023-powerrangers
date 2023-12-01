@@ -37,7 +37,7 @@ public class Interface extends JPanel implements Runnable{
     public final int screenHeight=titleSize*maxscreenRow;
     
     Thread game;
-    TileManager tileM = new TileManager(this);
+    public TileManager tileM = new TileManager(this);
     //FPS = FRAME PER SECOND
     int FPS =60;
     private static final int NOMBRE_DE_BOULES = 5;

@@ -10,6 +10,8 @@ import java.util.Random;
 
 
 
+
+
 public class lutin extends Mov {
 
     private ImageIcon[] runSprites = {
@@ -18,8 +20,9 @@ public class lutin extends Mov {
             new ImageIcon("Play/src/images/ennemies/elf_m_run_anim_f2.png"),
             new ImageIcon("Play/src/images/ennemies/elf_m_run_anim_f3.png")
     };
+
     private int currentFrame = 0;
-    private boolean isRunning = false;
+ 
     private int animationDelay = 5;
     private int currentDirection; // added variable to store the current direction
     private int speedMultiplier = 2;
@@ -28,8 +31,8 @@ public class lutin extends Mov {
     private int directionChangeTimer = 0;
     private int directionChangeInterval = 60; // Change direction every 60 frames (adjust as needed)
 
-    Interface inter;
-
+    private Interface inter;
+  
     public void setDefaultValues() {
         x = 400;
         y = 380;
@@ -79,6 +82,7 @@ public class lutin extends Mov {
         }
     }
 
+   
     public void draw(Graphics2D g2) {
         int frameIndex = (currentFrame / animationDelay) % runSprites.length;
         g2.drawImage(runSprites[frameIndex].getImage(), x, y, inter.titleSize, inter.titleSize, null);

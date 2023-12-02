@@ -27,6 +27,7 @@ public class TileManager{
         try{
             tile[0]= new Tile(); 
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/black.png"));
+            tile[0].collision=true;
             tile[1]= new Tile(); 
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/images/floor/floor_1.png"));
             tile[2]= new Tile(); 
@@ -87,6 +88,7 @@ public class TileManager{
             tile[21].collision=true;
             tile[22]= new Tile(); 
             tile[22].image = ImageIO.read(getClass().getResourceAsStream("/images/wall/wall_fountain_top_2.png"));
+            tile[22].collision=true;
           
            
 
@@ -120,6 +122,10 @@ public class TileManager{
         }
     }
      
+    public int getTileNum(int x, int y) {
+        return mapTileNum[x][y];
+    }
+    
      
     public void draw(Graphics2D g2){
         int col = 0;

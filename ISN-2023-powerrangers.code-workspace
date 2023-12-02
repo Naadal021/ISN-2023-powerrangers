@@ -8,5 +8,7 @@
 			"path": "../../../../ISN-2023-powerrangers/ISN-2023-powerrangers-1"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"java.debug.settings.onBuildFailureProceed": true
+	}
 }

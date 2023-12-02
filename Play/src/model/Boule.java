@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class Boule {
     private int x, y;
-    private static int diametre = 20; // Ajustez la taille de la boule selon vos besoins
+    private static int diametre = 30; // Ajustez la taille de la boule selon vos besoins
     private ImageIcon[] flagIcons = {
             new ImageIcon(getClass().getResource("/images/flags/flagblue.jpeg")),
             new ImageIcon(getClass().getResource("/images/flags/flaggreen.jpeg")),

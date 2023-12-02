@@ -1,0 +1,75 @@
+@startuml Diagramme de classes
+!define DarkBlue
+class Boule{
+    int x 
+    int y 
+    int diametre 
+}
+class CollisionChecker{
+    int x 
+    int y 
+    int diametre 
+}
+class Gamelauncher{
+     
+}
+class Interface{
+
+}
+class Mov{
+    
+}
+class PersoPrincipal{
+    
+}
+class Tile{
+
+}
+class TileManger{
+
+}
+class mage{
+    int runSprites
+    int currentFrame
+    int animationDelay
+    int currentDirection
+    int SpeedMultiplier
+    int random
+    int directionChangeTimer
+    int directionChangeInterval
+    Interface inter
+}
+class Demon{
+    int runSprites
+    int currentFrame
+    int animationDelay
+    int currentDirection
+    int SpeedMultiplier
+    int random
+    int directionChangeTimer
+    int directionChangeInterval
+    Interface inter
+}
+class lutin{
+    int runSprites
+    int currentFrame
+    int animationDelay
+    int currentDirection
+    int SpeedMultiplier
+    int random
+    int directionChangeTimer
+    int directionChangeInterval
+    Interface inter
+}
+class Ogre{
+    int runSprites
+    int currentFrame
+    int animationDelay
+    int currentDirection
+    int SpeedMultiplier
+    int random
+    int directionChangeTimer
+    int directionChangeInterval
+    Interface inter
+}
+@enduml

@@ -50,34 +50,61 @@ public class mage extends Mov {
     }
 
     public void update() {
-        directionChangeTimer++;
-        if (directionChangeTimer >= directionChangeInterval) {
+    	setaction();
+    	collisionOn=false;
+    	inter.cChecker.checkTile(this);
+    	if(collisionOn==false){
+	    	switch(direction) {
+	    			case "up":
+	    				y -= speed * speedMultiplier;
+	    				 
+	    			break;
+	    			case "down":
+	    				y += speed * speedMultiplier;
+	    				 
+	    			break;
+	    			case "left":
+	    				x -= speed * speedMultiplier;
+	    				
+	    			break;
+	    			case "right":
+	    				x += speed * speedMultiplier;
+	    				
+	    			break;
+	    			}
+    }
+    }
+    public void setaction() {
+    	directionChangeTimer++;
+        if (directionChangeTimer == directionChangeInterval) {
+        	Random random = new Random();
             currentDirection = random.nextInt(4);
-            directionChangeTimer = 0; // Reset the timer
-        }
-        switch (currentDirection) {
+            switch (currentDirection) {
             case 0:
                 if (y - speed * speedMultiplier >= 0) {
-                    y -= speed * speedMultiplier;
+                    direction ="up";
                 }
                 break;
             case 1:
                 if (y + speed * speedMultiplier + this.inter.titleSize <= this.inter.screenHeight) {
-                    y += speed * speedMultiplier;
+                    direction ="down";
                 }
                 break;
             case 2:
                 if (x - speed * speedMultiplier >= 0) {
-                    x -= speed * speedMultiplier;
+                    direction ="left";
                 }
                 break;
             case 3:
                 if (x + speed * speedMultiplier + this.inter.titleSize <= this.inter.screenWidth) {
-                    x += speed * speedMultiplier;
+                    direction = "right";
                 }
                 break;
         }
+            directionChangeTimer = 0;
+        }
     }
+
     public void draw(Graphics2D g2) {
         int frameIndex = (currentFrame / animationDelay) % runSprites.length;
         g2.drawImage(runSprites[frameIndex].getImage(), x, y, inter.titleSize, inter.titleSize, null);

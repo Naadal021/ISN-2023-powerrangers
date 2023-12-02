@@ -169,6 +169,7 @@ public class Interface extends JPanel implements Runnable{
     
     public void update(){ 
     	persoPrincipal.update();
+    	
     	Demon.update();
     	lutin1.update();
     	mage1.update();

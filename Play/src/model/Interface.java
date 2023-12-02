@@ -40,12 +40,13 @@ public class Interface extends JPanel implements Runnable{
     public TileManager tileM = new TileManager(this);
     //FPS = FRAME PER SECOND
     int FPS =60;
-    private static final int NOMBRE_DE_BOULES = 4;
+    private static final int NOMBRE_DE_BOULES = 5;
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
     PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
     Demon Demon =new Demon(this);
     lutin lutin1 =new lutin(this);
+  
     mage mage1 =new mage(this);
     ogre ogre1=new ogre(this);
     
@@ -122,31 +123,24 @@ public class Interface extends JPanel implements Runnable{
     
     
     private void spawnBoules() {
-        if (boules != null) {
-            boules = new ArrayList<>();
-        }
-
-        int tileX, tileY;
+    	if (boules!=null) {
+    		boules = new ArrayList<>();
+    	}
+        System.out.println("Avant génération : " + boules.size());
+        
         for (int i = 0; i < NOMBRE_DE_BOULES; i++) {
+            int randomX, randomY;
             do {
-                // x et y alea de tile
-                tileX = random.nextInt(maxScreenCol);
-                tileY = random.nextInt(maxscreenRow);
-            } while (bouleSeChevauche(tileX * titleSize, tileY * titleSize) || !isFloorTile(tileM, tileX, tileY));
+                randomX = random.nextInt(screenWidth - Boule.getDiametre());
+                randomY = random.nextInt(screenHeight - Boule.getDiametre());
+            } while (bouleSeChevauche(randomX, randomY));
 
-            int x = tileX * titleSize;
-            int y = tileY * titleSize;
-           
-            Boule boule = new Boule(x, y);
+            Boule boule = new Boule(randomX, randomY);
             boules.add(boule);
+            System.out.println("Boule générée à (" + randomX + ", " + randomY + ")");
         }
-    }
-
-    private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
-        int tileNum = tileManager.getTileNum(tileX, tileY);
-        int floorTile = 1;
-
-        return tileNum == floorTile;
+        
+        System.out.println("Après génération : " + boules.size());
     }
 
     private boolean bouleSeChevauche(int x, int y) {
@@ -172,6 +166,7 @@ public class Interface extends JPanel implements Runnable{
     	
     	Demon.update();
     	lutin1.update();
+     
     	mage1.update();
     	ogre1.update();
     	
@@ -188,6 +183,7 @@ public class Interface extends JPanel implements Runnable{
         persoPrincipal.draw(g2);
         Demon.draw(g2);
         lutin1.draw(g2);
+        
         mage1.draw(g2);
         ogre1.draw(g2);
         //scoreLabel.setText("Score: " + score);

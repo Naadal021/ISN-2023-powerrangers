@@ -1,15 +1,35 @@
-cd Play
+# **Pacrangers**
+*****
+## Maven
 
-mvn clean package 
+* cd Play
 
-mvn exec:/Play://target/Play-0.0.1-SNAPSHOT.jar
+* mvn clean package 
+
+* mvn exec:/Play://target/Play-0.0.1-SNAPSHOT.jar
 
 ou
 
-java -cp Play-0.0.1-SNAPSHOT.jar model.Gamelauncher
+* java -cp Play-0.0.1-SNAPSHOT.jar model.Gamelauncher
 
 Voici le lien du trello: https://trello.com/invite/b/L4ejJ8j6/ATTI8e6561382562a368fb4783ec437f6c09932DF13D/acl
 
-HC: le backlog global est  bien
-HC: il manque le backlog de sprint
-HC: le diagramme de classe ne semble pas permettre de réaliser toutes les tâches
+## Sprint 2 
+- [x] Création d’une fenêtre de jeux 
+
+- [x] Première version de l’interface
+
+- [x] Implementation du gameLOOP
+
+- [x] Déplacement du perso principale plus son animation
+  
+## Sprint 3
+- [x] Déplacement des monstres dans l'interface et dans les quatre sens
+
+- [x] Les drapeaux colorées pop aléatoirement dans l’interface .
+
+- [ ] Le personnage principal dispose de trois vies.
+
+- [ ] Le Monstre tue le personnage principal 
+
+

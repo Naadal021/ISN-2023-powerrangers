@@ -12,23 +12,38 @@ import java.util.Iterator;
 
 public class PersoPrincipal extends Mov {
 	
-	private ImageIcon[] runSprites = {
+	private ImageIcon[] runSpritesRight = {
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_run_anim_f0.png"),
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_run_anim_f1.png"),
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_run_anim_f2.png"),
 	        new ImageIcon("Play/src/images/spritesdwarf_f_run_anim_f3.png")
 	};
 
-	private ImageIcon[] idleSprites = {
+	private ImageIcon[] idleSpritesRight = {
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f0.png"),
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"),
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f2.png"),
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f3.png")
 	};
+	private ImageIcon[] runSpritesLeft = {
+	        new ImageIcon("Play/src/images/sprites/dwarf_f_run_anim_f00.png"),
+	        new ImageIcon("Play/src/images/sprites/dwarf_f_run_anim_f10.png"),
+	        new ImageIcon("Play/src/images/sprites/dwarf_f_run_anim_f20.png"),
+	        new ImageIcon("Play/src/images/spritesdwarf_f_run_anim_f30.png")
+	};
+
+	private ImageIcon[] idleSpritesLeft = {
+	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f00.png"),
+	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f10.png"),
+	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f20.png"),
+	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f30.png")
+	};
 
 	private int currentFrame = 0;
 	private boolean isRunning = false;
 	private int animationDelay = 5; 
+	
+	private String Currentdirection;
 	
 	Interface inter; 
 	KeyHandler keyH;
@@ -38,6 +53,8 @@ public class PersoPrincipal extends Mov {
 		y=200; 
 		speed=4;
 		direction =" ";
+		Currentdirection="up";
+		
 	}
 	
 	public PersoPrincipal(Interface inter, KeyHandler keyH) {
@@ -54,14 +71,18 @@ public class PersoPrincipal extends Mov {
 	public void update() {
 	    if (keyH.isUpPressed() && y - speed >= 0) {
 	        direction="up";
+	        Currentdirection="up";
 	    } else if (keyH.isDownPressed() && y + speed + inter.titleSize <= inter.screenHeight) {
 	        direction="down";
+	        Currentdirection="down";
 	    }
 
 	    if (keyH.isLeftPressed() && x - speed >= 0) {
 	        direction="left";
+	        Currentdirection="left";
 	    } else if (keyH.isRightPressed() && x + speed + inter.titleSize <= inter.screenWidth) {
 	        direction="right";
+	        Currentdirection="right";
 	    }
 	    collisionOn= false;
 	    inter.cChecker.checkTile(this);
@@ -114,7 +135,13 @@ public class PersoPrincipal extends Mov {
 	}
 
 	public void draw(Graphics2D g2) {
-	    ImageIcon[] sprites = isRunning ? idleSprites :runSprites ;
+	    ImageIcon[] sprites;
+	    if (isRunning) {
+            sprites = (Currentdirection.equals("left")) ? runSpritesLeft : runSpritesRight;
+        } else {
+            sprites = (Currentdirection.equals("left")) ? idleSpritesLeft : idleSpritesRight;
+        }
+
 	    int frameIndex = (currentFrame / animationDelay) % sprites.length;
 	    g2.drawImage(sprites[frameIndex].getImage(), x, y, inter.titleSize, inter.titleSize, null);
 

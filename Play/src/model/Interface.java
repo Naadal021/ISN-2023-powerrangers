@@ -40,11 +40,11 @@ public class Interface extends JPanel implements Runnable{
     public TileManager tileM = new TileManager(this);
     //FPS = FRAME PER SECOND
     int FPS =60;
-    private static final int NOMBRE_DE_BOULES = 4;
+    private static final int NOMBRE_DE_BOULES = 4; 
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
     PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
-    Demon Demon =new Demon(this);
+    Demon Demon1 =new Demon(this);
     lutin lutin1 =new lutin(this);
   
     mage mage1 =new mage(this);
@@ -172,7 +172,7 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
     public void update(){ 
     	persoPrincipal.update();
     	
-    	Demon.update();
+    	Demon1.update();
     	lutin1.update();
      
     	mage1.update();
@@ -189,7 +189,7 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
             boule.draw(g2);
         }
         persoPrincipal.draw(g2);
-        Demon.draw(g2);
+        Demon1.draw(g2);
         lutin1.draw(g2);
         
         mage1.draw(g2);

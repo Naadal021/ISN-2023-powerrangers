@@ -12,10 +12,16 @@ import java.util.Random;
 
 public class mage extends Mov {
 
-    private ImageIcon[] runSprites = {
+    private ImageIcon[] runSpritesRight = {
             new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f0.png"),
             new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f1.png"),
             new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f2.png"),
+         
+    };
+    private ImageIcon[] runSpritesLeft = {
+            new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f00.png"),
+            new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f10.png"),
+            new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f20.png"),
          
     };
     private int currentFrame = 0;
@@ -106,8 +112,18 @@ public class mage extends Mov {
     }
 
     public void draw(Graphics2D g2) {
-        int frameIndex = (currentFrame / animationDelay) % runSprites.length;
-        g2.drawImage(runSprites[frameIndex].getImage(), x, y, inter.titleSize, inter.titleSize, null);
+    	ImageIcon[] sprites = null; 
+	    if (isRunning) {
+            sprites = (direction.equals("left")) ? runSpritesLeft : runSpritesRight;
+        }else {
+            // Initialize sprites with the appropriate set of images for the current direction
+            sprites = (currentDirection == 2) ? runSpritesLeft : runSpritesRight;
+        }
+
+        int frameIndex = (currentFrame / animationDelay) % sprites.length;
+        int iconWidth = inter.titleSize+5; 
+        int iconHeight = inter.titleSize+5;
+        g2.drawImage(sprites[frameIndex].getImage(), x, y, iconWidth, iconHeight, null);
 
         // Increment frame for the next iteration
         currentFrame++;

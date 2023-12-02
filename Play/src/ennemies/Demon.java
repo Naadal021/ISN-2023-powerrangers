@@ -32,7 +32,7 @@ public class Demon extends Mov {
     Interface inter;
 
     public void setDefaultValues() {
-        x = 500;
+        x = 1200;
         y = 150;
         speed = 1;
         direction = " ";

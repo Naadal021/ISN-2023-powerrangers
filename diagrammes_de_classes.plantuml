@@ -1,5 +1,6 @@
 @startuml Diagramme de classes
-!define DarkBlue
+!define DARKRED
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
 class Boule{
     int x 
     int y 

@@ -2,15 +2,15 @@
 *****
 ## Maven
 
-cd Play
+* cd Play
 
-mvn clean package 
+* mvn clean package 
 
-mvn exec:/Play://target/Play-0.0.1-SNAPSHOT.jar
+* mvn exec:/Play://target/Play-0.0.1-SNAPSHOT.jar
 
 ou
 
-java -cp Play-0.0.1-SNAPSHOT.jar model.Gamelauncher
+* java -cp Play-0.0.1-SNAPSHOT.jar model.Gamelauncher
 
 Voici le lien du trello: https://trello.com/invite/b/L4ejJ8j6/ATTI8e6561382562a368fb4783ec437f6c09932DF13D/acl
 
@@ -28,8 +28,8 @@ Voici le lien du trello: https://trello.com/invite/b/L4ejJ8j6/ATTI8e6561382562a3
 
 - [x] Les drapeaux colorées pop aléatoirement dans l’interface .
 
-- [x] Le personnage principal dispose de trois vies.
+- [ ] Le personnage principal dispose de trois vies.
 
-- [x] Le Monstre tue le personnage principal 
+- [ ] Le Monstre tue le personnage principal 
 
 

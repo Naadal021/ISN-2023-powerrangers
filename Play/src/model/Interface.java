@@ -40,7 +40,7 @@ public class Interface extends JPanel implements Runnable{
     public TileManager tileM = new TileManager(this);
     //FPS = FRAME PER SECOND
     int FPS =60;
-    private static final int NOMBRE_DE_BOULES = 5;
+    private static final int NOMBRE_DE_BOULES = 4;
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
     PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
@@ -123,26 +123,34 @@ public class Interface extends JPanel implements Runnable{
     
     
     private void spawnBoules() {
-    	if (boules!=null) {
-    		boules = new ArrayList<>();
-    	}
-        System.out.println("Avant génération : " + boules.size());
+    	
+        if (boules != null) {
+            boules = new ArrayList<>();
+        }
+
+        int tileX, tileY;
         
         for (int i = 0; i < NOMBRE_DE_BOULES; i++) {
-            int randomX, randomY;
+          
             do {
-                randomX = random.nextInt(screenWidth - Boule.getDiametre());
-                randomY = random.nextInt(screenHeight - Boule.getDiametre());
-            } while (bouleSeChevauche(randomX, randomY));
-
-            Boule boule = new Boule(randomX, randomY);
+                 // x et y alea de tile
+                 tileX = random.nextInt(maxScreenCol);
+                 tileY = random.nextInt(maxscreenRow);
+             } while (bouleSeChevauche(tileX * titleSize, tileY * titleSize) || !isFloorTile(tileM, tileX, tileY));
+             int x = tileX * titleSize;
+             int y = tileY * titleSize;
+ 
+             Boule boule = new Boule(x, y);
             boules.add(boule);
-            System.out.println("Boule générée à (" + randomX + ", " + randomY + ")");
-        }
-        
-        System.out.println("Après génération : " + boules.size());
+            
     }
+}
 
+private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
+    int tileNum = tileManager.getTileNum(tileX, tileY);
+    int floorTile = 1;
+
+    return tileNum == floorTile;}
     private boolean bouleSeChevauche(int x, int y) {
         for (Boule boule : boules) {
             double distance = Math.sqrt(Math.pow(x - boule.getX(), 2) + Math.pow(y - boule.getY(), 2));

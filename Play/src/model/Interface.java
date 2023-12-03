@@ -49,7 +49,8 @@ public class Interface extends JPanel implements Runnable{
   
     mage mage1 =new mage(this);
     ogre ogre1=new ogre(this);
-    UI ui =new UI(this);
+    LifePoints lifepoints = new LifePoints(this);
+    
     
     private int score = 0; //score lorsque le perso touche la boule
     public void incrementScore() {
@@ -178,6 +179,7 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
      
     	mage1.update();
     	ogre1.update();
+     
     	
      }
     @Override
@@ -189,13 +191,15 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
         for (Boule boule : boules) {
             boule.draw(g2);
         }
+        lifepoints.draw(g2);
         persoPrincipal.draw(g2);
         Demon1.draw(g2);
         lutin1.draw(g2);
         
         mage1.draw(g2);
         ogre1.draw(g2);
-        ui.draw(g2);
+     
+       
         //scoreLabel.setText("Score: " + score);
         //SwingUtilities.invokeLater(() -> scoreLabel.setText("Score: " + score));
         g2.setColor(Color.WHITE);

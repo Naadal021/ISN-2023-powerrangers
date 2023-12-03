@@ -28,7 +28,7 @@ Voici le lien du trello: https://trello.com/invite/b/L4ejJ8j6/ATTI8e6561382562a3
 
 - [x] Les drapeaux colorées pop aléatoirement dans l’interface .
 
-- [ ] Le personnage principal dispose de trois vies.
+- [x] Le personnage principal dispose de trois vies.
 
 - [ ] Le Monstre tue le personnage principal 
 

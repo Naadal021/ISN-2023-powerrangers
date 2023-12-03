@@ -49,6 +49,7 @@ public class Interface extends JPanel implements Runnable{
   
     mage mage1 =new mage(this);
     ogre ogre1=new ogre(this);
+    UI ui =new UI(this);
     
     private int score = 0; //score lorsque le perso touche la boule
     public void incrementScore() {
@@ -194,6 +195,7 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
         
         mage1.draw(g2);
         ogre1.draw(g2);
+        ui.draw(g2);
         //scoreLabel.setText("Score: " + score);
         //SwingUtilities.invokeLater(() -> scoreLabel.setText("Score: " + score));
         g2.setColor(Color.WHITE);

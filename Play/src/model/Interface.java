@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Shape;
+
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,11 +17,10 @@ import ennemies.mage;
 import ennemies.ogre;
 import tile.TileManager;
 
-import model.PersoPrincipal;
-import model.Mov;
+
 
 import java.util.Random;
-import java.util.Timer;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class Interface extends JPanel implements Runnable{
     }
     private List<Boule> boules = new ArrayList<>();
     private Random random = new Random();
-    private Timer timer;
+    
     private JLabel scoreLabel;
     
     public Interface(){ 

@@ -1,11 +1,8 @@
 package model;
 
 import javax.swing.ImageIcon;
-import java.awt.Color;
 import java.awt.Graphics2D;
 
-import model.Interface;
-import model.KeyHandler;
 
 import java.awt.Rectangle;
 import java.util.Iterator;

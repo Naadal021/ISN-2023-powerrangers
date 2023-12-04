@@ -2,16 +2,14 @@ package model;
 
 import javax.swing.ImageIcon;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class LifePoints{
     public Interface Inter;
-    private int LP;
-    private int max_LP;
+    
     private List<ImageIcon> Current_lifepoints;
-    private int x;  // You need to define the x and y variables
-    private int y;
+    
     public int c;
 
     public ImageIcon[] Hearts = {

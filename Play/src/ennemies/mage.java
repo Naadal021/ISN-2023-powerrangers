@@ -3,7 +3,7 @@ import model.Interface;
 import javax.swing.ImageIcon;
 
 import model.Mov;
-import model.CollisionChecker;
+
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;

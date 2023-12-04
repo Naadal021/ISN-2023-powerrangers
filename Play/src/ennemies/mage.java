@@ -32,7 +32,7 @@ public class mage extends Mov {
     private Random random = new Random(); // Initialize Random once
 
     private int directionChangeTimer = 0;
-    private int directionChangeInterval = 60; // Change direction every 60 frames (adjust as needed)
+    private int directionChangeInterval = 10; // Change direction every 60 frames (adjust as needed)
 
 
     Interface inter;
@@ -40,7 +40,7 @@ public class mage extends Mov {
     public void setDefaultValues() {
         x = 600;
         y = 100;
-        speed = 1;
+        speed = 4;
         direction = " ";
         currentDirection =random.nextInt(4);
     }

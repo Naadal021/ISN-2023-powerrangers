@@ -31,14 +31,14 @@ public class ogre extends Mov {
     private Random random = new Random(); // Initialize Random once
 
     private int directionChangeTimer = 0;
-    private int directionChangeInterval = 60; // Change direction every 60 frames (adjust as needed)
+    private int directionChangeInterval = 10; // Change direction every 60 frames (adjust as needed)
 
     Interface inter;
 
     public void setDefaultValues() {
         x = 1000;
         y = 600;
-        speed = 1;
+        speed = 4;
         direction = " ";
         currentDirection = random.nextInt(4);
     }

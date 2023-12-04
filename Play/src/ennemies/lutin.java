@@ -35,14 +35,14 @@ public class lutin extends Mov {
     private Random random = new Random(); // Initialize Random once
 
     private int directionChangeTimer = 0;
-    private int directionChangeInterval = 60; // Change direction every 60 frames (adjust as needed)
+    private int directionChangeInterval = 10; // Change direction every 60 frames (adjust as needed)
 
     private Interface inter;
   
     public void setDefaultValues() {
         x = 400;
         y = 380;
-        speed = 1;
+        speed = 4;
         direction = " ";
         currentDirection = random.nextInt(4); // Use the Random object
     }

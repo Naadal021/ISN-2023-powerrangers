@@ -21,7 +21,7 @@ public class TileManager{
         loadMap();
      }
      /**
-     *
+     * 
      */
     public void getTileimage(){
         try{

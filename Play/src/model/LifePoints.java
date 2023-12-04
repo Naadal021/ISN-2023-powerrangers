@@ -54,8 +54,6 @@ public class LifePoints{
 
         
 
-                // Increment x for the next image
-                
             
         }
     

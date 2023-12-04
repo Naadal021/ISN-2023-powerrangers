@@ -41,7 +41,8 @@ public class PersoPrincipal extends Mov {
 	private int animationDelay = 5; 
 	
 	private String Currentdirection;
-	public int compteur = 3 ;
+	public int tempscompteur=0;
+	public int compteur = 0 ;
 	Interface inter; 
 	KeyHandler keyH;
 	 	
@@ -60,6 +61,8 @@ public class PersoPrincipal extends Mov {
 		solidArea= new Rectangle();
 		solidArea.x=0;
 		solidArea.y=0;
+		solidAreaDefaultX=solidArea.x;
+		solidAreaDefaultY=solidArea.y;
 		solidArea.width=16;
 		solidArea.height=16;
 		setDefaultValues();
@@ -83,6 +86,14 @@ public class PersoPrincipal extends Mov {
 	    }
 	    collisionOn= false;
 	    inter.cChecker.checkTile(this);
+	    
+	    int Demonindex = inter.cChecker.checkEntity(this,inter.Demon1);
+	    int mageindex = inter.cChecker.checkEntity(this,inter.mage1);
+	    int ogreindex = inter.cChecker.checkEntity(this,inter.ogre1);
+	    int lutinindex = inter.cChecker.checkEntity(this,inter.lutin1);
+	    
+	    
+	    interact(Demonindex,mageindex,ogreindex,lutinindex);
 	    if(collisionOn==false){
 	    	switch(direction) {
 	    			case "up":
@@ -130,6 +141,13 @@ public class PersoPrincipal extends Mov {
 	    // Vérifiez si les rectangles intersectent
 	    return persoRectangle.intersects(bouleRectangle);
 	}
+	public void interact(int index,int index1,int index2,int index3) {
+		tempscompteur++;
+		if(index !=999 || index1 !=999 || index2 !=999 || index3!=999) {
+			System.out.println(compteur);
+			compteur++;}
+		}
+	
 
 	public void draw(Graphics2D g2) {
 	    ImageIcon[] sprites;

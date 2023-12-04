@@ -52,4 +52,90 @@ public class CollisionChecker {
 		}
 		
 	}
+	public int checkEntity(Mov mov,Mov target) {
+		int index = 999;
+		mov.solidArea.x= mov.x + mov.solidArea.x;
+		mov.solidArea.y= mov.y + mov.solidArea.y;
+		target.solidArea.x= target.x + target.solidArea.x;
+		target.solidArea.y= target.y + target.solidArea.y;
+		
+		switch(mov.direction) {
+				case "up":
+					mov.solidArea.y-=mov.speed;
+					if(mov.solidArea.intersects(target.solidArea)) {
+						mov.collisionOn=true;
+						index=0;
+					}
+				break;
+				case "down":
+					mov.solidArea.y+=mov.speed;
+					if(mov.solidArea.intersects(target.solidArea)) {
+						mov.collisionOn=true;
+						index=0;}
+					
+				break;
+				case "left":
+					mov.solidArea.x-=mov.speed;
+					if(mov.solidArea.intersects(target.solidArea)) {
+						mov.collisionOn=true;
+						index=0;}
+					
+				break;
+				case "right":
+					mov.solidArea.x+=mov.speed;
+					if(mov.solidArea.intersects(target.solidArea)) {
+						mov.collisionOn=true;
+						index=0;}
+				break;
+				}
+		mov.solidArea.x= mov.solidAreaDefaultX;
+		mov.solidArea.y= mov.solidAreaDefaultY;
+		target.solidArea.x= target.solidAreaDefaultX;
+		target.solidArea.y= target.solidAreaDefaultY;
+		return index;
+		
+}
+	public void checkplayer(Mov mov) {
+		
+		mov.solidArea.x= mov.x + mov.solidArea.x;
+		mov.solidArea.y= mov.y + mov.solidArea.y;
+		inter.persoPrincipal.solidArea.x= inter.persoPrincipal.x + inter.persoPrincipal.solidArea.x;
+		inter.persoPrincipal.solidArea.y= inter.persoPrincipal.y + inter.persoPrincipal.solidArea.y;
+		
+		switch(mov.direction) {
+				case "up":
+					mov.solidArea.y-=mov.speed;
+					if(mov.solidArea.intersects(inter.persoPrincipal.solidArea)) {
+						mov.collisionOn=true;
+						
+					}
+				break;
+				case "down":
+					mov.solidArea.y+=mov.speed;
+					if(mov.solidArea.intersects(inter.persoPrincipal.solidArea)) {
+						mov.collisionOn=true;
+						}
+					
+				break;
+				case "left":
+					mov.solidArea.x-=mov.speed;
+					if(mov.solidArea.intersects(inter.persoPrincipal.solidArea)) {
+						mov.collisionOn=true;
+						}
+					
+				break;
+				case "right":
+					mov.solidArea.x+=mov.speed;
+					if(mov.solidArea.intersects(inter.persoPrincipal.solidArea)) {
+						mov.collisionOn=true;
+						}
+				break;
+				}
+		mov.solidArea.x= mov.solidAreaDefaultX;
+		mov.solidArea.y= mov.solidAreaDefaultY;
+		inter.persoPrincipal.solidArea.x= inter.persoPrincipal.solidAreaDefaultX;
+		inter.persoPrincipal.solidArea.y= inter.persoPrincipal.solidAreaDefaultY;
+		
+		
+}
 }

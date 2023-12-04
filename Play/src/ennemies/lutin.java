@@ -52,6 +52,8 @@ public class lutin extends Mov {
         solidArea = new Rectangle();
         solidArea.x = 3;
         solidArea.y = 18;
+        solidAreaDefaultX=solidArea.x;
+		solidAreaDefaultY=solidArea.y;
         solidArea.width = 42;
         solidArea.height = 30;
         setDefaultValues();

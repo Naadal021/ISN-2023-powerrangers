@@ -7,11 +7,14 @@ import java.util.List;
 
 public class LifePoints{
     public Interface Inter;
+    KeyHandler keyH=new KeyHandler();
+    int c ;
+
+    PersoPrincipal pp = new PersoPrincipal(this.Inter, keyH);
     
     private List<ImageIcon> Current_lifepoints;
     
-    public int c;
-
+    
     public ImageIcon[] Hearts = {
         new ImageIcon(getClass().getResource("/images/wall/ui_heart_full.png")),
         new ImageIcon(getClass().getResource("/images/wall/ui_heart_empty.png")),
@@ -20,13 +23,18 @@ public class LifePoints{
     public LifePoints(Interface Inter) {
         this.Inter = Inter;
         
-        this.c = 2;  // Set initial values for x and y
+        
+         // Set initial values for x and y
        
     }
-
+    public void updateCompteur() {
+      c = pp.compteur;
+  }
+  
     
     public void draw(Graphics2D g2) {
-      
+       updateCompteur();
+       
         if(c==0){
           // Ensure the index is within bounds
         g2.drawImage(Hearts[0].getImage(), 20, 40, Inter.titleSize, Inter.titleSize, null);

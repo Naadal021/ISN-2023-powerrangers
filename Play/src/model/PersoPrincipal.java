@@ -41,7 +41,7 @@ public class PersoPrincipal extends Mov {
 	private int animationDelay = 5; 
 	
 	private String Currentdirection;
-	
+	public int compteur = 3 ;
 	Interface inter; 
 	KeyHandler keyH;
 	 	

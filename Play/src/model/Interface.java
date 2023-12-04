@@ -34,6 +34,7 @@ public class Interface extends JPanel implements Runnable{
     public final int maxscreenRow=26;
     public final int screenWidth = titleSize*maxScreenCol;
     public final int screenHeight=titleSize*maxscreenRow;
+    int c;
     
     Thread game;
     public TileManager tileM = new TileManager(this);
@@ -87,6 +88,9 @@ public class Interface extends JPanel implements Runnable{
         game=new Thread(this);
         game.start();
     }
+    public void updateCompteur() {
+        c = persoPrincipal.compteur;
+    }
     public void run(){
     	double drawInterval =1000000000/FPS;
     	double delta=0;
@@ -121,7 +125,11 @@ public class Interface extends JPanel implements Runnable{
         
     }
     
-    
+    public void endGame(){
+    	this.requestFocusInWindow();
+        game=new Thread(this);
+        game.interrupt();
+    }
     
     private void spawnBoules() {
     	
@@ -171,7 +179,11 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
     
     
     public void update(){ 
+        updateCompteur();
+        
+        
     	persoPrincipal.update();
+        
     	
     	Demon1.update();
     	lutin1.update();
@@ -179,14 +191,18 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
     	mage1.update();
     	ogre1.update();
      
-    	
-     }
+        }
+     
     @Override
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
-        tileM.draw(g2);
+   public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+    Graphics2D g2 = (Graphics2D) g;
+    tileM.draw(g2);
+
+    if (c < 3) {
         
+       
+
         for (Boule boule : boules) {
             boule.draw(g2);
         }
@@ -194,17 +210,19 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
         persoPrincipal.draw(g2);
         Demon1.draw(g2);
         lutin1.draw(g2);
-        
         mage1.draw(g2);
         ogre1.draw(g2);
-     
-       
-        //scoreLabel.setText("Score: " + score);
-        //SwingUtilities.invokeLater(() -> scoreLabel.setText("Score: " + score));
+
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Arial", Font.PLAIN, 16));
         g2.drawString("Score: " + score, 10, 20);
-        g2.dispose();
-
+    } else {
+        
+        g2.setColor(Color.WHITE);
+        g2.setFont(new Font("Arial", Font.PLAIN, 200));
+        g2.drawString("GameOver", 180, 400);
     }
+
+    g2.dispose();
+}
 }

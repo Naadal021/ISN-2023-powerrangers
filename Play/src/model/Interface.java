@@ -238,7 +238,7 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
         
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Arial", Font.PLAIN, 200));
-        g2.drawString("GameOver", 180, 400);
+        g2.drawString("GameOver", 250, 400);
         g2.drawImage(lifepoints.Hearts[1].getImage(), 20, 40,titleSize,titleSize, null);
         g2.drawImage(lifepoints.Hearts[1].getImage(), 55, 40, titleSize, titleSize, null);
         g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);

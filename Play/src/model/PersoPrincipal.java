@@ -2,6 +2,7 @@ package model;
 
 import javax.swing.ImageIcon;
 import java.awt.Graphics2D;
+import static java.lang.Thread.sleep;
 
 
 import java.awt.Rectangle;
@@ -42,7 +43,7 @@ public class PersoPrincipal extends Mov {
 	
 	private String Currentdirection;
 	public int tempscompteur=0;
-	public int compteur = 0 ;
+	public int compteur ;
 	Interface inter; 
 	KeyHandler keyH;
 	 	
@@ -58,6 +59,7 @@ public class PersoPrincipal extends Mov {
 	public PersoPrincipal(Interface inter, KeyHandler keyH) {
 		this.inter=inter;
 		this.keyH=keyH;
+		this.compteur=compteur;
 		solidArea= new Rectangle();
 		solidArea.x=0;
 		solidArea.y=0;
@@ -141,12 +143,18 @@ public class PersoPrincipal extends Mov {
 	    // Vérifiez si les rectangles intersectent
 	    return persoRectangle.intersects(bouleRectangle);
 	}
-	public void interact(int index,int index1,int index2,int index3) {
-		tempscompteur++;
-		if(index !=999 || index1 !=999 || index2 !=999 || index3!=999) {
-			System.out.println(compteur);
-			compteur++;}
-		}
+	public void interact(int index, int index1, int index2, int index3) {
+        tempscompteur++;
+        if (index != 999 || index1 != 999 || index2 != 999 || index3 != 999) {
+            System.out.println(compteur);
+            compteur++;
+			setDefaultValues();
+			
+		
+
+            
+        }
+    }
 	
 
 	public void draw(Graphics2D g2) {

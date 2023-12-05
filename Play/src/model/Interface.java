@@ -198,6 +198,7 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
     tileM.draw(g2);
+    
 
     if (c < 3) {
         
@@ -206,7 +207,7 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
         for (Boule boule : boules) {
             boule.draw(g2);
         }
-        lifepoints.draw(g2);
+        
         persoPrincipal.draw(g2);
         Demon1.draw(g2);
         lutin1.draw(g2);
@@ -216,11 +217,31 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Arial", Font.PLAIN, 16));
         g2.drawString("Score: " + score, 10, 20);
+        if(c==0){
+            g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
+            g2.drawImage(lifepoints.Hearts[0].getImage(), 55, 40, titleSize, titleSize, null);
+            g2.drawImage(lifepoints.Hearts[0].getImage(), 90, 40,titleSize, titleSize, null);
+        }
+
+        if(c==1){
+            g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
+            g2.drawImage(lifepoints.Hearts[0].getImage(), 55, 40, titleSize, titleSize, null);
+            g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);
+        }
+        if(c==2){
+            g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
+            g2.drawImage(lifepoints.Hearts[1].getImage(), 55, 40, titleSize, titleSize, null);
+            g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);
+
+        }
     } else {
         
         g2.setColor(Color.WHITE);
         g2.setFont(new Font("Arial", Font.PLAIN, 200));
         g2.drawString("GameOver", 180, 400);
+        g2.drawImage(lifepoints.Hearts[1].getImage(), 20, 40,titleSize,titleSize, null);
+        g2.drawImage(lifepoints.Hearts[1].getImage(), 55, 40, titleSize, titleSize, null);
+        g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);
     }
 
     g2.dispose();

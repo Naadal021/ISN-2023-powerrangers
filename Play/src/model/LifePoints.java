@@ -29,31 +29,32 @@ public class LifePoints{
     }
     public void updateCompteur() {
       c = pp.compteur;
+      
   }
+    
   
     
     public void draw(Graphics2D g2) {
-       updateCompteur();
-       
-        if(c==0){
+   
+       if(pp.compteur==0){
           // Ensure the index is within bounds
         g2.drawImage(Hearts[0].getImage(), 20, 40, Inter.titleSize, Inter.titleSize, null);
         g2.drawImage(Hearts[0].getImage(), 55, 40, Inter.titleSize, Inter.titleSize, null);
         g2.drawImage(Hearts[0].getImage(), 90, 40, Inter.titleSize, Inter.titleSize, null);
         }
-        if(c==1){
+        if(pp.compteur==1){
           // Ensure the index is within bounds
         g2.drawImage(Hearts[0].getImage(), 20, 40, Inter.titleSize, Inter.titleSize, null);
         g2.drawImage(Hearts[0].getImage(), 55, 40, Inter.titleSize, Inter.titleSize, null);
         g2.drawImage(Hearts[1].getImage(), 90, 40, Inter.titleSize, Inter.titleSize, null);
         }
-        if(c==2){
+        if(pp.compteur==2){
           // Ensure the index is within bounds
         g2.drawImage(Hearts[0].getImage(), 20, 40, Inter.titleSize, Inter.titleSize, null);
         g2.drawImage(Hearts[1].getImage(), 55, 40, Inter.titleSize, Inter.titleSize, null);
         g2.drawImage(Hearts[1].getImage(), 90, 40, Inter.titleSize, Inter.titleSize, null);
         }
-        if(c>=3){
+        if(pp.compteur>=3){
           // Ensure the index is within bounds
         g2.drawImage(Hearts[1].getImage(), 20, 40, Inter.titleSize, Inter.titleSize, null);
         g2.drawImage(Hearts[1].getImage(), 55, 40, Inter.titleSize, Inter.titleSize, null);

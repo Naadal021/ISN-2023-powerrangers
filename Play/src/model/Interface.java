@@ -3,6 +3,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -16,6 +19,7 @@ import ennemies.lutin;
 import ennemies.mage;
 import ennemies.ogre;
 import tile.TileManager;
+import java.awt.FontFormatException;
 
 
 
@@ -35,7 +39,7 @@ public class Interface extends JPanel implements Runnable{
     public final int screenWidth = titleSize*maxScreenCol;
     public final int screenHeight=titleSize*maxscreenRow;
     int c;
-    
+    Font Alkhemikal;
     Thread game;
     public TileManager tileM = new TileManager(this);
     //FPS = FRAME PER SECOND
@@ -60,6 +64,7 @@ public class Interface extends JPanel implements Runnable{
     private Random random = new Random();
     
     private JLabel scoreLabel;
+    private Font  customFont;
     
     public Interface(){ 
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -67,12 +72,17 @@ public class Interface extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+         try {
+            InputStream is = getClass().getResourceAsStream("/model/Alkhemikal.ttf");
+            Alkhemikal= Font.createFont(Font.TRUETYPE_FONT, is);
+            
+            
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+            
+        }
        
-        //score = 0;
-        //scoreLabel = new JLabel("Score: " + score);
-        //scoreLabel.setForeground(Color.WHITE);
-        //scoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        //add(scoreLabel);
+        
         SwingUtilities.invokeLater(() -> {
             scoreLabel = new JLabel("Score: " + score);
             scoreLabel.setForeground(Color.WHITE);
@@ -215,8 +225,8 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
         ogre1.draw(g2);
 
         g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.PLAIN, 16));
-        g2.drawString("Score: " + score, 10, 20);
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 16));
+        //g2.drawString("Score: " + score, 10, 20);
         if(c==0){
             g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
             g2.drawImage(lifepoints.Hearts[0].getImage(), 55, 40, titleSize, titleSize, null);
@@ -237,8 +247,9 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
     } else {
         
         g2.setColor(Color.WHITE);
-        g2.setFont(new Font("Arial", Font.PLAIN, 200));
-        g2.drawString("Game Over", 250, 400);
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+        //g2.setFont(new Font("Algerian", Font.PLAIN, 200));
+        g2.drawString("Game Over", 400, 400);
         g2.drawImage(lifepoints.Hearts[1].getImage(), 20, 40,titleSize,titleSize, null);
         g2.drawImage(lifepoints.Hearts[1].getImage(), 55, 40, titleSize, titleSize, null);
         g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);

@@ -249,11 +249,9 @@ public class Interface extends JPanel implements Runnable{
     if (!gameStarted) {
     	g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-        g2.drawString("Start Game", 300, 400);
+        g2.drawString("FlagQuest", 400, 400);
         
-        g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
-        g2.drawImage(lifepoints.Hearts[0].getImage(), 55, 40, titleSize, titleSize, null);
-        g2.drawImage(lifepoints.Hearts[0].getImage(), 90, 40,titleSize, titleSize, null);
+       
         
         
         ImageIcon[] imageIcon = {new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"), 

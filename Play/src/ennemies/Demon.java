@@ -28,11 +28,11 @@ public class Demon extends Mov {
     private boolean isRunning = false;
     private int animationDelay = 5;
     private int currentDirection; // added variable to store the current direction
-    private int speedMultiplier = 2;
+    private int speedMultiplier = 1;
     private Random random = new Random(); // Initialize Random once
 
     private int directionChangeTimer = 0;
-    private int directionChangeInterval = 10; // Change direction every 60 frames (adjust as needed)
+    private int directionChangeInterval = 20; // Change direction every 60 frames (adjust as needed)
 
 
     Interface inter;

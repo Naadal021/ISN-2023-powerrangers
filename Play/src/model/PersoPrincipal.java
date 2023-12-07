@@ -61,11 +61,11 @@ public class PersoPrincipal extends Mov {
 		this.keyH=keyH;
 		this.compteur=compteur;
 		solidArea= new Rectangle();
-		solidArea.x=0;
-		solidArea.y=0;
+		solidArea.x=8;
+		solidArea.y=10;
 		solidAreaDefaultX=solidArea.x;
 		solidAreaDefaultY=solidArea.y;
-		solidArea.width=16;
+		solidArea.width=14;
 		solidArea.height=16;
 		setDefaultValues();
 	}

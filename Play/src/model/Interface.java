@@ -1,17 +1,21 @@
 package model;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import ennemies.Demon;
@@ -21,7 +25,8 @@ import ennemies.ogre;
 import tile.TileManager;
 import java.awt.FontFormatException;
 
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.util.Random;
 
@@ -66,31 +71,63 @@ public class Interface extends JPanel implements Runnable{
     private JLabel scoreLabel;
     private Font  customFont;
     
+    private JButton playButton;
+    private JTextField usernameField;
+    
+    private boolean gameStarted = false;
+    public static String USERNAME="";
+    private JLabel usernameLabel;
+    public static String getuserName() {
+    	return USERNAME;
+    }
     public Interface(){ 
         this.setPreferredSize(new Dimension(screenWidth,screenHeight));
-        this.setBackground(Color.black);
+        this.setBackground(Color.black); 
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-         try {
+        try {
             InputStream is = getClass().getResourceAsStream("/model/Alkhemikal.ttf");
-            Alkhemikal= Font.createFont(Font.TRUETYPE_FONT, is);
-            
-            
+            Alkhemikal = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-            
         }
-       
+        setLayout(null);
+        //setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100));
+        usernameField = new JTextField("Enter Username");
+        USERNAME = usernameField.getText();
+        usernameField.setFont(Alkhemikal.deriveFont(Font.PLAIN, 20));
+        usernameField.setPreferredSize(new Dimension(150, 30)); 
+        usernameField.setBounds(650, 500, 150, 30);
+        add(usernameField);
+        //setLayout(new FlowLayout(FlowLayout.CENTER, 0, 500));
+        playButton = new JButton("Play");
+        playButton.setFont(Alkhemikal.deriveFont(Font.PLAIN, 40));
+        playButton.setPreferredSize(new Dimension(150, 50));
+        playButton.setBounds(650, 550, 150, 50);
+        playButton.addActionListener(e -> {
+        	gameStarted = true;
+            startGame();
+        });
+        add(playButton);
         
         SwingUtilities.invokeLater(() -> {
             scoreLabel = new JLabel("Score: " + score);
             scoreLabel.setForeground(Color.WHITE);
             scoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
             add(scoreLabel);
-            // Ajoutez le scoreLabel à l'interface
+//            usernameLabel = new JLabel("Entered Username: " + USERNAME);
+//            usernameLabel.setForeground(Color.WHITE);
+//            usernameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+//            add(usernameLabel);
+//            playButton.addActionListener(e -> { 
+//            	USERNAME = usernameField.getText();
+//                usernameLabel.setText("Entered Username: " + USERNAME);
+//            });
+            // Ajoutez le scoreLabel  et username à l'interface
             this.setLayout(new BorderLayout());
             this.add(scoreLabel, BorderLayout.NORTH);
+//            this.add(usernameLabel, BorderLayout.WEST);
         });
     }
     public void startGame(){
@@ -165,7 +202,7 @@ public class Interface extends JPanel implements Runnable{
     }
 }
 
-private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
+    private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
     int tileNum = tileManager.getTileNum(tileX, tileY);
     int floorTile = 1;
 
@@ -209,7 +246,31 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
     Graphics2D g2 = (Graphics2D) g;
     tileM.draw(g2);
     
-
+    if (!gameStarted) {
+    	g2.setColor(Color.WHITE);
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+        g2.drawString("Start Game", 300, 400);
+        
+        g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
+        g2.drawImage(lifepoints.Hearts[0].getImage(), 55, 40, titleSize, titleSize, null);
+        g2.drawImage(lifepoints.Hearts[0].getImage(), 90, 40,titleSize, titleSize, null);
+        
+        
+        ImageIcon[] imageIcon = {new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"), 
+        		new ImageIcon("Play/src/images/ennemies/big_demon_run_anim_f00.png"),
+        		new ImageIcon("Play/src/images/ennemies/elf_m_run_anim_f00.png"),
+        		new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f00.png"),
+        		new ImageIcon("Play/src/images/ennemies/ogre_run_anim_f00.png")
+        };
+        
+        g2.drawImage(imageIcon[0].getImage(), 550, 150, 100, 100, null);
+        g2.drawImage(imageIcon[1].getImage(), 750, 150, 100, 100, null);
+        g2.drawImage(imageIcon[2].getImage(), 850, 150, 100, 100, null);
+        g2.drawImage(imageIcon[3].getImage(), 950, 150, 100, 100, null);
+        g2.drawImage(imageIcon[4].getImage(), 1050, 150, 100, 100, null);
+        return;
+    }
+    
     if (c < 3) {
         
        
@@ -256,5 +317,5 @@ private boolean isFloorTile(TileManager tileManager, int tileX, int tileY) {
     }
 
     g2.dispose();
-}
+    }
 }

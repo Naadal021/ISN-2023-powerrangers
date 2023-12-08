@@ -22,14 +22,23 @@ Voici le lien du trello: https://trello.com/invite/b/L4ejJ8j6/ATTI8e6561382562a3
 - [x] Implementation du gameLOOP
 
 - [x] Déplacement du perso principale plus son animation
-  
+  ### Sprint review
+    Les objectifs du sprints ont été atteints, l'interface ainsi que le personnage principale donnent une idée claire sur le thème du jeux.
+    ### Sprint retrospective 
+    Malgré le bon fonctionnement du jeux il faut encore implémenter élément essentiel aux jeuux tel que la collision des ennemis ainsi que des points de vies. Afin de créer une réel experience de jeux. 
+  ************
 ## Sprint 3
-- [x] Déplacement des monstres dans l'interface et dans les quatre sens
+- [x] Déplacement des monstres dans l'interface et dans les quatre sens. (Nada)
 
-- [x] Les drapeaux colorées pop aléatoirement dans l’interface .
+- [x] Les drapeaux colorées pop aléatoirement dans l’interface . (Amal)
 
-- [x] Le personnage principal dispose de trois vies.
+- [x] Le personnage principal dispose de trois vies.(Hamza)
 
-- [ ] Le Monstre tue le personnage principal 
+- [x] Le Monstre tue le personnage principal.(Abdellahi)
+  
+    ### Sprint review
+    Toutes les taches ont été faites avec l'amelioration de l'interface et le changement de de la direction de l'image du perso principale quand il se deplace a droite ou a gauche; le jeux a été lancé plusieurs fois pour vérifier que les ennemis et les drapaux s'affichent effectivement en aléatoire.
+    ### Sprint retrospective
+    En plus des fonctionnalité du prochain sprint il va falloir ameliorer la fenetre de debut de jeux pour l'embelli et mieux mettre en valeurs ses caractéristiques.
 
 

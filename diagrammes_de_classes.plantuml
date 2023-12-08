@@ -6,6 +6,7 @@ class Boule{
     int y 
     int diametre 
 }
+
 class CollisionChecker{
     int x 
     int y 
@@ -14,10 +15,10 @@ class CollisionChecker{
 class Gamelauncher{
     class ActionListener
 
-    Method main
-    Method launchGame
-    Method showDialog
-    Method CloseDialog
+    Method main()
+    Method launchGame()
+    Method showDialog()
+    Method CloseDialog()
     
      
 }
@@ -106,4 +107,18 @@ class Ogre{
     int directionChangeInterval
     Interface inter
 }
+Demon --> Mov 
+lutin --> Mov 
+mage --> Mov 
+CollisionChecker -->Mov
+PersoPrincipal --> Mov 
+Ogre --> Mov 
+Interface --> Gamelauncher
+TileManger --> Tile
+Mov -->Interface
+Boule --> PersoPrincipal
+Boule --> Interface
+Tile --> Interface 
+
+
 @enduml

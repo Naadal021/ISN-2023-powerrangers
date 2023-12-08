@@ -39,6 +39,6 @@ Voici le lien du trello: https://trello.com/invite/b/L4ejJ8j6/ATTI8e6561382562a3
     ### Sprint review
     Toutes les taches ont été faites avec l'amelioration de l'interface et le changement de de la direction de l'image du perso principale quand il se deplace a droite ou a gauche; le jeux a été lancé plusieurs fois pour vérifier que les ennemis et les drapaux s'affichent effectivement en aléatoire.
     ### Sprint retrospective
-    En plus des fonctionnalité du prochain sprint il va falloir ameliorer la fenetre de debut de jeux pour l'embelli et mieux mettre en valeurs ses caractéristiques.
+    En plus des fonctionnalité du prochain sprint il va falloir ameliorer la fenetre de debut de jeux pour l'embellire et mieux mettre en valeurs ses caractéristiques.
 
 

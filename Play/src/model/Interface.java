@@ -22,6 +22,7 @@ import ennemies.Demon;
 import ennemies.lutin;
 import ennemies.mage;
 import ennemies.ogre;
+import ennemies.Ennemi;
 import tile.TileManager;
 import java.awt.FontFormatException;
 
@@ -31,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -44,6 +46,10 @@ public class Interface extends JPanel implements Runnable{
     public final int screenWidth = titleSize*maxScreenCol;
     public final int screenHeight=titleSize*maxscreenRow;
     int c;
+    int damage_Demon;
+    int damage_Mage;
+    int damage_Lutin;
+    int damage_Ogre;
     Font Alkhemikal;
     Thread game;
     public TileManager tileM = new TileManager(this);
@@ -53,11 +59,14 @@ public class Interface extends JPanel implements Runnable{
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
     PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
-    Demon Demon1 =new Demon(this);
-    lutin lutin1 =new lutin(this);
+
   
-    mage mage1 =new mage(this);
-    ogre ogre1=new ogre(this);
+    Ennemi Demon = new Ennemi(this,"Demon",1200,150,2,3,18,42,30,titleSize +25);
+    Ennemi Ogre = new Ennemi(this,"Ogre",1000,600,2,3,18,42,30,titleSize +25);
+    Ennemi Lutin = new Ennemi(this,"Lutin",400,380,2,3,18,42,30,titleSize +5);
+    Ennemi Mage = new Ennemi(this,"Mage",600,100,2,3,18,42,30,titleSize +5);
+  
+    
     LifePoints lifepoints = new LifePoints(this);
     
     
@@ -69,14 +78,14 @@ public class Interface extends JPanel implements Runnable{
     private Random random = new Random();
     
     private JLabel scoreLabel;
-    private Font  customFont;
+    
     
     private JButton playButton;
     private JTextField usernameField;
     
     private boolean gameStarted = false;
     public static String USERNAME="";
-    private JLabel usernameLabel;
+    
     public static String getuserName() {
     	return USERNAME;
     }
@@ -137,6 +146,26 @@ public class Interface extends JPanel implements Runnable{
     }
     public void updateCompteur() {
         c = persoPrincipal.compteur;
+    }
+    public void damage(){
+        damage_Demon=persoPrincipal.damage_Demon;
+        damage_Ogre=persoPrincipal.damage_Ogre;
+        damage_Mage=persoPrincipal.damage_Mage;
+        damage_Lutin=persoPrincipal.damage_Lutin;
+
+    }
+     private ImageIcon[] flags = {
+        new ImageIcon(getClass().getResource("/images/flags/flagblue.jpeg")),
+        new ImageIcon(getClass().getResource("/images/flags/flaggreen.jpeg")),
+        new ImageIcon(getClass().getResource("/images/flags/flagred.jpeg")),
+        new ImageIcon(getClass().getResource("/images/flags/flagyellow.jpeg"))
+    };
+
+    // Other fields and methods in your Interface class...
+
+    public List<ImageIcon> getFlagsList() {
+        // Convert the array to a List
+        return Arrays.asList(flags);
     }
     public void run(){
     	double drawInterval =1000000000/FPS;
@@ -227,16 +256,17 @@ public class Interface extends JPanel implements Runnable{
     
     public void update(){ 
         updateCompteur();
-        
+        damage();
         
     	persoPrincipal.update();
         
     	
-    	Demon1.update();
-    	lutin1.update();
+        Demon.update();
+        
+    	Lutin.update();
      
-    	mage1.update();
-    	ogre1.update();
+    	Mage.update();
+    	Ogre.update();
      
         }
      
@@ -278,15 +308,16 @@ public class Interface extends JPanel implements Runnable{
         }
         
         persoPrincipal.draw(g2);
-        Demon1.draw(g2);
-        lutin1.draw(g2);
-        mage1.draw(g2);
-        ogre1.draw(g2);
+        Demon.draw(g2);
+       
+        Lutin.draw(g2);
+        Mage.draw(g2);
+        Ogre.draw(g2);
 
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 16));
         //g2.drawString("Score: " + score, 10, 20);
-        if(c==0){
+        if(c<=0){
             g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
             g2.drawImage(lifepoints.Hearts[0].getImage(), 55, 40, titleSize, titleSize, null);
             g2.drawImage(lifepoints.Hearts[0].getImage(), 90, 40,titleSize, titleSize, null);

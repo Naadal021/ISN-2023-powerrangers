@@ -76,7 +76,11 @@ private ImageIcon[] runSpritesLeftOgre = {
     private int directionChangeTimer = 0;
     private int directionChangeInterval = 20; // Change direction every 60 frames (adjust as needed)
 
- 
+    private void SetIcon(int v){
+        v=iconHeight;
+        v=iconWidth;
+
+    }
     Interface inter;
 
     public void setDefaultValues() {
@@ -86,10 +90,13 @@ private ImageIcon[] runSpritesLeftOgre = {
         currentDirection =random.nextInt(4);
     }
     private int speed;
+    private int iconWidth;
+    private int  iconHeight;
 
-    public Ennemi(Interface inter,String nom , int x,int y,int speed, int solidareax,int solidareay,int width ,int height) {
+    public Ennemi(Interface inter,String nom , int x,int y,int speed, int solidareax,int solidareay,int width ,int height,int icone) {
         this.inter = inter;
         this.nom=nom;
+        this.icone=icone;
         this.x=x;
         this.y=y;
         solidArea = new Rectangle();
@@ -119,6 +126,11 @@ private ImageIcon[] runSpritesLeftOgre = {
             runSpritesLeft = runSpritesLeftmage;
             runSpritesRight = runSpritesRightmage;
         }
+    }
+    public void setDeathValues(){
+        x=0;
+        y=0;
+        icone=0;
     }
     public void update() {
     	setaction();
@@ -195,6 +207,8 @@ private ImageIcon[] runSpritesLeftOgre = {
         getNom();
         icone(nom);
         
+        
+        
     	ImageIcon[] sprites = null; 
 	    if (isRunning) {
             sprites = (direction.equals("left")) ? runSpritesLeft : runSpritesRight;
@@ -204,9 +218,8 @@ private ImageIcon[] runSpritesLeftOgre = {
         }
 
         int frameIndex = (currentFrame / animationDelay) % sprites.length;
-        int iconWidth = icone(nom); 
-        int iconHeight = icone(nom);
-        g2.drawImage(sprites[frameIndex].getImage(), x, y, iconWidth, iconHeight, null);
+       
+        g2.drawImage(sprites[frameIndex].getImage(), x, y, icone,  icone, null);
 
         // Increment frame for the next iteration
         currentFrame++;

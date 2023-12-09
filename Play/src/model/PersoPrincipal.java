@@ -1,6 +1,9 @@
 package model;
 
 import javax.swing.ImageIcon;
+
+import ennemies.Demon;
+
 import java.awt.Graphics2D;
 import static java.lang.Thread.sleep;
 
@@ -10,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimerTask;
 
 public class PersoPrincipal extends Mov {
 	
@@ -56,6 +60,11 @@ public class PersoPrincipal extends Mov {
 	private String Currentdirection;
 	public int tempscompteur=0;
 	public int compteur ;
+	public int damage_Demon;
+	public int damage_Ogre;
+	public int damage_Mage;
+	public int damage_Lutin;
+
 	Interface inter; 
 	KeyHandler keyH;
 	 	
@@ -107,7 +116,10 @@ public class PersoPrincipal extends Mov {
 	    int lutinindex = inter.cChecker.checkEntity(this,inter.Lutin);
 	    
 	    
-	    interact(Demonindex,mageindex,ogreindex,lutinindex);
+	    interactMage(mageindex);
+		interactOgre(ogreindex);
+		interactLutin(lutinindex);
+		interactDemon(Demonindex);
 	    if(collisionOn==false){
 	    	switch(direction) {
 	    			case "up":
@@ -132,7 +144,7 @@ public class PersoPrincipal extends Mov {
 
 	    checkCollisionWithBoules();
 	}
-	
+	private List<String> colorsList = new ArrayList<>();
 	private void checkCollisionWithBoules() {
 		Iterator<Boule> iterator = inter.getBoules().iterator();
 	
@@ -140,21 +152,37 @@ public class PersoPrincipal extends Mov {
 			Boule boule = iterator.next();
 			if (intersects(boule)) {
 				int bouleIndex = inter.getBoules().indexOf(boule);
-				System.out.println(flagList.get(bouleIndex));
 	
-				inter.incrementScore(); // Incrémente le score
+				if (bouleIndex >= 0 && bouleIndex < flagList.size()) {
+					colorsList.add(flagList.get(bouleIndex));
 	
-				// Add the caught boule to the new list
-				iterator.remove(); // Supprime la boule touchée
+					inter.incrementScore();
+					iterator.remove();
+					flagList.remove(bouleIndex);
 	
-				// Print the list after adding each element
-				flagList.remove(bouleIndex);
+					if (!colorsList.isEmpty()) {
+						System.out.println(colorsList.get(colorsList.size() - 1));
+					}
+				} else {
+					// Handle the case where the index is out of bounds
+					System.err.println("Invalid boule index: " + bouleIndex);
+				}
 			}
 		}
 	}
 	
 	
 	
+	public String getcolor() {
+		if (!colorsList.isEmpty()) {
+			// Access the last color only if the list is not empty
+			return colorsList.get(colorsList.size() - 1);
+		}
+	
+		return "No color available";
+	}
+		
+
 	
 	
 	private boolean intersects(Boule boule) {
@@ -167,18 +195,133 @@ public class PersoPrincipal extends Mov {
 	    // Vérifiez si les rectangles intersectent
 	    return persoRectangle.intersects(bouleRectangle);
 	}
-	public void interact(int index, int index1, int index2, int index3) {
-        tempscompteur++;
-        if (index != 999 || index1 != 999 || index2 != 999 || index3 != 999) {
-            System.out.println(compteur);
-            compteur++;
-			setDefaultValues();
-			
+	// public void interact( int index1, int index2, int index3) {
+	// 	tempscompteur++;
+	// 	if ( index1 != 999 || index2 != 999 || index3 != 999) {
+	// 		String color = getcolor(); // Assuming you have a method to get the color
+	
+	// 		if (!colorsList.isEmpty()) {
+	// 			switch (color) {
+	// 				case "red":
+	// 					inter.Demon.setDeathValues();
+	// 					damage_Demon++;
+	// 					colorsList.remove(colorsList.size() - 1);
+	// 					break;
+	// 				case "green":
+	// 					inter.Ogre.setDeathValues();
+	// 					damage_Ogre++;
+	// 					colorsList.remove(colorsList.size() - 1);
+	// 					break;
+	// 				case "blue":
+	// 					inter.Mage.setDeathValues();
+	// 					damage_Mage++;
+	// 					colorsList.remove(colorsList.size() - 1);
+	// 					break;
+	// 				case "yellow":
+	// 					inter.Lutin.setDeathValues();
+	// 					damage_Lutin++;
+	// 					colorsList.remove(colorsList.size() - 1);
+	// 					break;
+	// 				default:
+	// 				break;
+	// 			}
+				
+	// 		}
+	// 	compteur++;
+	// 	setDefaultValues();
+	// 	}
+	// }
+	public void interactDemon(int index ) {
+		tempscompteur++;
+		if (index != 999 ) {
+			String color = getcolor(); // Assuming you have a method to get the color
+	
+			if (!colorsList.isEmpty()) {
+					if(color=="red"){
+					inter.Demon.setDeathValues();
+					damage_Demon++;
+					}
+					else{
+						compteur++;
+				setDefaultValues();
+					}
+				}
+			else{
+				compteur++;
+				setDefaultValues();
+			}
+			}
 		
-
-            
-        }
-    }
+		}
+		public void interactOgre(int index ) {
+		tempscompteur++;
+		if (index != 999 ) {
+			String color = getcolor(); // Assuming you have a method to get the color
+	
+			if (!colorsList.isEmpty()) {
+					if(color=="green"){
+					inter.Ogre.setDeathValues();
+					damage_Ogre++;
+					}
+					else{
+						compteur++;
+				setDefaultValues();
+					}
+				}
+			else{
+				compteur++;
+				setDefaultValues();
+			}
+			}
+		
+		}
+		public void interactLutin(int index ) {
+		tempscompteur++;
+		if (index != 999 ) {
+			String color = getcolor(); // Assuming you have a method to get the color
+	
+			if (!colorsList.isEmpty()) {
+					if(color=="yellow"){
+					inter.Lutin.setDeathValues();
+					damage_Lutin++;
+					}
+					else{
+						compteur++;
+				setDefaultValues();
+					}
+				}
+			else{
+				compteur++;
+				setDefaultValues();
+			}
+			}
+		
+		}
+		public void interactMage(int index ) {
+		tempscompteur++;
+		if (index != 999 ) {
+			String color = getcolor(); // Assuming you have a method to get the color
+	
+			if (!colorsList.isEmpty()) {
+					if(color=="blue"){
+					inter.Mage.setDeathValues();
+					damage_Mage++;
+					}
+					else{
+						compteur++;
+				setDefaultValues();
+					}
+				}
+			else{
+				compteur++;
+				setDefaultValues();
+			}
+			}
+		
+		}
+	
+	
+	
 	
 
 	public void draw(Graphics2D g2) {
@@ -195,5 +338,5 @@ public class PersoPrincipal extends Mov {
 	    // Increment frame for the next iteration
 	    currentFrame++;
 	}
-
 }
+

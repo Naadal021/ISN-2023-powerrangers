@@ -6,7 +6,10 @@ import static java.lang.Thread.sleep;
 
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 public class PersoPrincipal extends Mov {
 	
@@ -36,7 +39,16 @@ public class PersoPrincipal extends Mov {
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f20.png"),
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f30.png")
 	};
+	private ImageIcon blue= new ImageIcon(getClass().getResource("/images/flags/flagblue.jpeg"));
+    private ImageIcon green =  new ImageIcon(getClass().getResource("/images/flags/flaggreen.jpeg"));
+    private  ImageIcon red=   new ImageIcon(getClass().getResource("/images/flags/flagred.jpeg"));
+    private   ImageIcon yellow=  new ImageIcon(getClass().getResource("/images/flags/flagyellow.jpeg"));
+	private static final List<String> flagList = new ArrayList<>(Arrays.asList("blue", "green", "red", "yellow"));
 
+ // Use a List instead of an array
+
+	// Initialize your flags list
+	
 	private int currentFrame = 0;
 	private boolean isRunning = false;
 	private int animationDelay = 5; 
@@ -89,10 +101,10 @@ public class PersoPrincipal extends Mov {
 	    collisionOn= false;
 	    inter.cChecker.checkTile(this);
 	    
-	    int Demonindex = inter.cChecker.checkEntity(this,inter.Demon1);
-	    int mageindex = inter.cChecker.checkEntity(this,inter.mage1);
-	    int ogreindex = inter.cChecker.checkEntity(this,inter.ogre1);
-	    int lutinindex = inter.cChecker.checkEntity(this,inter.lutin1);
+	    int Demonindex = inter.cChecker.checkEntity(this,inter.Demon);
+	    int mageindex = inter.cChecker.checkEntity(this,inter.Mage);
+	    int ogreindex = inter.cChecker.checkEntity(this,inter.Ogre);
+	    int lutinindex = inter.cChecker.checkEntity(this,inter.Lutin);
 	    
 	    
 	    interact(Demonindex,mageindex,ogreindex,lutinindex);
@@ -120,18 +132,30 @@ public class PersoPrincipal extends Mov {
 
 	    checkCollisionWithBoules();
 	}
- 
 	
 	private void checkCollisionWithBoules() {
-	    Iterator<Boule> iterator = inter.getBoules().iterator();
-	    while (iterator.hasNext()) {
-	        Boule boule = iterator.next();
-	        if (intersects(boule)) {
-	            inter.incrementScore(); // Incrémente le score
-	            iterator.remove(); // Supprime la boule touchée
-	        } 
-	    } 
+		Iterator<Boule> iterator = inter.getBoules().iterator();
+	
+		while (iterator.hasNext()) {
+			Boule boule = iterator.next();
+			if (intersects(boule)) {
+				int bouleIndex = inter.getBoules().indexOf(boule);
+				System.out.println(flagList.get(bouleIndex));
+	
+				inter.incrementScore(); // Incrémente le score
+	
+				// Add the caught boule to the new list
+				iterator.remove(); // Supprime la boule touchée
+	
+				// Print the list after adding each element
+				flagList.remove(bouleIndex);
+			}
+		}
 	}
+	
+	
+	
+	
 	
 	private boolean intersects(Boule boule) {
 	    // Créez un rectangle autour du personnage principal

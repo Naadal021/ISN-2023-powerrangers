@@ -43,10 +43,7 @@ public class PersoPrincipal extends Mov {
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f20.png"),
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f30.png")
 	};
-	private ImageIcon blue= new ImageIcon(getClass().getResource("/images/flags/flagblue.jpeg"));
-    private ImageIcon green =  new ImageIcon(getClass().getResource("/images/flags/flaggreen.jpeg"));
-    private  ImageIcon red=   new ImageIcon(getClass().getResource("/images/flags/flagred.jpeg"));
-    private   ImageIcon yellow=  new ImageIcon(getClass().getResource("/images/flags/flagyellow.jpeg"));
+
 	private static final List<String> flagList = new ArrayList<>(Arrays.asList("blue", "green", "red", "yellow"));
 
  // Use a List instead of an array
@@ -80,7 +77,7 @@ public class PersoPrincipal extends Mov {
 	public PersoPrincipal(Interface inter, KeyHandler keyH) {
 		this.inter=inter;
 		this.keyH=keyH;
-		this.compteur=compteur;
+	
 		solidArea= new Rectangle();
 		solidArea.x=8;
 		solidArea.y=10;

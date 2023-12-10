@@ -5,14 +5,14 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 import model.Interface;
-import model.Interface;
-import javax.swing.ImageIcon;
+
+
 
 import model.Mov;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.Random;
+
 public class Ennemi extends Mov {
      private ImageIcon[] runSpritesRightDemon = {
             new ImageIcon("Play/src/images/ennemies/big_demon_run_anim_f0.png"),
@@ -76,11 +76,7 @@ private ImageIcon[] runSpritesLeftOgre = {
     private int directionChangeTimer = 0;
     private int directionChangeInterval = 20; // Change direction every 60 frames (adjust as needed)
 
-    private void SetIcon(int v){
-        v=iconHeight;
-        v=iconWidth;
-
-    }
+    
     Interface inter;
 
     public void setDefaultValues() {
@@ -90,8 +86,7 @@ private ImageIcon[] runSpritesLeftOgre = {
         currentDirection =random.nextInt(4);
     }
     private int speed;
-    private int iconWidth;
-    private int  iconHeight;
+   
 
     public Ennemi(Interface inter,String nom , int x,int y,int speed, int solidareax,int solidareay,int width ,int height,int icone) {
         this.inter = inter;

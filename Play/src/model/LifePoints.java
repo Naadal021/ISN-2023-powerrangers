@@ -12,8 +12,7 @@ public class LifePoints{
 
     PersoPrincipal pp = new PersoPrincipal(this.Inter, keyH);
     
-    private List<ImageIcon> Current_lifepoints;
-    
+ 
     
     public ImageIcon[] Hearts = {
         new ImageIcon(getClass().getResource("/images/wall/ui_heart_full.png")),

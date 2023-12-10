@@ -42,9 +42,9 @@ Voici le lien du trello: https://trello.com/invite/b/L4ejJ8j6/ATTI8e6561382562a3
     En plus des fonctionnalité du prochain sprint il va falloir ameliorer la fenetre de debut de jeux pour l'embellire et mieux mettre en valeurs ses caractéristiques.
 
 ## Sprint 4 
- - [ ] le joueur saisie son pseudonyme .
- - [ ] Affichage des 3 derniers meilleurs scores .
- - [ ] Lorsque le personnage principal consomme la boule colorée, il est doté d'un délai limité pour éliminer le monstre.
- - [ ] Apres un délai , le personnage redevient vulnérable a tout type de monstre et le marquage disparait.
- - [ ] Lorsque le personnage principal mange la boule colorée, un marquage de la boule mangée apparait.
- - [ ] Le score est évalué en se basant sur le temps que le personnage principal met pour tuer tous les monstres.
+ - [ ] Le joueur saisie son pseudonyme .(Nada)
+ - [ ] Affichage des 3 derniers meilleurs scores .(Nada)
+ - [ ] Lorsque le personnage principal consomme la boule colorée, il est doté d'un délai limité pour éliminer le monstre.(Amal-Hamza)
+ - [ ] Apres un délai , le personnage redevient vulnérable a tout type de monstre .(Amal)
+ - [ ] Lorsque le personnage principal mange la boule colorée, un marquage de la boule mangée apparaitet le marquage disparait après un délai.(Abdullahi)
+ - [X] Le score est évalué en se basant sur le temps que le personnage principal met pour tuer tous les monstres.(Hamza)

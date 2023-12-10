@@ -15,7 +15,7 @@ public class TileManager{
     public int mapTileNum[][];
      public TileManager(Interface gp){
         this.gp = gp;
-        tile = new Tile [46];
+        tile = new Tile [23];
         mapTileNum= new int[gp.maxScreenCol][gp.maxscreenRow];
         getTileimage();
         loadMap();

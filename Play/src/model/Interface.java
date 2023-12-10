@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -53,6 +54,7 @@ public class Interface extends JPanel implements Runnable{
     Font Alkhemikal;
     Thread game;
     public TileManager tileM = new TileManager(this);
+    DecimalFormat dFormat= new DecimalFormat("#0.00");
     //FPS = FRAME PER SECOND
     int FPS =60;
     private static final int NOMBRE_DE_BOULES = 4; 
@@ -68,7 +70,7 @@ public class Interface extends JPanel implements Runnable{
   
     
     LifePoints lifepoints = new LifePoints(this);
-    
+    ImageIcon[] Map = {new ImageIcon("Play/src/images/ennemies/tile.png")};
     
     private int score = 0; //score lorsque le perso touche la boule
     public void incrementScore() {
@@ -79,7 +81,7 @@ public class Interface extends JPanel implements Runnable{
     
     private JLabel scoreLabel;
     
-    
+    double playtime;
     private JButton playButton;
     private JTextField usernameField;
     
@@ -315,7 +317,9 @@ public class Interface extends JPanel implements Runnable{
         Ogre.draw(g2);
 
         g2.setColor(Color.WHITE);
-        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 16));
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
+        playtime+=(double)1/60;
+        g2.drawString("Time"+dFormat.format(playtime), 0, 500);
         //g2.drawString("Score: " + score, 10, 20);
         if(c<=0){
             g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
@@ -334,6 +338,19 @@ public class Interface extends JPanel implements Runnable{
             g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);
 
         }
+        if(damage_Demon>=1 && damage_Mage>=1 && damage_Lutin>=1 && damage_Ogre>=1){
+            
+            // g2.drawImage(Map[0].getImage(),0,0,screenWidth,screenHeight,null);
+            g2.setColor(Color.WHITE);
+            g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+        //g2.setFont(new Font("Algerian", Font.PLAIN, 200));
+            g2.drawString("YOU WON", 400, 400);
+           g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
+             g2.drawString("IN "+dFormat.format(playtime), 550, 500);
+        
+            game = null;
+
+        }
     } else {
         
         g2.setColor(Color.WHITE);
@@ -343,6 +360,7 @@ public class Interface extends JPanel implements Runnable{
         g2.drawImage(lifepoints.Hearts[1].getImage(), 20, 40,titleSize,titleSize, null);
         g2.drawImage(lifepoints.Hearts[1].getImage(), 55, 40, titleSize, titleSize, null);
         g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);
+        game = null;
     }
 
     g2.dispose();

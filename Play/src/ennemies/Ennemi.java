@@ -1,5 +1,5 @@
 package ennemies;
-
+import model.Interface;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -131,6 +131,8 @@ private ImageIcon[] runSpritesLeftOgre = {
     	setaction();
     	collisionOn=false;
     	inter.cChecker.checkTile(this);
+    	int Demonindex1 = inter.cChecker.checkMonster(this,inter.persoPrincipal);
+    	interacte(Demonindex1);
     	if(collisionOn==false){
 	    	switch(direction) {
 	    			case "up":
@@ -182,6 +184,12 @@ private ImageIcon[] runSpritesLeftOgre = {
             directionChangeTimer = 0;
         }
     }
+  public void interacte(int index) {
+	  if (index==0) {
+		  inter.persoPrincipal.setDefaultValues();
+		  inter.persoPrincipal.compteur++;
+	  }
+  }
     public String getNom() {
         return nom;
     }

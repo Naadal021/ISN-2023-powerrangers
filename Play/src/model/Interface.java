@@ -54,7 +54,7 @@ public class Interface extends JPanel implements Runnable{
     private static final int NOMBRE_DE_BOULES = 4; 
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
-    PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
+    public PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
 
   
     Ennemi Demon = new Ennemi(this,"Demon",1200,150,2,3,18,42,30,titleSize +25);

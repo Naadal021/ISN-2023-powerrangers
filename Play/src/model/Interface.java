@@ -1,34 +1,28 @@
 package model;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.io.File;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
-import ennemies.Demon;
-import ennemies.lutin;
-import ennemies.mage;
-import ennemies.ogre;
+
 import ennemies.Ennemi;
 import tile.TileManager;
 import java.awt.FontFormatException;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 
 import java.util.Random;
 
@@ -72,14 +66,12 @@ public class Interface extends JPanel implements Runnable{
     LifePoints lifepoints = new LifePoints(this);
     ImageIcon[] Map = {new ImageIcon("Play/src/images/ennemies/tile.png")};
     
-    private int score = 0; //score lorsque le perso touche la boule
-    public void incrementScore() {
-        score++;
-    }
+ 
+    
     private List<Boule> boules = new ArrayList<>();
     private Random random = new Random();
     
-    private JLabel scoreLabel;
+  
     
     double playtime;
     private JButton playButton;
@@ -122,24 +114,7 @@ public class Interface extends JPanel implements Runnable{
         });
         add(playButton);
         
-        SwingUtilities.invokeLater(() -> {
-            scoreLabel = new JLabel("Score: " + score);
-            scoreLabel.setForeground(Color.WHITE);
-            scoreLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-            add(scoreLabel);
-//            usernameLabel = new JLabel("Entered Username: " + USERNAME);
-//            usernameLabel.setForeground(Color.WHITE);
-//            usernameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-//            add(usernameLabel);
-//            playButton.addActionListener(e -> { 
-//            	USERNAME = usernameField.getText();
-//                usernameLabel.setText("Entered Username: " + USERNAME);
-//            });
-            // Ajoutez le scoreLabel  et username à l'interface
-            this.setLayout(new BorderLayout());
-            this.add(scoreLabel, BorderLayout.NORTH);
-//            this.add(usernameLabel, BorderLayout.WEST);
-        });
+        
     }
     public void startGame(){
     	this.requestFocusInWindow();
@@ -320,30 +295,14 @@ public class Interface extends JPanel implements Runnable{
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
         playtime+=(double)1/60;
         g2.drawString("Time"+dFormat.format(playtime), 0, 500);
-        //g2.drawString("Score: " + score, 10, 20);
-        if(c<=0){
-            g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
-            g2.drawImage(lifepoints.Hearts[0].getImage(), 55, 40, titleSize, titleSize, null);
-            g2.drawImage(lifepoints.Hearts[0].getImage(), 90, 40,titleSize, titleSize, null);
-        }
-
-        if(c==1){
-            g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
-            g2.drawImage(lifepoints.Hearts[0].getImage(), 55, 40, titleSize, titleSize, null);
-            g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);
-        }
-        if(c==2){
-            g2.drawImage(lifepoints.Hearts[0].getImage(), 20, 40,titleSize,titleSize, null);
-            g2.drawImage(lifepoints.Hearts[1].getImage(), 55, 40, titleSize, titleSize, null);
-            g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);
-
-        }
+        
+        lifepoints.draw(g2,c);
         if(damage_Demon>=1 && damage_Mage>=1 && damage_Lutin>=1 && damage_Ogre>=1){
             
-            // g2.drawImage(Map[0].getImage(),0,0,screenWidth,screenHeight,null);
+            
             g2.setColor(Color.WHITE);
             g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-        //g2.setFont(new Font("Algerian", Font.PLAIN, 200));
+    
             g2.drawString("YOU WON", 400, 400);
            g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
              g2.drawString("IN "+dFormat.format(playtime), 550, 500);
@@ -355,11 +314,9 @@ public class Interface extends JPanel implements Runnable{
         
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-        //g2.setFont(new Font("Algerian", Font.PLAIN, 200));
+        
         g2.drawString("Game Over", 400, 400);
-        g2.drawImage(lifepoints.Hearts[1].getImage(), 20, 40,titleSize,titleSize, null);
-        g2.drawImage(lifepoints.Hearts[1].getImage(), 55, 40, titleSize, titleSize, null);
-        g2.drawImage(lifepoints.Hearts[1].getImage(), 90, 40,titleSize, titleSize, null);
+       
         game = null;
     }
 

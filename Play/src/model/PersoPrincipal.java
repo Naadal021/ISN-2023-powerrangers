@@ -2,10 +2,10 @@ package model;
 
 import javax.swing.ImageIcon;
 
-import ennemies.Demon;
+
 
 import java.awt.Graphics2D;
-import static java.lang.Thread.sleep;
+
 
 
 import java.awt.Rectangle;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.TimerTask;
+
 
 public class PersoPrincipal extends Mov {
 	
@@ -153,7 +153,7 @@ public class PersoPrincipal extends Mov {
 				if (bouleIndex >= 0 && bouleIndex < flagList.size()) {
 					colorsList.add(flagList.get(bouleIndex));
 	
-					inter.incrementScore();
+					
 					iterator.remove();
 					flagList.remove(bouleIndex);
 	

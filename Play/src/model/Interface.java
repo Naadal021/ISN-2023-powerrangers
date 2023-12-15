@@ -4,12 +4,19 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 
 import java.awt.Color;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -31,6 +38,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
+
 public class Interface extends JPanel implements Runnable{
 
     final int OriginalTitleSize= 10;
@@ -49,12 +57,14 @@ public class Interface extends JPanel implements Runnable{
     Thread game;
     public TileManager tileM = new TileManager(this);
     DecimalFormat dFormat= new DecimalFormat("#0.00");
+   
     //FPS = FRAME PER SECOND
     int FPS =60;
     private static final int NOMBRE_DE_BOULES = 4; 
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
     public PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
+    private String gamestatestring="null";
 
   
     Ennemi Demon = new Ennemi(this,"Demon",1200,150,2,3,18,42,30,titleSize +25);
@@ -65,6 +75,10 @@ public class Interface extends JPanel implements Runnable{
     
     LifePoints lifepoints = new LifePoints(this);
     ImageIcon[] Map = {new ImageIcon("Play/src/images/ennemies/tile.png")};
+    ImageIcon[] medalIcons = {new ImageIcon("filepathgold"),
+    new ImageIcon("filepathsilver"),
+    new ImageIcon("filepathbronze"),
+};
     
  
     
@@ -74,52 +88,86 @@ public class Interface extends JPanel implements Runnable{
   
     
     double playtime;
-    private JButton playButton;
+    private JButton scorebutton;
     private JTextField usernameField;
     
     private boolean gameStarted = false;
     public static String USERNAME="";
+    private boolean gamewon=false;
+    
     
     public static String getuserName() {
     	return USERNAME;
     }
     public Interface(){ 
-        this.setPreferredSize(new Dimension(screenWidth,screenHeight));
-        this.setBackground(Color.black); 
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+        // Load custom font
         try {
             InputStream is = getClass().getResourceAsStream("/model/Alkhemikal.ttf");
             Alkhemikal = Font.createFont(Font.TRUETYPE_FONT, is);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
+
         setLayout(null);
-        //setLayout(new FlowLayout(FlowLayout.CENTER, 0, 100));
-        usernameField = new JTextField("Enter Username");
+
+        // Initialize and format username field
+        usernameField = new JTextField("Enter Username press enter ");
         USERNAME = usernameField.getText();
         usernameField.setFont(Alkhemikal.deriveFont(Font.PLAIN, 20));
-        usernameField.setPreferredSize(new Dimension(150, 30)); 
+        usernameField.setPreferredSize(new Dimension(150, 30));
         usernameField.setBounds(650, 500, 150, 30);
-        add(usernameField);
-        //setLayout(new FlowLayout(FlowLayout.CENTER, 0, 500));
-        playButton = new JButton("Play");
-        playButton.setFont(Alkhemikal.deriveFont(Font.PLAIN, 40));
-        playButton.setPreferredSize(new Dimension(150, 50));
-        playButton.setBounds(650, 550, 150, 50);
-        playButton.addActionListener(e -> {
-        	gameStarted = true;
-            startGame();
+
+        // Add KeyListener to the username field to start the game on Enter press
+        usernameField.addKeyListener((KeyListener) new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    gamestatestring = "play";
+                    play();
+                }
+            }
         });
-        add(playButton);
-        
-        
+        add(usernameField);
+        scorebutton = new JButton("Score");
+        scorebutton.setFont(Alkhemikal.deriveFont(Font.PLAIN, 40));
+        scorebutton.setPreferredSize(new Dimension(150, 50));
+        scorebutton.setBounds(650, 550, 150, 50);
+        scorebutton.addActionListener(e -> {
+        	gamestatestring = "score";
+            
+        });
+        add(scorebutton);
     }
     public void startGame(){
     	this.requestFocusInWindow();
         game=new Thread(this);
         game.start();
+    }
+    private static List<Object[]> readScoreFile(String fileName) {
+        List<Object[]> playerList = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\\s+");  // Split by space, tab, or other whitespace
+                if (parts.length == 2) {
+                    String playerName = parts[0];
+                    double playertime = Double.parseDouble(parts[1]);
+                    Object[] player = {playerName, playertime};
+                    playerList.add(player);
+                }
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        return playerList;
     }
     public void updateCompteur() {
         c = persoPrincipal.compteur;
@@ -230,7 +278,25 @@ public class Interface extends JPanel implements Runnable{
         boules.remove(boule);
     }
     
-    
+    public void play(){
+        USERNAME = usernameField.getText(); // Retrieve the username when the game starts
+        gameStarted = true;
+        this.requestFocusInWindow();
+    }
+    private static void writeScoreToFile(String filePath, String playerName, double playtime) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            // Appending to the file (true parameter in FileWriter constructor)
+
+            // Format the line and write it to the file
+            String line = String.format("%s %.2f%n", playerName, playtime);
+            writer.write(line);
+
+            System.out.println("Score added to the file successfully.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void update(){ 
         updateCompteur();
         damage();
@@ -249,24 +315,20 @@ public class Interface extends JPanel implements Runnable{
      
     @Override
    public void paintComponent(Graphics g) {
+    List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    tileM.draw(g2);
     
-    if (!gameStarted) {
-    	g2.setColor(Color.WHITE);
-        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+    if (gamestatestring=="null"){
+        g2.setColor(Color.WHITE);
+      g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
         g2.drawString("FlagQuest", 400, 400);
-        
-       
-        
-        
-        ImageIcon[] imageIcon = {new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"), 
-        		new ImageIcon("Play/src/images/ennemies/big_demon_run_anim_f00.png"),
+            ImageIcon[] imageIcon = {new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"), 
+         		new ImageIcon("Play/src/images/ennemies/big_demon_run_anim_f00.png"),
         		new ImageIcon("Play/src/images/ennemies/elf_m_run_anim_f00.png"),
-        		new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f00.png"),
-        		new ImageIcon("Play/src/images/ennemies/ogre_run_anim_f00.png")
-        };
+         		new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f00.png"),
+         		new ImageIcon("Play/src/images/ennemies/ogre_run_anim_f00.png")
+         };
         
         g2.drawImage(imageIcon[0].getImage(), 550, 150, 100, 100, null);
         g2.drawImage(imageIcon[1].getImage(), 750, 150, 100, 100, null);
@@ -275,7 +337,30 @@ public class Interface extends JPanel implements Runnable{
         g2.drawImage(imageIcon[4].getImage(), 1050, 150, 100, 100, null);
         return;
     }
-    
+    // if (!gameStarted) {
+    // 	g2.setColor(Color.WHITE);
+    //     g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+    //     g2.drawString("FlagQuest", 400, 400);
+        
+       
+        
+        
+    //     ImageIcon[] imageIcon = {new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"), 
+    //     		new ImageIcon("Play/src/images/ennemies/big_demon_run_anim_f00.png"),
+    //     		new ImageIcon("Play/src/images/ennemies/elf_m_run_anim_f00.png"),
+    //     		new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f00.png"),
+    //     		new ImageIcon("Play/src/images/ennemies/ogre_run_anim_f00.png")
+    //     };
+        
+    //     g2.drawImage(imageIcon[0].getImage(), 550, 150, 100, 100, null);
+    //     g2.drawImage(imageIcon[1].getImage(), 750, 150, 100, 100, null);
+    //     g2.drawImage(imageIcon[2].getImage(), 850, 150, 100, 100, null);
+    //     g2.drawImage(imageIcon[3].getImage(), 950, 150, 100, 100, null);
+    //     g2.drawImage(imageIcon[4].getImage(), 1050, 150, 100, 100, null);
+    //     return;
+    // }
+    if (gamestatestring=="play"){
+    tileM.draw(g2);
     if (c < 3) {
         
        
@@ -293,8 +378,11 @@ public class Interface extends JPanel implements Runnable{
 
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
+        if(!gamewon){
         playtime+=(double)1/60;
-        g2.drawString("Time"+dFormat.format(playtime), 0, 500);
+        g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
+        }
+        
         
         lifepoints.draw(g2,c);
         if(damage_Demon>=1 && damage_Mage>=1 && damage_Lutin>=1 && damage_Ogre>=1){
@@ -306,8 +394,11 @@ public class Interface extends JPanel implements Runnable{
             g2.drawString("YOU WON", 400, 400);
            g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
              g2.drawString("IN "+dFormat.format(playtime), 550, 500);
+             writeScoreToFile("Play/src/model/Scores.txt", getuserName(), playtime);
+             gamewon=true;
+             gamestatestring="attente";
         
-            game = null;
+           
 
         }
     } else {
@@ -318,7 +409,25 @@ public class Interface extends JPanel implements Runnable{
         g2.drawString("Game Over", 400, 400);
        
         game = null;
+    }}
+    if (gamestatestring=="score"){
+        g2.setColor(Color.WHITE);
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+        
+        for (int i = 0; i < best3players.size(); i++) {
+            String playerName = (String) best3players.get(i)[0];
+            double playertime = (double) best3players.get(i)[1];
+            g2.drawString(playerName, 100, 100 + i * 150);
+            g2.drawString(dFormat.format(playertime), 500, 100 + i * 150);
+            g2.drawImage(medalIcons[0].getImage(),100,100,null);   // Adjust Y-coordinate for each name
+        }
+
     }
+    if (gamestatestring=="rules"){}
+    if (gamestatestring=="replay"){
+        return;
+    }
+    if (gamestatestring=="restart"){}
 
     g2.dispose();
     }

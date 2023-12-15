@@ -1,6 +1,6 @@
 package model;
 import java.awt.Dimension;
-
+import java.util.Collections;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -17,6 +17,8 @@ import java.text.DecimalFormat;
 
 import java.awt.Color;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -91,7 +93,7 @@ public class Interface extends JPanel implements Runnable{
     private JButton scorebutton;
     private JTextField usernameField;
     
-    private boolean gameStarted = false;
+
     public static String USERNAME="";
     private boolean gamewon=false;
     
@@ -150,25 +152,32 @@ public class Interface extends JPanel implements Runnable{
         game.start();
     }
     private static List<Object[]> readScoreFile(String fileName) {
-        List<Object[]> playerList = new ArrayList<>();
+    List<Object[]> playerList = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\s+");  // Split by space, tab, or other whitespace
-                if (parts.length == 2) {
-                    String playerName = parts[0];
-                    double playertime = Double.parseDouble(parts[1]);
-                    Object[] player = {playerName, playertime};
-                    playerList.add(player);
-                }
+    try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] parts = line.split("\\s+");  // Split by space, tab, or other whitespace
+            if (parts.length == 2) {
+                String playerName = parts[0];
+
+                // Replace comma with dot before parsing
+                String playtimeString = parts[1].replace(',', '.');
+
+                double playertime = Double.parseDouble(playtimeString);
+                Object[] player = {playerName, playertime};
+                playerList.add(player);
             }
-        } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
         }
 
-        return playerList;
+        // Sort the list based on playtime (minimal score to maximum)
+        Collections.sort(playerList, Comparator.comparingDouble(player -> (double) player[1]));
+    } catch (IOException | NumberFormatException e) {
+        e.printStackTrace();
     }
+
+    return playerList;
+}
     public void updateCompteur() {
         c = persoPrincipal.compteur;
     }
@@ -280,7 +289,7 @@ public class Interface extends JPanel implements Runnable{
     
     public void play(){
         USERNAME = usernameField.getText(); // Retrieve the username when the game starts
-        gameStarted = true;
+        
         this.requestFocusInWindow();
     }
     private static void writeScoreToFile(String filePath, String playerName, double playtime) {
@@ -300,22 +309,48 @@ public class Interface extends JPanel implements Runnable{
     public void update(){ 
         updateCompteur();
         damage();
-        
-    	persoPrincipal.update();
-        
-    	
+        persoPrincipal.update();
         Demon.update();
-        
-    	Lutin.update();
-     
-    	Mage.update();
+        Lutin.update();
+        Mage.update();
     	Ogre.update();
      
         }
-     
+        public static void replaceCommaWithDot(String filePath) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
+                 BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + "_temp"))) {
+    
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    // Replace ',' with '.'
+                    line = line.replace(',', '.');
+                    writer.write(line);
+                    writer.newLine(); // Add a newline character to separate lines
+                }
+    
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    
+            // Rename the temporary file to the original file
+            renameFile(filePath + "_temp", filePath);
+        }
+    
+        private static void renameFile(String oldFilePath, String newFilePath) {
+            // Rename the temporary file to the original file
+            java.io.File oldFile = new java.io.File(oldFilePath);
+            java.io.File newFile = new java.io.File(newFilePath);
+    
+            if (oldFile.renameTo(newFile)) {
+                System.out.println("File renamed successfully.");
+            } else {
+                System.err.println("Failed to rename the file.");
+            }
+        }
+    
     @Override
    public void paintComponent(Graphics g) {
-    List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
+   
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
     
@@ -337,28 +372,7 @@ public class Interface extends JPanel implements Runnable{
         g2.drawImage(imageIcon[4].getImage(), 1050, 150, 100, 100, null);
         return;
     }
-    // if (!gameStarted) {
-    // 	g2.setColor(Color.WHITE);
-    //     g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-    //     g2.drawString("FlagQuest", 400, 400);
-        
-       
-        
-        
-    //     ImageIcon[] imageIcon = {new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"), 
-    //     		new ImageIcon("Play/src/images/ennemies/big_demon_run_anim_f00.png"),
-    //     		new ImageIcon("Play/src/images/ennemies/elf_m_run_anim_f00.png"),
-    //     		new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f00.png"),
-    //     		new ImageIcon("Play/src/images/ennemies/ogre_run_anim_f00.png")
-    //     };
-        
-    //     g2.drawImage(imageIcon[0].getImage(), 550, 150, 100, 100, null);
-    //     g2.drawImage(imageIcon[1].getImage(), 750, 150, 100, 100, null);
-    //     g2.drawImage(imageIcon[2].getImage(), 850, 150, 100, 100, null);
-    //     g2.drawImage(imageIcon[3].getImage(), 950, 150, 100, 100, null);
-    //     g2.drawImage(imageIcon[4].getImage(), 1050, 150, 100, 100, null);
-    //     return;
-    // }
+    
     if (gamestatestring=="play"){
     tileM.draw(g2);
     if (c < 3) {
@@ -392,7 +406,7 @@ public class Interface extends JPanel implements Runnable{
             g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
     
             g2.drawString("YOU WON", 400, 400);
-           g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
+            
              g2.drawString("IN "+dFormat.format(playtime), 550, 500);
              writeScoreToFile("Play/src/model/Scores.txt", getuserName(), playtime);
              gamewon=true;
@@ -410,20 +424,32 @@ public class Interface extends JPanel implements Runnable{
        
         game = null;
     }}
-    if (gamestatestring=="score"){
+    if (gamestatestring == "score") {
+        List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
+    
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-        
-        for (int i = 0; i < best3players.size(); i++) {
+    
+        // Draw only the top three players
+        int numPlayersToDraw = Math.min(3, best3players.size());
+        for (int i = 0; i < numPlayersToDraw; i++) {
             String playerName = (String) best3players.get(i)[0];
             double playertime = (double) best3players.get(i)[1];
             g2.drawString(playerName, 100, 100 + i * 150);
             g2.drawString(dFormat.format(playertime), 500, 100 + i * 150);
-            g2.drawImage(medalIcons[0].getImage(),100,100,null);   // Adjust Y-coordinate for each name
+            // Adjust Y-coordinate for each name
         }
-
     }
+    
+
+    
     if (gamestatestring=="rules"){}
+    if(gamestatestring=="attente"){
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
+        g2.drawString("YOU WON", 400, 400);
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
+        g2.drawString("IN "+dFormat.format(playtime), 550, 500);
+    }
     if (gamestatestring=="replay"){
         return;
     }

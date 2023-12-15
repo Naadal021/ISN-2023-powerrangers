@@ -1,5 +1,7 @@
-Alice 30.5
-Bob 25.3
-Charlie 28.8
-Enter Use  4.85
-
+pression 45.25
+lmerd 33.80
+peach 32,60
+prevasive 43,63
+premed 30,05
+miaw 34,80
+polo 10

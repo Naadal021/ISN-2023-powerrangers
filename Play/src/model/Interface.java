@@ -96,7 +96,7 @@ public class Interface extends JPanel implements Runnable{
 
     public static String USERNAME="";
     private boolean gamewon=false;
-    
+
     
     public static String getuserName() {
     	return USERNAME;
@@ -107,7 +107,16 @@ public class Interface extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_B) {
+                    gamestatestring = "null";
+                    repaint();  // Ensure the repaint to reflect the change
+                }
+            }
+        });
+        
         // Load custom font
         try {
             InputStream is = getClass().getResourceAsStream("/model/Alkhemikal.ttf");
@@ -145,7 +154,9 @@ public class Interface extends JPanel implements Runnable{
             
         });
         add(scorebutton);
+         
     }
+    
     public void startGame(){
     	this.requestFocusInWindow();
         game=new Thread(this);
@@ -355,6 +366,7 @@ public class Interface extends JPanel implements Runnable{
     Graphics2D g2 = (Graphics2D) g;
     
     if (gamestatestring=="null"){
+        
         g2.setColor(Color.WHITE);
       g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
         g2.drawString("FlagQuest", 400, 400);
@@ -370,7 +382,9 @@ public class Interface extends JPanel implements Runnable{
         g2.drawImage(imageIcon[2].getImage(), 850, 150, 100, 100, null);
         g2.drawImage(imageIcon[3].getImage(), 950, 150, 100, 100, null);
         g2.drawImage(imageIcon[4].getImage(), 1050, 150, 100, 100, null);
+  
         return;
+
     }
     
     if (gamestatestring=="play"){
@@ -425,11 +439,12 @@ public class Interface extends JPanel implements Runnable{
         game = null;
     }}
     if (gamestatestring == "score") {
+        this.requestFocusInWindow(); // Add this line to ensure the panel has focus
         List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
-    
+        
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-    
+        
         // Draw only the top three players
         int numPlayersToDraw = Math.min(3, best3players.size());
         for (int i = 0; i < numPlayersToDraw; i++) {
@@ -440,9 +455,6 @@ public class Interface extends JPanel implements Runnable{
             // Adjust Y-coordinate for each name
         }
     }
-    
-
-    
     if (gamestatestring=="rules"){}
     if(gamestatestring=="attente"){
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));

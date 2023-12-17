@@ -77,9 +77,9 @@ public class Interface extends JPanel implements Runnable{
     
     LifePoints lifepoints = new LifePoints(this);
     ImageIcon[] Map = {new ImageIcon("Play/src/images/ennemies/tile.png")};
-    ImageIcon[] medalIcons = {new ImageIcon("filepathgold"),
-    new ImageIcon("filepathsilver"),
-    new ImageIcon("filepathbronze"),
+    ImageIcon[] medalIcons = {new ImageIcon("play/src/model/or.jpeg"),
+    new ImageIcon("play/src/model/argent.jpeg"),
+    new ImageIcon("play/src/model/bronze.jpeg"),
 };
     
  
@@ -222,6 +222,7 @@ public class Interface extends JPanel implements Runnable{
         damage_Lutin=persoPrincipal.damage_Lutin;
 
     }
+    
      private ImageIcon[] flags = {
         new ImageIcon(getClass().getResource("/images/flags/flagblue.jpeg")),
         new ImageIcon(getClass().getResource("/images/flags/flaggreen.jpeg")),
@@ -461,24 +462,77 @@ public class Interface extends JPanel implements Runnable{
        
         game = null;
     }}
-    if (gamestatestring == "score") {
-        this.requestFocusInWindow(); // Add this line to ensure the panel has focus
+    if (gamestatestring.equals("score")) {
+        this.requestFocusInWindow(); // Assurez-vous que le panneau a le focus
         List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
-        
+
         g2.setColor(Color.WHITE);
-        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-        
-        // Draw only the top three players
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 20));  // <-- Ajustez la taille du texte ici
+
         int numPlayersToDraw = Math.min(3, best3players.size());
+        String[][] playerNames = new String[numPlayersToDraw][2];
+        double[][] playerTimes = new double[numPlayersToDraw][2];
         for (int i = 0; i < numPlayersToDraw; i++) {
-            String playerName = (String) best3players.get(i)[0];
-            double playertime = (double) best3players.get(i)[1];
-            g2.drawString(playerName, 100, 100 + i * 150);
-            g2.drawString(dFormat.format(playertime), 500, 100 + i * 150);
-            // Adjust Y-coordinate for each name
+            playerNames[i][0] = (String) best3players.get(i)[0];
+            playerTimes[i][0] = (double) best3players.get(i)[1];
+        }
+
+        int centerX = getWidth() / 2;
+        int medalY = 100;
+        int nameY = 300;
+
+        for (int i = 0; i < numPlayersToDraw; i++) {
+            String playerName = playerNames[i][0];
+            double playertime = playerTimes[i][0];
+
+            ImageIcon medalIcon = null;
+            int medalX = centerX - medalIcons[0].getIconWidth() / 2;
+            if (i == 0) {
+                medalIcon = medalIcons[0];
+            } else if (i == 1) {
+                medalIcon = medalIcons[1];
+                medalX -= 200;
+            } else if (i == 2) {
+                medalIcon = medalIcons[2];
+                medalX += 200;
+            }
+            g2.drawImage(medalIcon.getImage(), medalX, medalY + i * 100, null);
+
+            // Diminuer la taille du texte ici
+            g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 14));
+            int playerNameWidth = g2.getFontMetrics().stringWidth(playerName);
+            g2.drawString(playerName, centerX - playerNameWidth / 2, nameY + i * 100);
+
+            // Centrer le score à côté du nom
+            int scoreX = centerX - playerNameWidth / 2 + playerNameWidth + 10; // Ajustez l'espacement ici
+            g2.drawString(dFormat.format(playertime), scoreX, nameY + i * 100);
+
+            if (i == 1) {
+                // Décaler le deuxième nom sous l'image de la médaille en argent
+                int secondNameY = medalY + medalIcons[1].getIconHeight() + 10;
+                g2.drawString(playerName, medalX + medalIcons[1].getIconWidth() / 2 - playerNameWidth / 2, secondNameY);
+            } else if (i == 2) {
+                // Décaler le troisième nom sous l'image de la médaille de bronze
+                int thirdNameY = medalY + medalIcons[2].getIconHeight() + 10;
+                g2.drawString(playerName, medalX + medalIcons[2].getIconWidth() / 2 - playerNameWidth / 2, thirdNameY);
+            }
         }
     }
-   /* if (gamestatestring=="rules"){
+        /*for (int i = 0; i < numPlayersToDraw; i++) {
+            String playerName = playerNames[i][0];
+            double playertime = playerTimes[i][0];
+
+            // Dessiner la médaille correspondante
+            ImageIcon medalIcon = null;
+            if (i == 0) {
+                medalIcon = medalIcons[0];  // Médaille d'or
+            } else if (i == 1) {
+                medalIcon = medalIcons[1];  // Médaille d'argent
+            } else if (i == 2) {
+                medalIcon = medalIcons[2];  // Médaille de bronze
+            }
+    }*/
+      if (gamestatestring=="rules"){
     	
     	    ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
 
@@ -486,7 +540,7 @@ public class Interface extends JPanel implements Runnable{
     	    g2.drawImage(rulesImage.getImage(), 100, 100, null);
     	
 
-    }*/
+    }
     if(gamestatestring=="attente"){
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
         g2.drawString("YOU WON", 400, 400);

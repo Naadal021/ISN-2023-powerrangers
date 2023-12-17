@@ -462,62 +462,51 @@ public class Interface extends JPanel implements Runnable{
        
         game = null;
     }}
-    if (gamestatestring.equals("score")) {
-        this.requestFocusInWindow(); // Assurez-vous que le panneau a le focus
+    if (gamestatestring == "score") {
+        this.requestFocusInWindow(); // Add this line to ensure the panel has focus
         List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
-
+        
         g2.setColor(Color.WHITE);
-        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 20));  // <-- Ajustez la taille du texte ici
-
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
+        
+        // Draw only the top three players
         int numPlayersToDraw = Math.min(3, best3players.size());
         String[][] playerNames = new String[numPlayersToDraw][2];
         double[][] playerTimes = new double[numPlayersToDraw][2];
         for (int i = 0; i < numPlayersToDraw; i++) {
             playerNames[i][0] = (String) best3players.get(i)[0];
             playerTimes[i][0] = (double) best3players.get(i)[1];
+            
+            // Adjust Y-coordinate for each name
         }
+        String goldname=playerNames[0][0];
+        String silvername=playerNames[1][0];
+        String bronzename=playerNames[2][0];
+        double goldscore= playerTimes[0][0];
+        double silverscore= playerTimes[1][0];
+        double bronzescore= playerTimes[2][0];
+     
+        g2.drawImage(medalIcons[0].getImage(),650,00,null);
+        g2.drawImage(medalIcons[1].getImage(),300,200,null);
+        g2.drawImage(medalIcons[2].getImage(),1250,400,null);
+           g2.drawString(goldname, 600, 300 );
+        g2.drawString(dFormat.format(goldscore),800,300);
+         g2.drawString(silvername, 200, 500 );
+         g2.drawString(dFormat.format(silverscore),400,500);
+          g2.drawString(bronzename, 1200, 700 );
+         g2.drawString(dFormat.format(bronzescore),1350,700);
 
-        int centerX = getWidth() / 2;
-        int medalY = 100;
-        int nameY = 300;
+    
 
-        for (int i = 0; i < numPlayersToDraw; i++) {
-            String playerName = playerNames[i][0];
-            double playertime = playerTimes[i][0];
 
-            ImageIcon medalIcon = null;
-            int medalX = centerX - medalIcons[0].getIconWidth() / 2;
-            if (i == 0) {
-                medalIcon = medalIcons[0];
-            } else if (i == 1) {
-                medalIcon = medalIcons[1];
-                medalX -= 200;
-            } else if (i == 2) {
-                medalIcon = medalIcons[2];
-                medalX += 200;
-            }
-            g2.drawImage(medalIcon.getImage(), medalX, medalY + i * 100, null);
-
-            // Diminuer la taille du texte ici
-            g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 14));
-            int playerNameWidth = g2.getFontMetrics().stringWidth(playerName);
-            g2.drawString(playerName, centerX - playerNameWidth / 2, nameY + i * 100);
-
-            // Centrer le score à côté du nom
-            int scoreX = centerX - playerNameWidth / 2 + playerNameWidth + 10; // Ajustez l'espacement ici
-            g2.drawString(dFormat.format(playertime), scoreX, nameY + i * 100);
-
-            if (i == 1) {
-                // Décaler le deuxième nom sous l'image de la médaille en argent
-                int secondNameY = medalY + medalIcons[1].getIconHeight() + 10;
-                g2.drawString(playerName, medalX + medalIcons[1].getIconWidth() / 2 - playerNameWidth / 2, secondNameY);
-            } else if (i == 2) {
-                // Décaler le troisième nom sous l'image de la médaille de bronze
-                int thirdNameY = medalY + medalIcons[2].getIconHeight() + 10;
-                g2.drawString(playerName, medalX + medalIcons[2].getIconWidth() / 2 - playerNameWidth / 2, thirdNameY);
-            }
-        }
+       
     }
+
+
+
+        
+           
+    
         /*for (int i = 0; i < numPlayersToDraw; i++) {
             String playerName = playerNames[i][0];
             double playertime = playerTimes[i][0];

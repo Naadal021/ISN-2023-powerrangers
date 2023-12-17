@@ -22,7 +22,7 @@ import java.util.Comparator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -154,9 +154,32 @@ public class Interface extends JPanel implements Runnable{
             
         });
         add(scorebutton);
-         
+        /*JButton rulesButton = new JButton("Rules");
+        rulesButton.setFont(Alkhemikal.deriveFont(Font.PLAIN, 40));
+        rulesButton.setPreferredSize(new Dimension(150, 50));
+        rulesButton.setBounds(650, 600, 150, 50);
+
+        rulesButton.addActionListener(e -> {
+            gamestatestring = "rules";
+            repaint();
+        });
+
+        add(rulesButton);*/
+        JButton rulesButton = new JButton("Rules");
+        rulesButton.setFont(Alkhemikal.deriveFont(Font.PLAIN, 40));
+        rulesButton.setPreferredSize(new Dimension(150, 50));
+        rulesButton.setBounds(650, 600, 150, 50);
+
+        rulesButton.addActionListener(e -> {
+            ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
+            new RulesWindow(rulesImage);
+        });
+
+        add(rulesButton);
+
+
     }
-    
+        
     public void startGame(){
     	this.requestFocusInWindow();
         game=new Thread(this);
@@ -455,7 +478,15 @@ public class Interface extends JPanel implements Runnable{
             // Adjust Y-coordinate for each name
         }
     }
-    if (gamestatestring=="rules"){}
+   /* if (gamestatestring=="rules"){
+    	
+    	    ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
+
+    	    // Dessiner l'image
+    	    g2.drawImage(rulesImage.getImage(), 100, 100, null);
+    	
+
+    }*/
     if(gamestatestring=="attente"){
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
         g2.drawString("YOU WON", 400, 400);

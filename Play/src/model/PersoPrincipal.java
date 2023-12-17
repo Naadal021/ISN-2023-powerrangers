@@ -61,6 +61,7 @@ public class PersoPrincipal extends Mov {
 	public int damage_Ogre;
 	public int damage_Mage;
 	public int damage_Lutin;
+	public int a=0;
 
 	Interface inter; 
 	KeyHandler keyH;
@@ -231,10 +232,12 @@ public class PersoPrincipal extends Mov {
 	public void interactDemon(int index ) {
 		tempscompteur++;
 		if (index != 999 ) {
-			String color = getcolor(); // Assuming you have a method to get the color
+			String color = getcolor();// Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
-					if(color=="red"){
+				a=1;
+					if(color=="red" && inter.flagred>0 ){
+					inter.flagred-=(double)1/60;
 					inter.Demon.setDeathValues();
 					damage_Demon++;
 					}

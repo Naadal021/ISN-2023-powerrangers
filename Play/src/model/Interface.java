@@ -90,6 +90,7 @@ public class Interface extends JPanel implements Runnable{
   
     
     double playtime;
+    double flagred = 30;
     private JButton scorebutton;
     private JTextField usernameField;
     
@@ -410,6 +411,9 @@ public class Interface extends JPanel implements Runnable{
         playtime+=(double)1/60;
         g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
         }
+        if(flagred>0 && persoPrincipal.a==1){
+            g2.drawString("Time to kill: "+dFormat.format(flagred), 0,600);
+            }
         
         
         lifepoints.draw(g2,c);

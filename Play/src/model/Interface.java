@@ -22,7 +22,7 @@ import java.util.Comparator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -77,9 +77,9 @@ public class Interface extends JPanel implements Runnable{
     
     LifePoints lifepoints = new LifePoints(this);
     ImageIcon[] Map = {new ImageIcon("Play/src/images/ennemies/tile.png")};
-    ImageIcon[] medalIcons = {new ImageIcon("filepathgold"),
-    new ImageIcon("filepathsilver"),
-    new ImageIcon("filepathbronze"),
+    ImageIcon[] medalIcons = {new ImageIcon("play/src/model/or.jpeg"),
+    new ImageIcon("play/src/model/argent.jpeg"),
+    new ImageIcon("play/src/model/bronze.jpeg"),
 };
     
  
@@ -155,9 +155,32 @@ public class Interface extends JPanel implements Runnable{
             
         });
         add(scorebutton);
-         
+        /*JButton rulesButton = new JButton("Rules");
+        rulesButton.setFont(Alkhemikal.deriveFont(Font.PLAIN, 40));
+        rulesButton.setPreferredSize(new Dimension(150, 50));
+        rulesButton.setBounds(650, 600, 150, 50);
+
+        rulesButton.addActionListener(e -> {
+            gamestatestring = "rules";
+            repaint();
+        });
+
+        add(rulesButton);*/
+        JButton rulesButton = new JButton("Rules");
+        rulesButton.setFont(Alkhemikal.deriveFont(Font.PLAIN, 40));
+        rulesButton.setPreferredSize(new Dimension(150, 50));
+        rulesButton.setBounds(650, 600, 150, 50);
+
+        rulesButton.addActionListener(e -> {
+            ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
+            new RulesWindow(rulesImage);
+        });
+
+        add(rulesButton);
+
+
     }
-    
+        
     public void startGame(){
     	this.requestFocusInWindow();
         game=new Thread(this);
@@ -200,6 +223,7 @@ public class Interface extends JPanel implements Runnable{
         damage_Lutin=persoPrincipal.damage_Lutin;
 
     }
+    
      private ImageIcon[] flags = {
         new ImageIcon(getClass().getResource("/images/flags/flagblue.jpeg")),
         new ImageIcon(getClass().getResource("/images/flags/flaggreen.jpeg")),
@@ -447,19 +471,69 @@ public class Interface extends JPanel implements Runnable{
         List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
         
         g2.setColor(Color.WHITE);
-        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
         
         // Draw only the top three players
         int numPlayersToDraw = Math.min(3, best3players.size());
+        String[][] playerNames = new String[numPlayersToDraw][2];
+        double[][] playerTimes = new double[numPlayersToDraw][2];
         for (int i = 0; i < numPlayersToDraw; i++) {
-            String playerName = (String) best3players.get(i)[0];
-            double playertime = (double) best3players.get(i)[1];
-            g2.drawString(playerName, 100, 100 + i * 150);
-            g2.drawString(dFormat.format(playertime), 500, 100 + i * 150);
+            playerNames[i][0] = (String) best3players.get(i)[0];
+            playerTimes[i][0] = (double) best3players.get(i)[1];
+            
             // Adjust Y-coordinate for each name
         }
+        String goldname=playerNames[0][0];
+        String silvername=playerNames[1][0];
+        String bronzename=playerNames[2][0];
+        double goldscore= playerTimes[0][0];
+        double silverscore= playerTimes[1][0];
+        double bronzescore= playerTimes[2][0];
+     
+        g2.drawImage(medalIcons[0].getImage(),650,00,null);
+        g2.drawImage(medalIcons[1].getImage(),300,200,null);
+        g2.drawImage(medalIcons[2].getImage(),1250,400,null);
+           g2.drawString(goldname, 600, 300 );
+        g2.drawString(dFormat.format(goldscore),800,300);
+         g2.drawString(silvername, 200, 500 );
+         g2.drawString(dFormat.format(silverscore),400,500);
+          g2.drawString(bronzename, 1200, 700 );
+         g2.drawString(dFormat.format(bronzescore),1350,700);
+
+    
+
+
+       
     }
-    if (gamestatestring=="rules"){}
+
+
+
+        
+           
+    
+        /*for (int i = 0; i < numPlayersToDraw; i++) {
+            String playerName = playerNames[i][0];
+            double playertime = playerTimes[i][0];
+
+            // Dessiner la médaille correspondante
+            ImageIcon medalIcon = null;
+            if (i == 0) {
+                medalIcon = medalIcons[0];  // Médaille d'or
+            } else if (i == 1) {
+                medalIcon = medalIcons[1];  // Médaille d'argent
+            } else if (i == 2) {
+                medalIcon = medalIcons[2];  // Médaille de bronze
+            }
+    }*/
+      if (gamestatestring=="rules"){
+    	
+    	    ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
+
+    	    // Dessiner l'image
+    	    g2.drawImage(rulesImage.getImage(), 100, 100, null);
+    	
+
+    }
     if(gamestatestring=="attente"){
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
         g2.drawString("YOU WON", 400, 400);

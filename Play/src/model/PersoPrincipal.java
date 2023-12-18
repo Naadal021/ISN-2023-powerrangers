@@ -58,9 +58,9 @@ public class PersoPrincipal extends Mov {
 	private String Currentdirection;
 	public int tempscompteur=0;
 	public int damage_points ;
-	public int damage_Demon;
+	public int damage_Demon=0;
 	public int damage_Ogre;
-	public int damage_Mage;
+	public int damage_Mage=0;
 	public int damage_Lutin;
 	public int a=0;
 	public int a1=0;

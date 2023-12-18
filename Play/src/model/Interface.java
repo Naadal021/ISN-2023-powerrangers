@@ -52,7 +52,7 @@ public class Interface extends JPanel implements Runnable{
     public final int screenHeight=titleSize*maxscreenRow;
     int damage_points;
     int damage_Demon;
-    int damage_Mage;
+    int damage_Mage=0;
     int damage_Lutin;
     int damage_Ogre;
     Font Alkhemikal;
@@ -314,6 +314,9 @@ public class Interface extends JPanel implements Runnable{
         playtime=0;
         persoPrincipal.transferAndEmpty(); // Reset game state if needed
         // Additional reset logic goes here if necessary
+        if(game==null){
+            startGame();
+        }
         repaint();
     }
 
@@ -432,6 +435,7 @@ public class Interface extends JPanel implements Runnable{
    
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
+    getdamage();
     
     if (gamestatestring=="null"){
         
@@ -459,6 +463,24 @@ public class Interface extends JPanel implements Runnable{
     this.requestFocusInWindow();
         
     tileM.draw(g2);
+     g2.setColor(Color.WHITE);
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
+    if(persoPrincipal.getcolor()=="red"&& flagred>0){
+            g2.drawImage(flagIcons[2].getImage(),0,560,50,50,null);
+            g2.drawString(" : "+dFormat.format(flagred), 60,600);
+            }
+        else if(persoPrincipal.getcolor()=="green"&& flaggreen>0){
+             g2.drawImage(flagIcons[1].getImage(),0,560,50,50,null);
+            g2.drawString(" : "+dFormat.format(flaggreen), 60,600);
+            }
+        else if(persoPrincipal.getcolor()=="blue"&& flagblue>0){
+             g2.drawImage(flagIcons[0].getImage(),0,560,50,50,null);
+            g2.drawString(" : "+dFormat.format(flagblue), 60,600);
+            }
+        else if(persoPrincipal.getcolor()=="yellow"&& flagyellow>0){
+             g2.drawImage(flagIcons[3].getImage(),0,560,50,50,null);
+            g2.drawString(" : "+dFormat.format(flagyellow), 60,600);
+            }
     if (damage_points < 3) {
         
        
@@ -475,55 +497,41 @@ public class Interface extends JPanel implements Runnable{
         Mage.draw(g2);
         Ogre.draw(g2);
 
-        g2.setColor(Color.WHITE);
-        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
+       
         if(!gamewon){
         playtime+=(double)1/60;
         g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
         }
-        if(persoPrincipal.getcolor()=="red"&& flagred>0){
-            g2.drawImage(flagIcons[2].getImage(),0,560,50,50,null);
-            g2.drawString(" : "+dFormat.format(flagred), 60,600);
-            }
-        else if(persoPrincipal.getcolor()=="green"&& flaggreen>0){
-             g2.drawImage(flagIcons[1].getImage(),0,560,50,50,null);
-            g2.drawString(" : "+dFormat.format(flaggreen), 60,600);
-            }
-        else if(persoPrincipal.getcolor()=="blue"&& flagblue>0){
-             g2.drawImage(flagIcons[0].getImage(),0,560,50,50,null);
-            g2.drawString(" : "+dFormat.format(flagblue), 60,600);
-            }
-        else if(persoPrincipal.getcolor()=="yellow"&& flagyellow>0){
-             g2.drawImage(flagIcons[3].getImage(),0,560,50,50,null);
-            g2.drawString(" : "+dFormat.format(flagyellow), 60,600);
-            }
+        
         
         
         lifepoints.draw(g2,damage_points);
         if(damage_Demon>=1 && damage_Mage>=1 && damage_Lutin>=1 && damage_Ogre>=1){
             
-            
-            g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-    
-            g2.drawString(getuserName()+" WON", 400, 400);
-            
-             g2.drawString("IN "+dFormat.format(playtime), 550, 500);
-             writeScoreToFile("Play/src/model/Scores.txt", getuserName(), playtime);
+           
              gamewon=true;
              gamestatestring="attente";
         
            
 
         }
-    } else {
-        
+        if((damage_Mage==0 && flagblue<0)||(damage_Ogre==0 && flaggreen<0)||(damage_Demon==0&&flagred<0)||(damage_Lutin==0 && flagyellow<0)) {
+      
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-        
+    
         g2.drawString("Game Over", 400, 400);
-       
+        game=null;
+        }
+    } else  {
+        g2.setColor(Color.WHITE);
+        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+    
+        g2.drawString("Game Over", 400, 400);
+    
         game = null;
-    }}
+    }
+    
     if (gamestatestring == "score") {
         this.requestFocusInWindow(); // Add this line to ensure the panel has focus
         List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
@@ -551,39 +559,13 @@ public class Interface extends JPanel implements Runnable{
         g2.drawImage(medalIcons[0].getImage(),650,00,null);
         g2.drawImage(medalIcons[1].getImage(),300,200,null);
         g2.drawImage(medalIcons[2].getImage(),1250,400,null);
-           g2.drawString(goldname, 600, 300 );
+        g2.drawString(goldname, 600, 300 );
         g2.drawString(dFormat.format(goldscore),800,300);
-         g2.drawString(silvername, 200, 500 );
-         g2.drawString(dFormat.format(silverscore),400,500);
-          g2.drawString(bronzename, 1200, 700 );
-         g2.drawString(dFormat.format(bronzescore),1350,700);
-
-    
-
-
-       
-    }
-
-
-
-        
-           
-    
-        /*for (int i = 0; i < numPlayersToDraw; i++) {
-            String playerName = playerNames[i][0];
-            double playertime = playerTimes[i][0];
-
-            // Dessiner la médaille correspondante
-            ImageIcon medalIcon = null;
-            if (i == 0) {
-                medalIcon = medalIcons[0];  // Médaille d'or
-            } else if (i == 1) {
-                medalIcon = medalIcons[1];  // Médaille d'argent
-            } else if (i == 2) {
-                medalIcon = medalIcons[2];  // Médaille de bronze
-            }
-    }*/
-      if (gamestatestring=="rules"){
+        g2.drawString(silvername, 200, 500 );
+        g2.drawString(dFormat.format(silverscore),400,500);
+        g2.drawString(bronzename, 1200, 700 );
+        g2.drawString(dFormat.format(bronzescore),1350,700);}
+         if (gamestatestring=="rules"){
     	
     	    ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
 
@@ -602,7 +584,7 @@ public class Interface extends JPanel implements Runnable{
         g2.drawString("PRESS B TO RESTART", 300, 100);
     }
     
-
     g2.dispose();
     }
+}
 }

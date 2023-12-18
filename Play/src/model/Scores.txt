@@ -4,6 +4,8 @@ peach 32,60
 prevasive 43,63
 premed 30,05
 miaw 34,80
-polo 10
 p 33,85
 
+Enter Username press enter  39,90
+hamza1  33,33
+hamza2 42,88

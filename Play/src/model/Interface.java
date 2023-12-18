@@ -286,7 +286,7 @@ public class Interface extends JPanel implements Runnable{
     public void restartGame() {
         this.requestFocusInWindow();
         boules.clear(); // Clear the current state of boules
-        boules.addAll(originalBoules); // Restore the original state of boules
+        spawnBoules(); // Restore the original state of boules
         gamestatestring = "null";
         persoPrincipal.setDefaultValues();
         Demon.x=1200;
@@ -338,8 +338,7 @@ public class Interface extends JPanel implements Runnable{
  
              Boule boule = new Boule(x, y);
             boules.add(boule);
-            originalBoules.add(boule);
-            
+           
     }
 }
 
@@ -465,6 +464,7 @@ public class Interface extends JPanel implements Runnable{
        
 
         for (Boule boule : boules) {
+            
             boule.draw(g2);
         }
         
@@ -505,7 +505,7 @@ public class Interface extends JPanel implements Runnable{
             
             g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
     
-            g2.drawString("YOU WON", 400, 400);
+            g2.drawString(getuserName()+" WON", 400, 400);
             
              g2.drawString("IN "+dFormat.format(playtime), 550, 500);
              writeScoreToFile("Play/src/model/Scores.txt", getuserName(), playtime);
@@ -596,10 +596,10 @@ public class Interface extends JPanel implements Runnable{
          tileM.draw(g2);
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
-        g2.drawString("YOU WON", 500, 400);
+        g2.drawString(getuserName()+ " WON", 500, 400);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
         g2.drawString("IN "+dFormat.format(playtime), 550, 500);
-        g2.drawString("PRESS B TO RESTART", 500, 0);
+        g2.drawString("PRESS B TO RESTART", 300, 100);
     }
     
 

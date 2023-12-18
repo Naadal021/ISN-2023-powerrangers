@@ -52,7 +52,7 @@ public class Interface extends JPanel implements Runnable{
     public final int screenHeight=titleSize*maxscreenRow;
     int damage_points;
     int damage_Demon;
-    int damage_Mage=0;
+    int damage_Mage;
     int damage_Lutin;
     int damage_Ogre;
     Font Alkhemikal;
@@ -67,35 +67,35 @@ public class Interface extends JPanel implements Runnable{
    
     //FPS = FRAME PER SECOND
     int FPS =60;
-    private static final int NOMBRE_DE_BOULES = 4; 
+    private static final int NOMBRE_DE_BOULES = 4;
     KeyHandler keyH=new KeyHandler();
     public CollisionChecker cChecker=new CollisionChecker(this);
     public PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
     private String gamestatestring="null";
-    private List<Boule> originalBoules = new ArrayList<>(); 
+    private List<Boule> originalBoules = new ArrayList<>();
 
-  
+ 
     Ennemi Demon = new Ennemi(this,"Demon",1200,150,2,3,18,42,30,titleSize +25);
     Ennemi Ogre = new Ennemi(this,"Ogre",1000,600,2,3,18,42,30,titleSize +25);
     Ennemi Lutin = new Ennemi(this,"Lutin",400,380,2,3,18,42,30,titleSize +5);
     Ennemi Mage = new Ennemi(this,"Mage",600,100,2,3,18,42,30,titleSize +5);
-  
-    
+ 
+   
     LifePoints lifepoints = new LifePoints(this);
    
     ImageIcon[] medalIcons = {new ImageIcon("play/src/model/or.jpeg"),
     new ImageIcon("play/src/model/argent.jpeg"),
     new ImageIcon("play/src/model/bronze.jpeg"),
 };
-    
+   
  
-    
+   
     private List<Boule> boules = new ArrayList<>();
      private List<Boule> boule_temp = new ArrayList<>();
     private Random random = new Random();
-    
-    
-    
+   
+   
+   
     double playtime;
      double flagred = 30;
     double flaggreen=30;
@@ -103,16 +103,16 @@ public class Interface extends JPanel implements Runnable{
      double flagyellow=30;
     private JButton scorebutton;
     private JTextField usernameField;
-    
+   
 
     public static String USERNAME="";
     private boolean gamewon=false;
-    
-    
+   
+   
     public static String getuserName() {
-    	return USERNAME;
+    return USERNAME;
     }
-    public Interface(){ 
+    public Interface(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -127,8 +127,8 @@ public class Interface extends JPanel implements Runnable{
                 }
             }
         });
-        
-        
+       
+       
         // Load custom font
         try {
             InputStream is = getClass().getResourceAsStream("/model/Alkhemikal.ttf");
@@ -162,8 +162,8 @@ public class Interface extends JPanel implements Runnable{
         scorebutton.setPreferredSize(new Dimension(150, 50));
         scorebutton.setBounds(650, 550, 150, 50);
         scorebutton.addActionListener(e -> {
-        	gamestatestring = "score";
-            
+        gamestatestring = "score";
+           
         });
         add(scorebutton);
         /*JButton rulesButton = new JButton("Rules");
@@ -191,9 +191,9 @@ public class Interface extends JPanel implements Runnable{
 
 
     }
-        
+       
     public void startGame(){
-    	this.requestFocusInWindow();
+    this.requestFocusInWindow();
         game=new Thread(this);
         game.start();
     }
@@ -234,7 +234,7 @@ public class Interface extends JPanel implements Runnable{
         damage_Lutin=persoPrincipal.damage_Lutin;
 
     }
-    
+   
      private ImageIcon[] flags = {
         new ImageIcon(getClass().getResource("/images/flags/flagblue.jpeg")),
         new ImageIcon(getClass().getResource("/images/flags/flaggreen.jpeg")),
@@ -249,40 +249,40 @@ public class Interface extends JPanel implements Runnable{
         return Arrays.asList(flags);
     }
     public void run(){
-    	double drawInterval =1000000000/FPS;
-    	double delta=0;
-    	long lastTime = System.nanoTime();
-    	long currentTime;
-    	long timer=0;
-    	int drawCount=0;
-    	spawnBoules();
-    	while(game !=null) {
-    		currentTime = System.nanoTime();
-    		delta+=(currentTime-lastTime)/drawInterval;
-    		timer+=(currentTime-lastTime);
-    		lastTime=currentTime;
-    		if (delta>=1) {
-    			update();
-    			//spawnBoules(); // Générer aléatoirement des boules  //en cmnt car elle genere 5 fois les boules alea et moi je veux que une seule fois
-    			repaint();
-    			delta--;
-    			drawCount++;
-    		}
-    		if (timer>=1000000000) {
-    			//System.out.println("FPS:"+drawCount);
-    			drawCount=0;
-    			timer=0;
-    		} 
-    		try {
+    double drawInterval =1000000000/FPS;
+    double delta=0;
+    long lastTime = System.nanoTime();
+    long currentTime;
+    long timer=0;
+    int drawCount=0;
+    spawnBoules();
+    while(game !=null) {
+    currentTime = System.nanoTime();
+    delta+=(currentTime-lastTime)/drawInterval;
+    timer+=(currentTime-lastTime);
+    lastTime=currentTime;
+    if (delta>=1) {
+    update();
+    //spawnBoules(); // Générer aléatoirement des boules  //en cmnt car elle genere 5 fois les boules alea et moi je veux que une seule fois
+    repaint();
+    delta--;
+    drawCount++;
+    }
+    if (timer>=1000000000) {
+    //System.out.println("FPS:"+drawCount);
+    drawCount=0;
+    timer=0;
+    }
+    try {
                 Thread.sleep(1); // Ajoutez une pause d'1 milliseconde pour éviter une boucle trop rapide.
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-    	}
-        
+    }
+       
     }
    
-  
+ 
     public void restartGame() {
         this.requestFocusInWindow();
         boules.clear(); // Clear the current state of boules
@@ -319,18 +319,16 @@ public class Interface extends JPanel implements Runnable{
         }
         repaint();
     }
-
-    
     private void spawnBoules() {
-    	
+   
         if (boules != null) {
             boules = new ArrayList<>();
         }
 
         int tileX, tileY;
-        
+       
         for (int i = 0; i < NOMBRE_DE_BOULES; i++) {
-          
+         
             do {
                  // x et y alea de tile
                  tileX = random.nextInt(maxScreenCol);
@@ -367,10 +365,10 @@ public class Interface extends JPanel implements Runnable{
         boules.remove(boule);
         boule_temp.add(boule);
     }
-    
+   
     public void play(){
         USERNAME = usernameField.getText(); // Retrieve the username when the game starts
-        
+       
         this.requestFocusInWindow();
     }
     private static void writeScoreToFile(String filePath, String playerName, double playtime) {
@@ -387,7 +385,7 @@ public class Interface extends JPanel implements Runnable{
             e.printStackTrace();
         }
     }
-    public void update(){ 
+    public void update(){
      
         updateCompteur();
         getdamage();
@@ -395,13 +393,13 @@ public class Interface extends JPanel implements Runnable{
         Demon.update();
         Lutin.update();
         Mage.update();
-    	Ogre.update();
+    Ogre.update();
      
     }
     public static void replaceCommaWithDot(String filePath) {
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
                  BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + "_temp"))) {
-    
+   
                 String line;
                 while ((line = reader.readLine()) != null) {
                     // Replace ',' with '.'
@@ -409,63 +407,82 @@ public class Interface extends JPanel implements Runnable{
                     writer.write(line);
                     writer.newLine(); // Add a newline character to separate lines
                 }
-    
+   
             } catch (IOException e) {
                 e.printStackTrace();
             }
-    
+   
             // Rename the temporary file to the original file
             renameFile(filePath + "_temp", filePath);
         }
-    
+   
     private static void renameFile(String oldFilePath, String newFilePath) {
             // Rename the temporary file to the original file
             java.io.File oldFile = new java.io.File(oldFilePath);
             java.io.File newFile = new java.io.File(newFilePath);
-    
+   
             if (oldFile.renameTo(newFile)) {
                 System.out.println("File renamed successfully.");
             } else {
                 System.err.println("Failed to rename the file.");
             }
         }
-    
+   
     @Override
    public void paintComponent(Graphics g) {
    
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
-    getdamage();
-    
+   
     if (gamestatestring=="null"){
-        
+       
         g2.setColor(Color.WHITE);
       g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
         g2.drawString("FlagQuest", 400, 400);
-            ImageIcon[] imageIcon = {new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"), 
-         		new ImageIcon("Play/src/images/ennemies/big_demon_run_anim_f00.png"),
-        		new ImageIcon("Play/src/images/ennemies/elf_m_run_anim_f00.png"),
-         		new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f00.png"),
-         		new ImageIcon("Play/src/images/ennemies/ogre_run_anim_f00.png")
+            ImageIcon[] imageIcon = {new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f1.png"),
+          new ImageIcon("Play/src/images/ennemies/big_demon_run_anim_f00.png"),
+        new ImageIcon("Play/src/images/ennemies/elf_m_run_anim_f00.png"),
+          new ImageIcon("Play/src/images/ennemies/knight_f_run_anim_f00.png"),
+          new ImageIcon("Play/src/images/ennemies/ogre_run_anim_f00.png")
          };
-        
+       
         g2.drawImage(imageIcon[0].getImage(), 550, 150, 100, 100, null);
         g2.drawImage(imageIcon[1].getImage(), 750, 150, 100, 100, null);
         g2.drawImage(imageIcon[2].getImage(), 850, 150, 100, 100, null);
         g2.drawImage(imageIcon[3].getImage(), 950, 150, 100, 100, null);
         g2.drawImage(imageIcon[4].getImage(), 1050, 150, 100, 100, null);
-  
+ 
         return;
 
     }
-    
+   
     if (gamestatestring=="play"){
     this.requestFocusInWindow();
-        
+       
     tileM.draw(g2);
-     g2.setColor(Color.WHITE);
+    if (damage_points < 3) {
+       
+       
+
+        for (Boule boule : boules) {
+           
+            boule.draw(g2);
+        }
+       
+        persoPrincipal.draw(g2);
+        Demon.draw(g2);
+       
+        Lutin.draw(g2);
+        Mage.draw(g2);
+        Ogre.draw(g2);
+
+        g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
-    if(persoPrincipal.getcolor()=="red"&& flagred>0){
+        if(!gamewon){
+        playtime+=(double)1/60;
+        g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
+        }
+        if(persoPrincipal.getcolor()=="red"&& flagred>0){
             g2.drawImage(flagIcons[2].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flagred), 60,600);
             }
@@ -481,64 +498,50 @@ public class Interface extends JPanel implements Runnable{
              g2.drawImage(flagIcons[3].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flagyellow), 60,600);
             }
-    if (damage_points < 3) {
-        
        
-
-        for (Boule boule : boules) {
-            
-            boule.draw(g2);
-        }
-        
-        persoPrincipal.draw(g2);
-        Demon.draw(g2);
        
-        Lutin.draw(g2);
-        Mage.draw(g2);
-        Ogre.draw(g2);
-
-       
-        if(!gamewon){
-        playtime+=(double)1/60;
-        g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
-        }
-        
-        
-        
         lifepoints.draw(g2,damage_points);
         if(damage_Demon>=1 && damage_Mage>=1 && damage_Lutin>=1 && damage_Ogre>=1){
-            
            
+           
+            g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+   
+            g2.drawString(getuserName()+" WON", 400, 400);
+           
+             g2.drawString("IN "+dFormat.format(playtime), 550, 500);
+             writeScoreToFile("Play/src/model/Scores.txt", getuserName(), playtime);
              gamewon=true;
              gamestatestring="attente";
-        
+       
            
 
         }
         if((damage_Mage==0 && flagblue<0)||(damage_Ogre==0 && flaggreen<0)||(damage_Demon==0&&flagred<0)||(damage_Lutin==0 && flagyellow<0)) {
       
+                g2.setColor(Color.WHITE);
+                g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
+            
+                g2.drawString("Game Over", 400, 400);
+                game=null;
+                }
+                
+
+    } else {
+       
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-    
+       
         g2.drawString("Game Over", 400, 400);
-        game=null;
-        }
-    } else  {
-        g2.setColor(Color.WHITE);
-        g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
-    
-        g2.drawString("Game Over", 400, 400);
-    
+       
         game = null;
-    }
-    
+    }}
     if (gamestatestring == "score") {
         this.requestFocusInWindow(); // Add this line to ensure the panel has focus
         List<Object[]> best3players = readScoreFile("Play/src/model/Scores.txt");
-        
+       
         g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 50));
-        
+       
         // Draw only the top three players
         int numPlayersToDraw = Math.min(3, best3players.size());
         String[][] playerNames = new String[numPlayersToDraw][2];
@@ -546,7 +549,7 @@ public class Interface extends JPanel implements Runnable{
         for (int i = 0; i < numPlayersToDraw; i++) {
             playerNames[i][0] = (String) best3players.get(i)[0];
             playerTimes[i][0] = (double) best3players.get(i)[1];
-            
+           
             // Adjust Y-coordinate for each name
         }
         String goldname=playerNames[0][0];
@@ -559,19 +562,45 @@ public class Interface extends JPanel implements Runnable{
         g2.drawImage(medalIcons[0].getImage(),650,00,null);
         g2.drawImage(medalIcons[1].getImage(),300,200,null);
         g2.drawImage(medalIcons[2].getImage(),1250,400,null);
-        g2.drawString(goldname, 600, 300 );
+           g2.drawString(goldname, 600, 300 );
         g2.drawString(dFormat.format(goldscore),800,300);
-        g2.drawString(silvername, 200, 500 );
-        g2.drawString(dFormat.format(silverscore),400,500);
-        g2.drawString(bronzename, 1200, 700 );
-        g2.drawString(dFormat.format(bronzescore),1350,700);}
-         if (gamestatestring=="rules"){
-    	
-    	    ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
+         g2.drawString(silvername, 200, 500 );
+         g2.drawString(dFormat.format(silverscore),400,500);
+          g2.drawString(bronzename, 1200, 700 );
+         g2.drawString(dFormat.format(bronzescore),1350,700);
 
-    	    // Dessiner l'image
-    	    g2.drawImage(rulesImage.getImage(), 100, 100, null);
-    	
+   
+
+
+       
+    }
+
+
+
+       
+           
+   
+        /*for (int i = 0; i < numPlayersToDraw; i++) {
+            String playerName = playerNames[i][0];
+            double playertime = playerTimes[i][0];
+
+            // Dessiner la médaille correspondante
+            ImageIcon medalIcon = null;
+            if (i == 0) {
+                medalIcon = medalIcons[0];  // Médaille d'or
+            } else if (i == 1) {
+                medalIcon = medalIcons[1];  // Médaille d'argent
+            } else if (i == 2) {
+                medalIcon = medalIcons[2];  // Médaille de bronze
+            }
+    }*/
+      if (gamestatestring=="rules"){
+   
+       ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
+
+       // Dessiner l'image
+       g2.drawImage(rulesImage.getImage(), 100, 100, null);
+   
 
     }
     if(gamestatestring=="attente"){
@@ -583,8 +612,8 @@ public class Interface extends JPanel implements Runnable{
         g2.drawString("IN "+dFormat.format(playtime), 550, 500);
         g2.drawString("PRESS B TO RESTART", 300, 100);
     }
-    
+   
+
     g2.dispose();
     }
-}
 }

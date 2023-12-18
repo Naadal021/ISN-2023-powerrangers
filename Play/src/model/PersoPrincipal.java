@@ -53,7 +53,7 @@ public class PersoPrincipal extends Mov {
 	private int currentFrame = 0;
 	private boolean isRunning = false;
 	private int animationDelay = 5; 
-	
+	public String coloString;
 	private String Currentdirection;
 	public int tempscompteur=0;
 	public int compteur ;

@@ -50,12 +50,17 @@ public class Interface extends JPanel implements Runnable{
     public final int maxscreenRow=26;
     public final int screenWidth = titleSize*maxScreenCol;
     public final int screenHeight=titleSize*maxscreenRow;
-    int c;
+    int damage_points;
     int damage_Demon;
     int damage_Mage;
     int damage_Lutin;
     int damage_Ogre;
     Font Alkhemikal;
+    private ImageIcon blue= new ImageIcon(getClass().getResource("/images/flags/flagblue.jpeg"));
+    private ImageIcon green =  new ImageIcon(getClass().getResource("/images/flags/flaggreen.jpeg"));
+    private  ImageIcon red=   new ImageIcon(getClass().getResource("/images/flags/flagred.jpeg"));
+    private   ImageIcon yellow=  new ImageIcon(getClass().getResource("/images/flags/flagyellow.jpeg"));
+    private ImageIcon[] flagIcons = {blue,green,red,yellow};
     Thread game;
     public TileManager tileM = new TileManager(this);
     DecimalFormat dFormat= new DecimalFormat("#0.00");
@@ -76,7 +81,7 @@ public class Interface extends JPanel implements Runnable{
   
     
     LifePoints lifepoints = new LifePoints(this);
-    ImageIcon[] Map = {new ImageIcon("Play/src/images/ennemies/tile.png")};
+   
     ImageIcon[] medalIcons = {new ImageIcon("play/src/model/or.jpeg"),
     new ImageIcon("play/src/model/argent.jpeg"),
     new ImageIcon("play/src/model/bronze.jpeg"),
@@ -217,7 +222,7 @@ public class Interface extends JPanel implements Runnable{
     return playerList;
 }
     public void updateCompteur() {
-        c = persoPrincipal.compteur;
+        damage_points = persoPrincipal.compteur;
     }
     public void damage(){
         damage_Demon=persoPrincipal.damage_Demon;
@@ -417,7 +422,7 @@ public class Interface extends JPanel implements Runnable{
     
     if (gamestatestring=="play"){
     tileM.draw(g2);
-    if (c < 3) {
+    if (damage_points < 3) {
         
        
 
@@ -438,21 +443,25 @@ public class Interface extends JPanel implements Runnable{
         playtime+=(double)1/60;
         g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
         }
-        if(flagred>0 && persoPrincipal.a==1){
-            g2.drawString("Time to kill red : "+dFormat.format(flagred), 0,600);
+        if(persoPrincipal.getcolor()=="red"){
+            g2.drawImage(flagIcons[2].getImage(),0,560,50,50,null);
+            g2.drawString(" : "+dFormat.format(flagred), 60,600);
             }
-        if(flaggreen>0 && persoPrincipal.a2==1){
-            g2.drawString("Time to kill green : "+dFormat.format(flaggreen), 0,650);
+        else if(persoPrincipal.getcolor()=="green"){
+             g2.drawImage(flagIcons[1].getImage(),0,560,50,50,null);
+            g2.drawString(" : "+dFormat.format(flaggreen), 60,600);
             }
-        if(flagblue>0 && persoPrincipal.a1==1){
-            g2.drawString("Time to kill blue : "+dFormat.format(flagblue), 0,700);
+        else if(persoPrincipal.getcolor()=="blue"){
+             g2.drawImage(flagIcons[0].getImage(),0,560,50,50,null);
+            g2.drawString(" : "+dFormat.format(flagblue), 60,600);
             }
-        if(flagyellow>0 && persoPrincipal.a3==1){
-            g2.drawString("Time to kill yellow : "+dFormat.format(flagyellow), 0,750);
+        else if(persoPrincipal.getcolor()=="yellow"){
+             g2.drawImage(flagIcons[3].getImage(),0,560,50,50,null);
+            g2.drawString(" : "+dFormat.format(flagyellow), 60,600);
             }
         
         
-        lifepoints.draw(g2,c);
+        lifepoints.draw(g2,damage_points);
         if(damage_Demon>=1 && damage_Mage>=1 && damage_Lutin>=1 && damage_Ogre>=1){
             
             

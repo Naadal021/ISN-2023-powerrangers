@@ -27,7 +27,7 @@ public class LifePoints{
        
     }
     public void updateCompteur() {
-      c = pp.compteur;
+      c = pp.damage_points;
       
   }
     

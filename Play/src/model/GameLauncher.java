@@ -9,7 +9,7 @@ public class GameLauncher {
     	JFrame window = new JFrame();
     	window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	window.setResizable(false);
-    	window.setTitle("PacRangers - User name: " + Interface.getuserName() + "!");
+    	window.setTitle("FlagQuest");
     	
     	window.add(pacrangers);
     	window.pack();

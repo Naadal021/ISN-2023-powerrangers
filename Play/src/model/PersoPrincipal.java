@@ -44,7 +44,8 @@ public class PersoPrincipal extends Mov {
 	        new ImageIcon("Play/src/images/sprites/dwarf_f_idle_anim_f30.png")
 	};
 
-	private static final List<String> flagList = new ArrayList<>(Arrays.asList("blue", "green", "red", "yellow"));
+	private  List<String> flagList = new ArrayList<>(Arrays.asList("blue", "green", "red", "yellow"));
+	private  List<String> flagList_temp = new ArrayList<>(Arrays.asList("blue", "green", "red", "yellow"));
 
  // Use a List instead of an array
 
@@ -56,7 +57,7 @@ public class PersoPrincipal extends Mov {
 	public String coloString;
 	private String Currentdirection;
 	public int tempscompteur=0;
-	public int compteur ;
+	public int damage_points ;
 	public int damage_Demon;
 	public int damage_Ogre;
 	public int damage_Mage;
@@ -160,8 +161,9 @@ public class PersoPrincipal extends Mov {
 				if (bouleIndex >= 0 && bouleIndex < flagList.size()) {
 					colorsList.add(flagList.get(bouleIndex));
 	
-					
+				
 					iterator.remove();
+					
 					flagList.remove(bouleIndex);
 	
 					if (!colorsList.isEmpty()) {
@@ -176,7 +178,12 @@ public class PersoPrincipal extends Mov {
 	}
 	
 	
-	
+	public void transferAndEmpty() {
+		colorsList.clear();
+		flagList.clear();
+        flagList.addAll(flagList_temp);  // Transfer the content of bouleTemp to boules
+              // Empty bouleTemp
+    }
 	public String getcolor() {
 		if (!colorsList.isEmpty()) {
 			// Access the last color only if the list is not empty
@@ -278,15 +285,15 @@ public class PersoPrincipal extends Mov {
 				if(color=="red" && inter.flagred>0 ){
 					inter.Demon.setDeathValues();
 					damage_Demon++;
-					inter.flagred=-1;
+					inter.flagred-=1;
 					}
 					else{
-						compteur++;
+						damage_points++;
 				setDefaultValues();
 					}
 				}
 			else{
-				compteur++;
+				damage_points++;
 				setDefaultValues();
 			}
 			}
@@ -301,16 +308,16 @@ public class PersoPrincipal extends Mov {
 				    a2=1;
 					if(color=="green"&& inter.flaggreen>0){
 					inter.Ogre.setDeathValues();
-					inter.flaggreen=-1;
+					inter.flaggreen-=1;
 					damage_Ogre++;
 					}
 					else{
-						compteur++;
+						damage_points++;
 				setDefaultValues();
 					}
 				}
 			else{
-				compteur++;
+				damage_points++;
 				setDefaultValues();
 			}
 			}
@@ -325,16 +332,16 @@ public class PersoPrincipal extends Mov {
 				    a3=1;
 					if(color=="yellow"&& inter.flagyellow>0){
 					inter.Lutin.setDeathValues();
-					inter.flagyellow=-1;
+					inter.flagyellow-=1;
 					damage_Lutin++;
 					}
 					else{
-						compteur++;
+						damage_points++;
 				setDefaultValues();
 					}
 				}
 			else{
-				compteur++;
+				damage_points++;
 				setDefaultValues();
 			}
 			}
@@ -349,16 +356,16 @@ public class PersoPrincipal extends Mov {
 				    a1=1;
 					if(color=="blue"&& inter.flagblue>0){
 					inter.Mage.setDeathValues();
-					inter.flagblue=-1;
+					inter.flagblue-=1;
 					damage_Mage++;
 					}
 					else{
-						compteur++;
+						damage_points++;
 				setDefaultValues();
 					}
 				}
 			else{
-				compteur++;
+				damage_points++;
 				setDefaultValues();
 			}
 			}

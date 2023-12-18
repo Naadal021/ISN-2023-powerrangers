@@ -72,6 +72,7 @@ public class Interface extends JPanel implements Runnable{
     public CollisionChecker cChecker=new CollisionChecker(this);
     public PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
     private String gamestatestring="null";
+    private List<Boule> originalBoules = new ArrayList<>(); 
 
   
     Ennemi Demon = new Ennemi(this,"Demon",1200,150,2,3,18,42,30,titleSize +25);
@@ -90,22 +91,23 @@ public class Interface extends JPanel implements Runnable{
  
     
     private List<Boule> boules = new ArrayList<>();
+     private List<Boule> boule_temp = new ArrayList<>();
     private Random random = new Random();
     
-  
+    
     
     double playtime;
-    double flagred = 30;
+     double flagred = 30;
     double flaggreen=30;
     double flagblue=30;
-    double flagyellow=30;
+     double flagyellow=30;
     private JButton scorebutton;
     private JTextField usernameField;
     
 
     public static String USERNAME="";
     private boolean gamewon=false;
-
+    
     
     public static String getuserName() {
     	return USERNAME;
@@ -121,10 +123,11 @@ public class Interface extends JPanel implements Runnable{
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_B) {
                     gamestatestring = "null";
-                    repaint();  // Ensure the repaint to reflect the change
+                    restartGame();  // Ensure the repaint to reflect the change
                 }
             }
         });
+        
         
         // Load custom font
         try {
@@ -141,7 +144,7 @@ public class Interface extends JPanel implements Runnable{
         USERNAME = usernameField.getText();
         usernameField.setFont(Alkhemikal.deriveFont(Font.PLAIN, 20));
         usernameField.setPreferredSize(new Dimension(150, 30));
-        usernameField.setBounds(650, 500, 150, 30);
+        usernameField.setBounds(600, 500, 250, 30);
 
         // Add KeyListener to the username field to start the game on Enter press
         usernameField.addKeyListener((KeyListener) new KeyAdapter() {
@@ -222,9 +225,9 @@ public class Interface extends JPanel implements Runnable{
     return playerList;
 }
     public void updateCompteur() {
-        damage_points = persoPrincipal.compteur;
+        damage_points = persoPrincipal.damage_points;
     }
-    public void damage(){
+    public void getdamage(){
         damage_Demon=persoPrincipal.damage_Demon;
         damage_Ogre=persoPrincipal.damage_Ogre;
         damage_Mage=persoPrincipal.damage_Mage;
@@ -278,12 +281,42 @@ public class Interface extends JPanel implements Runnable{
     	}
         
     }
-    
-    public void endGame(){
-    	this.requestFocusInWindow();
-        game=new Thread(this);
-        game.interrupt();
+   
+  
+    public void restartGame() {
+        this.requestFocusInWindow();
+        boules.clear(); // Clear the current state of boules
+        boules.addAll(originalBoules); // Restore the original state of boules
+        gamestatestring = "null";
+        persoPrincipal.setDefaultValues();
+        Demon.x=1200;
+        Demon.y=150;
+        Demon.icone=titleSize+25;
+        Mage.x=600;
+        Mage.y=100;
+        Mage.icone=titleSize+5;
+        Ogre.x=1000;
+        Ogre.y=600;
+        Ogre.icone=titleSize+25;
+        Lutin.x=400;
+        Lutin.y=380;
+        Lutin.icone=titleSize+5;
+        flagred=30;
+        flagblue=30;
+        flaggreen=30;
+        flagyellow=30;
+        persoPrincipal.damage_Demon=0;
+        persoPrincipal.damage_Mage=0;
+        persoPrincipal.damage_Lutin=0;
+        persoPrincipal.damage_Ogre=0;
+        persoPrincipal.damage_points=0;
+        gamewon=false;
+        playtime=0;
+        persoPrincipal.transferAndEmpty(); // Reset game state if needed
+        // Additional reset logic goes here if necessary
+        repaint();
     }
+
     
     private void spawnBoules() {
     	
@@ -305,6 +338,7 @@ public class Interface extends JPanel implements Runnable{
  
              Boule boule = new Boule(x, y);
             boules.add(boule);
+            originalBoules.add(boule);
             
     }
 }
@@ -329,6 +363,7 @@ public class Interface extends JPanel implements Runnable{
     }
     public void removeBoule(Boule boule) {
         boules.remove(boule);
+        boule_temp.add(boule);
     }
     
     public void play(){
@@ -351,16 +386,17 @@ public class Interface extends JPanel implements Runnable{
         }
     }
     public void update(){ 
+     
         updateCompteur();
-        damage();
+        getdamage();
         persoPrincipal.update();
         Demon.update();
         Lutin.update();
         Mage.update();
     	Ogre.update();
      
-        }
-        public static void replaceCommaWithDot(String filePath) {
+    }
+    public static void replaceCommaWithDot(String filePath) {
             try (BufferedReader reader = new BufferedReader(new FileReader(filePath));
                  BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + "_temp"))) {
     
@@ -380,7 +416,7 @@ public class Interface extends JPanel implements Runnable{
             renameFile(filePath + "_temp", filePath);
         }
     
-        private static void renameFile(String oldFilePath, String newFilePath) {
+    private static void renameFile(String oldFilePath, String newFilePath) {
             // Rename the temporary file to the original file
             java.io.File oldFile = new java.io.File(oldFilePath);
             java.io.File newFile = new java.io.File(newFilePath);
@@ -421,6 +457,8 @@ public class Interface extends JPanel implements Runnable{
     }
     
     if (gamestatestring=="play"){
+    this.requestFocusInWindow();
+        
     tileM.draw(g2);
     if (damage_points < 3) {
         
@@ -443,19 +481,19 @@ public class Interface extends JPanel implements Runnable{
         playtime+=(double)1/60;
         g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
         }
-        if(persoPrincipal.getcolor()=="red"){
+        if(persoPrincipal.getcolor()=="red"&& flagred>0){
             g2.drawImage(flagIcons[2].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flagred), 60,600);
             }
-        else if(persoPrincipal.getcolor()=="green"){
+        else if(persoPrincipal.getcolor()=="green"&& flaggreen>0){
              g2.drawImage(flagIcons[1].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flaggreen), 60,600);
             }
-        else if(persoPrincipal.getcolor()=="blue"){
+        else if(persoPrincipal.getcolor()=="blue"&& flagblue>0){
              g2.drawImage(flagIcons[0].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flagblue), 60,600);
             }
-        else if(persoPrincipal.getcolor()=="yellow"){
+        else if(persoPrincipal.getcolor()=="yellow"&& flagyellow>0){
              g2.drawImage(flagIcons[3].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flagyellow), 60,600);
             }
@@ -465,7 +503,6 @@ public class Interface extends JPanel implements Runnable{
         if(damage_Demon>=1 && damage_Mage>=1 && damage_Lutin>=1 && damage_Ogre>=1){
             
             
-            g2.setColor(Color.WHITE);
             g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
     
             g2.drawString("YOU WON", 400, 400);
@@ -556,15 +593,15 @@ public class Interface extends JPanel implements Runnable{
 
     }
     if(gamestatestring=="attente"){
+         tileM.draw(g2);
+        g2.setColor(Color.WHITE);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
-        g2.drawString("YOU WON", 400, 400);
+        g2.drawString("YOU WON", 500, 400);
         g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 100));
         g2.drawString("IN "+dFormat.format(playtime), 550, 500);
+        g2.drawString("PRESS B TO RESTART", 500, 0);
     }
-    if (gamestatestring=="replay"){
-        return;
-    }
-    if (gamestatestring=="restart"){}
+    
 
     g2.dispose();
     }

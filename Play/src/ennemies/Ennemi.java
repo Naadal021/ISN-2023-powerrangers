@@ -187,7 +187,7 @@ private ImageIcon[] runSpritesLeftOgre = {
   public void interacte(int index) {
 	  if (index==0) {
 		  inter.persoPrincipal.setDefaultValues();
-		  inter.persoPrincipal.compteur++;
+		  inter.persoPrincipal.damage_points++;
 	  }
   }
     public String getNom() {

@@ -91,6 +91,9 @@ public class Interface extends JPanel implements Runnable{
     
     double playtime;
     double flagred = 30;
+    double flaggreen=30;
+    double flagblue=30;
+    double flagyellow=30;
     private JButton scorebutton;
     private JTextField usernameField;
     
@@ -436,7 +439,16 @@ public class Interface extends JPanel implements Runnable{
         g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
         }
         if(flagred>0 && persoPrincipal.a==1){
-            g2.drawString("Time to kill: "+dFormat.format(flagred), 0,600);
+            g2.drawString("Time to kill red : "+dFormat.format(flagred), 0,600);
+            }
+        if(flaggreen>0 && persoPrincipal.a2==1){
+            g2.drawString("Time to kill green : "+dFormat.format(flaggreen), 0,650);
+            }
+        if(flagblue>0 && persoPrincipal.a1==1){
+            g2.drawString("Time to kill blue : "+dFormat.format(flagblue), 0,700);
+            }
+        if(flagyellow>0 && persoPrincipal.a3==1){
+            g2.drawString("Time to kill yellow : "+dFormat.format(flagyellow), 0,750);
             }
         
         

@@ -62,6 +62,9 @@ public class PersoPrincipal extends Mov {
 	public int damage_Mage;
 	public int damage_Lutin;
 	public int a=0;
+	public int a1=0;
+	public int a2=0;
+	public int a3=0;
 
 	Interface inter; 
 	KeyHandler keyH;
@@ -113,10 +116,13 @@ public class PersoPrincipal extends Mov {
 	    int ogreindex = inter.cChecker.checkEntity(this,inter.Ogre);
 	    int lutinindex = inter.cChecker.checkEntity(this,inter.Lutin);
 	    
-	    
+	    blueflag();
 	    interactMage(mageindex);
+	    greenflag();
 		interactOgre(ogreindex);
+		yellowflag();
 		interactLutin(lutinindex);
+		redflag();
 		interactDemon(Demonindex);
 	    if(collisionOn==false){
 	    	switch(direction) {
@@ -142,7 +148,7 @@ public class PersoPrincipal extends Mov {
 
 	    checkCollisionWithBoules();
 	}
-	private List<String> colorsList = new ArrayList<>();
+	public List<String> colorsList = new ArrayList<>();
 	private void checkCollisionWithBoules() {
 		Iterator<Boule> iterator = inter.getBoules().iterator();
 	
@@ -179,6 +185,39 @@ public class PersoPrincipal extends Mov {
 	
 		return "No color available";
 	}
+	public void redflag() {
+		String color1 = getcolor();
+		if (!colorsList.isEmpty()) {
+			if(color1=="red") {
+				a=1;
+				inter.flagred-=(double)1/60;}
+			}
+}
+	public void blueflag() {
+		String color2 = getcolor();
+		if (!colorsList.isEmpty()) {
+			if(color2=="blue") {
+				a1=1;
+				inter.flagblue-=(double)1/60;}
+			}
+}
+	public void greenflag() {
+		String color3 = getcolor();
+		if (!colorsList.isEmpty()) {
+			if(color3=="green") {
+				a2=1;
+				inter.flaggreen-=(double)1/60;}
+			}
+}
+	public void yellowflag() {
+		String color4 = getcolor();
+		if (!colorsList.isEmpty()) {
+			if(color4=="yellow") {
+				a3=1;
+				inter.flagyellow-=(double)1/60;}
+			}
+}
+	
 		
 
 	
@@ -236,10 +275,10 @@ public class PersoPrincipal extends Mov {
 	
 			if (!colorsList.isEmpty()) {
 				a=1;
-					if(color=="red" && inter.flagred>0 ){
-					inter.flagred-=(double)1/60;
+				if(color=="red" && inter.flagred>0 ){
 					inter.Demon.setDeathValues();
 					damage_Demon++;
+					inter.flagred=-1;
 					}
 					else{
 						compteur++;
@@ -259,8 +298,10 @@ public class PersoPrincipal extends Mov {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
-					if(color=="green"){
+				    a2=1;
+					if(color=="green"&& inter.flaggreen>0){
 					inter.Ogre.setDeathValues();
+					inter.flaggreen=-1;
 					damage_Ogre++;
 					}
 					else{
@@ -281,8 +322,10 @@ public class PersoPrincipal extends Mov {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
-					if(color=="yellow"){
+				    a3=1;
+					if(color=="yellow"&& inter.flagyellow>0){
 					inter.Lutin.setDeathValues();
+					inter.flagyellow=-1;
 					damage_Lutin++;
 					}
 					else{
@@ -303,8 +346,10 @@ public class PersoPrincipal extends Mov {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
-					if(color=="blue"){
+				    a1=1;
+					if(color=="blue"&& inter.flagblue>0){
 					inter.Mage.setDeathValues();
+					inter.flagblue=-1;
 					damage_Mage++;
 					}
 					else{

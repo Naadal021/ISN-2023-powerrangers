@@ -183,7 +183,7 @@ public class Interface extends JPanel implements Runnable{
         rulesButton.setBounds(650, 600, 150, 50);
 
         rulesButton.addActionListener(e -> {
-            ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
+            ImageIcon rulesImage = new ImageIcon("Play/src/model/rule.PNG"); // Remplacez par le chemin de votre image
             new RulesWindow(rulesImage);
         });
 

@@ -62,11 +62,7 @@ public class PersoPrincipal extends Mov {
 	public int damage_Ogre;
 	public int damage_Mage=0;
 	public int damage_Lutin;
-	public int a=0;
-	public int a1=0;
-	public int a2=0;
-	public int a3=0;
-
+	
 	Interface inter; 
 	KeyHandler keyH;
 	 	
@@ -186,102 +182,63 @@ public class PersoPrincipal extends Mov {
     }
 	public String getcolor() {
 		if (!colorsList.isEmpty()) {
-			// Access the last color only if the list is not empty
+			
 			return colorsList.get(colorsList.size() - 1);
 		}
 	
 		return "No color available";
 	}
 	public void redflag() {
-		String color1 = getcolor();
+		
 		if (!colorsList.isEmpty()) {
-			if(color1=="red") {
-				a=1;
+			if(colorsList.contains("red")) {
+			
 				inter.flagred-=(double)1/60;}
 			}
 }
 	public void blueflag() {
-		String color2 = getcolor();
 		if (!colorsList.isEmpty()) {
-			if(color2=="blue") {
-				a1=1;
+			if(colorsList.contains("blue")) {
+				
 				inter.flagblue-=(double)1/60;}
 			}
 }
 	public void greenflag() {
-		String color3 = getcolor();
+		
 		if (!colorsList.isEmpty()) {
-			if(color3=="green") {
-				a2=1;
+			if(colorsList.contains("green")) {
+			
 				inter.flaggreen-=(double)1/60;}
 			}
 }
-	public void yellowflag() {
-		String color4 = getcolor();
-		if (!colorsList.isEmpty()) {
-			if(color4=="yellow") {
-				a3=1;
-				inter.flagyellow-=(double)1/60;}
-			}
+public void yellowflag() {
+
+    if (!colorsList.isEmpty()) {
+        if (colorsList.contains("yellow")) {
+            
+            inter.flagyellow -= (double) 1 / 60;
+        }
+    }
 }
+
 	
 		
 
 	
 	
 	private boolean intersects(Boule boule) {
-	    // Créez un rectangle autour du personnage principal
-	    Rectangle persoRectangle = new Rectangle(x, y, inter.titleSize, inter.titleSize);
-
-	    // Créez un rectangle autour de la boule
-	    Rectangle bouleRectangle = new Rectangle(boule.getX(), boule.getY(), Boule.getDiametre(), Boule.getDiametre());
-
-	    // Vérifiez si les rectangles intersectent
-	    return persoRectangle.intersects(bouleRectangle);
+	   	Rectangle persoRectangle = new Rectangle(x, y, inter.titleSize, inter.titleSize);
+		Rectangle bouleRectangle = new Rectangle(boule.getX(), boule.getY(), Boule.getDiametre(), Boule.getDiametre());
+		return persoRectangle.intersects(bouleRectangle);
 	}
-	// public void interact( int index1, int index2, int index3) {
-	// 	tempscompteur++;
-	// 	if ( index1 != 999 || index2 != 999 || index3 != 999) {
-	// 		String color = getcolor(); // Assuming you have a method to get the color
 	
-	// 		if (!colorsList.isEmpty()) {
-	// 			switch (color) {
-	// 				case "red":
-	// 					inter.Demon.setDeathValues();
-	// 					damage_Demon++;
-	// 					colorsList.remove(colorsList.size() - 1);
-	// 					break;
-	// 				case "green":
-	// 					inter.Ogre.setDeathValues();
-	// 					damage_Ogre++;
-	// 					colorsList.remove(colorsList.size() - 1);
-	// 					break;
-	// 				case "blue":
-	// 					inter.Mage.setDeathValues();
-	// 					damage_Mage++;
-	// 					colorsList.remove(colorsList.size() - 1);
-	// 					break;
-	// 				case "yellow":
-	// 					inter.Lutin.setDeathValues();
-	// 					damage_Lutin++;
-	// 					colorsList.remove(colorsList.size() - 1);
-	// 					break;
-	// 				default:
-	// 				break;
-	// 			}
-				
-	// 		}
-	// 	compteur++;
-	// 	setDefaultValues();
-	// 	}
-	// }
 	public void interactDemon(int index ) {
 		tempscompteur++;
 		if (index != 999 ) {
 			String color = getcolor();// Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
-				a=1;
+			
 				if(color=="red" && inter.flagred>0 ){
 					inter.Demon.setDeathValues();
 					damage_Demon++;
@@ -305,7 +262,7 @@ public class PersoPrincipal extends Mov {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
-				    a2=1;
+				    
 					if(color=="green"&& inter.flaggreen>0){
 					inter.Ogre.setDeathValues();
 					inter.flaggreen-=1;
@@ -329,7 +286,7 @@ public class PersoPrincipal extends Mov {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
-				    a3=1;
+				    
 					if(color=="yellow"&& inter.flagyellow>0){
 					inter.Lutin.setDeathValues();
 					inter.flagyellow-=1;
@@ -353,7 +310,7 @@ public class PersoPrincipal extends Mov {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
-				    a1=1;
+				    
 					if(color=="blue"&& inter.flagblue>0){
 					inter.Mage.setDeathValues();
 					inter.flagblue-=1;

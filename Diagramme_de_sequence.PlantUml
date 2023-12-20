@@ -1,0 +1,53 @@
+@startuml
+!define HEADER_COLOR #3498DB
+
+actor User
+participant "Interface" as Interface << (C,HEADER_COLOR) >>
+participant "Ennemi" as Ennemi << (C,HEADER_COLOR) >>
+
+User -> Interface: Presses Arrow Key
+Interface -> Ennemi: Update Ennemi properties
+activate Ennemi
+Ennemi -> Interface: Get Ennemi position
+Ennemi --> Interface: Ennemi position
+deactivate Ennemi
+
+User -> Interface: Interacts with the game
+Interface -> Ennemi: Update Ennemi properties
+activate Ennemi
+Ennemi -> Interface: Get Ennemi position
+Ennemi --> Interface: Ennemi position
+deactivate Ennemi
+
+User -> Interface: Opens Rules Window
+Interface -> Ennemi: Update Ennemi properties
+activate Ennemi
+Ennemi -> Interface: Get Ennemi position
+Ennemi --> Interface: Ennemi position
+deactivate Ennemi
+
+User -> Interface: Interacts with the game
+Interface -> Ennemi: Update Ennemi properties
+activate Ennemi
+Ennemi -> Interface: Get Ennemi position
+Ennemi --> Interface: Ennemi position
+deactivate Ennemi
+
+User -> Interface: Restarts the game (Presses B)
+Interface -> Interface: Restart Game
+Interface -> Ennemi: Reset Ennemi position
+activate Ennemi
+Ennemi --> Interface: Ennemi position reset
+deactivate Ennemi
+
+User -> Interface: Game Over
+Interface -> Interface: Display Game Over
+Interface -> Ennemi: Ennemi Killed
+activate Ennemi
+Ennemi --> Interface: Ennemi Killed
+deactivate Ennemi
+@enduml
+l
+
+
+

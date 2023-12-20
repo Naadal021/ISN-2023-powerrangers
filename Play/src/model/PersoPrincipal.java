@@ -144,6 +144,7 @@ public class PersoPrincipal extends Mov {
 	    }
 
 	    checkCollisionWithBoules();
+		
 	}
 	public List<String> colorsList = new ArrayList<>();
 	private void checkCollisionWithBoules() {
@@ -182,11 +183,12 @@ public class PersoPrincipal extends Mov {
     }
 	public String getcolor() {
 		if (!colorsList.isEmpty()) {
-			
+			coloString=colorsList.get(colorsList.size() - 1);
 			return colorsList.get(colorsList.size() - 1);
 		}
-	
+		
 		return "No color available";
+		
 	}
 	public void redflag() {
 		
@@ -234,7 +236,7 @@ public void yellowflag() {
 	
 	public void interactDemon(int index ) {
 		tempscompteur++;
-		if (index != 999 ) {
+		if (index != 999  ) {
 			String color = getcolor();// Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
@@ -246,7 +248,7 @@ public void yellowflag() {
 					}
 					else{
 						damage_points++;
-				setDefaultValues();
+					setDefaultValues();
 					}
 				}
 			else{
@@ -258,7 +260,7 @@ public void yellowflag() {
 		}
 		public void interactOgre(int index ) {
 		tempscompteur++;
-		if (index != 999 ) {
+		if (index != 999 ||inter.Ogre.greendamage>=1) {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
@@ -282,7 +284,7 @@ public void yellowflag() {
 		}
 		public void interactLutin(int index ) {
 		tempscompteur++;
-		if (index != 999 ) {
+		if (index != 999 ||inter.Lutin.yellowdamage>=1 ) {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {
@@ -306,7 +308,7 @@ public void yellowflag() {
 		}
 		public void interactMage(int index ) {
 		tempscompteur++;
-		if (index != 999 ) {
+		if (index != 999 ||inter.Mage.bluedamage>=1) {
 			String color = getcolor(); // Assuming you have a method to get the color
 	
 			if (!colorsList.isEmpty()) {

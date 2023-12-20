@@ -17,12 +17,12 @@ import java.text.DecimalFormat;
 
 import java.awt.Color;
 import java.util.Arrays;
-import java.util.Collections;
+
 import java.util.Comparator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -36,7 +36,7 @@ import java.awt.FontFormatException;
 import java.util.Random;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 
 
@@ -72,13 +72,13 @@ public class Interface extends JPanel implements Runnable{
     public CollisionChecker cChecker=new CollisionChecker(this);
     public PersoPrincipal persoPrincipal =new PersoPrincipal(this,keyH);
     private String gamestatestring="null";
-    private List<Boule> originalBoules = new ArrayList<>();
+    
 
  
-    Ennemi Demon = new Ennemi(this,"Demon",1200,150,2,3,18,42,30,titleSize +25);
-    Ennemi Ogre = new Ennemi(this,"Ogre",1000,600,2,3,18,42,30,titleSize +25);
-    Ennemi Lutin = new Ennemi(this,"Lutin",400,380,2,3,18,42,30,titleSize +5);
-    Ennemi Mage = new Ennemi(this,"Mage",600,100,2,3,18,42,30,titleSize +5);
+    public Ennemi Demon = new Ennemi(this,"Demon",1200,150,2,3,18,42,30,titleSize +25);
+    public Ennemi Ogre = new Ennemi(this,"Ogre",1000,600,2,3,18,42,30,titleSize +25);
+    public Ennemi Lutin = new Ennemi(this,"Lutin",400,380,2,3,18,42,30,titleSize +5);
+    public Ennemi Mage = new Ennemi(this,"Mage",600,100,2,3,18,42,30,titleSize +5);
  
    
     LifePoints lifepoints = new LifePoints(this);
@@ -97,10 +97,10 @@ public class Interface extends JPanel implements Runnable{
    
    
     double playtime;
-     double flagred = 30;
-    double flaggreen=30;
-    double flagblue=30;
-     double flagyellow=30;
+    public double flagred = 30;
+    public double flaggreen=30;
+    public double flagblue=30;
+    public  double flagyellow=30;
     private JButton scorebutton;
     private JTextField usernameField;
    
@@ -254,7 +254,7 @@ public class Interface extends JPanel implements Runnable{
     long lastTime = System.nanoTime();
     long currentTime;
     long timer=0;
-    int drawCount=0;
+    
     spawnBoules();
     while(game !=null) {
     currentTime = System.nanoTime();
@@ -266,11 +266,11 @@ public class Interface extends JPanel implements Runnable{
     //spawnBoules(); // Générer aléatoirement des boules  //en cmnt car elle genere 5 fois les boules alea et moi je veux que une seule fois
     repaint();
     delta--;
-    drawCount++;
+    
     }
     if (timer>=1000000000) {
     //System.out.println("FPS:"+drawCount);
-    drawCount=0;
+    
     timer=0;
     }
     try {
@@ -482,19 +482,19 @@ public class Interface extends JPanel implements Runnable{
         playtime+=(double)1/60;
         g2.drawString("Time: "+dFormat.format(playtime), 0, 500);
         }
-        if(persoPrincipal.getcolor()=="red"&& flagred>0){
+        if(persoPrincipal.getcolor()=="red"&& flagred>0 &&damage_Demon==0){
             g2.drawImage(flagIcons[2].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flagred), 60,600);
             }
-        else if(persoPrincipal.getcolor()=="green"&& flaggreen>0){
+        else if(persoPrincipal.getcolor()=="green"&& flaggreen>0&&damage_Ogre==0){
              g2.drawImage(flagIcons[1].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flaggreen), 60,600);
             }
-        else if(persoPrincipal.getcolor()=="blue"&& flagblue>0){
+        else if(persoPrincipal.getcolor()=="blue"&& flagblue>0 && damage_Mage==0){
              g2.drawImage(flagIcons[0].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flagblue), 60,600);
             }
-        else if(persoPrincipal.getcolor()=="yellow"&& flagyellow>0){
+        else if(persoPrincipal.getcolor()=="yellow"&& flagyellow>0&&damage_Lutin==0){
              g2.drawImage(flagIcons[3].getImage(),0,560,50,50,null);
             g2.drawString(" : "+dFormat.format(flagyellow), 60,600);
             }
@@ -516,9 +516,9 @@ public class Interface extends JPanel implements Runnable{
            
 
         }
-        if((damage_Mage==0 && flagblue<0)||(damage_Ogre==0 && flaggreen<0)||(damage_Demon==0&&flagred<0)||(damage_Lutin==0 && flagyellow<0)) {
+         if((damage_Mage==0 && flagblue<0)||(damage_Ogre==0 && flaggreen<0)||(damage_Demon==0&&flagred<0)||(damage_Lutin==0 && flagyellow<0)) {
       
-                g2.setColor(Color.WHITE);
+                 g2.setColor(Color.WHITE);
                 g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
             
                 g2.drawString("Game Over", 400, 400);

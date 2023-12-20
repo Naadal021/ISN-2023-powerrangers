@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-import model.Interface;
 
 
 
@@ -75,6 +74,10 @@ private ImageIcon[] runSpritesLeftOgre = {
     private String nom;
     private int directionChangeTimer = 0;
     private int directionChangeInterval = 20; // Change direction every 60 frames (adjust as needed)
+    public int Reddamage;
+    public int bluedamage;
+    public int greendamage;
+    public int yellowdamage;
 
     
     Interface inter;
@@ -131,8 +134,8 @@ private ImageIcon[] runSpritesLeftOgre = {
     	setaction();
     	collisionOn=false;
     	inter.cChecker.checkTile(this);
-    	int Demonindex1 = inter.cChecker.checkMonster(this,inter.persoPrincipal);
-    	interacte(Demonindex1);
+    	int persoprincipalindex = inter.cChecker.checkMonster(this,inter.persoPrincipal);
+    	interacte(persoprincipalindex);
     	if(collisionOn==false){
 	    	switch(direction) {
 	    			case "up":
@@ -185,11 +188,105 @@ private ImageIcon[] runSpritesLeftOgre = {
         }
     }
   public void interacte(int index) {
-	  if (index==0) {
+	  if (index==0){
+		   if ("Demon".equals(nom)) {
+		
+              interacte_demon(index);
+          
+              
+              
+		  }
+         if ("Ogre".equals(nom)) {
+		
+              interacte_ogre(index);
+              
+		  }
+           if ("Mage".equals(nom)) {
+		
+              interacte_mage(index);
+              
+             
+		  }
+         
+          if ("Lutin".equals(nom)) {
+		
+              interacte_lutin(index);
+              
+             
+		  }
+		  else if(inter.persoPrincipal.getcolor()!="red"&&inter.persoPrincipal.getcolor()!="blue"&&inter.persoPrincipal.getcolor()!="yellow"&inter.persoPrincipal.getcolor()!="green"){
 		  inter.persoPrincipal.setDefaultValues();
-		  inter.persoPrincipal.damage_points++;
+		  inter.persoPrincipal.damage_points++;}
+         
 	  }
+   
   }
+  public void interacte_demon(int index) {
+	  if (index==0){
+		   if(inter.persoPrincipal.getcolor()=="red"&&inter.flagred>=0) {
+			inter.persoPrincipal.damage_Demon++;
+              inter.Demon.setDeathValues();
+          
+              
+              
+		  }
+          else{
+          
+            inter.persoPrincipal.setDefaultValues();
+              inter.persoPrincipal.damage_points+=1;
+          }
+        }
+  }
+  public void interacte_lutin(int index) {
+	  if (index==0){
+		   if (inter.persoPrincipal.coloString=="yellow"&&inter.flagyellow>=0) {
+			
+            inter.Lutin.setDeathValues();
+               inter.persoPrincipal.damage_Lutin++;
+              
+             
+		  }
+          else{
+       
+            inter.persoPrincipal.setDefaultValues();
+              inter.persoPrincipal.damage_points+=1;
+          }
+        }
+  }
+  public void interacte_ogre(int index) {
+	  if (index==0){
+		   if (inter.persoPrincipal.coloString=="green"&&inter.flaggreen>=0) {
+			  
+                inter.Ogre.setDeathValues();
+                   inter.persoPrincipal.damage_Ogre++;
+              
+              
+		  }
+          else{
+          
+            inter.persoPrincipal.setDefaultValues();
+             inter.persoPrincipal.damage_points+=1;
+          }
+        }
+  }
+  public void interacte_mage(int index) {
+	  if (index==0){
+		   if (inter.persoPrincipal.coloString=="blue"&&inter.flagblue>=0) {
+		
+                inter.Mage.setDeathValues();
+                inter.persoPrincipal.damage_Mage++;
+              
+             
+		  }
+          else{
+         
+            inter.persoPrincipal.setDefaultValues();
+               inter.persoPrincipal.damage_points+=1;
+               
+          }
+        }
+  }
+
     public String getNom() {
         return nom;
     }

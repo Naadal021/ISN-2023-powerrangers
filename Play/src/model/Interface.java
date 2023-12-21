@@ -435,7 +435,7 @@ public class Interface extends JPanel implements Runnable{
     Graphics2D g2 = (Graphics2D) g;
    
     if (gamestatestring=="null"){
-       
+       tileM.draw(g2);
         g2.setColor(Color.WHITE);
       g2.setFont(Alkhemikal.deriveFont(Font.PLAIN, 200));
         g2.drawString("FlagQuest", 400, 400);

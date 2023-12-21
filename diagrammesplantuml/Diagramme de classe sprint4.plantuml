@@ -1,5 +1,5 @@
 @startuml
-!define DARKRED
+!define LIGHTRED
 !includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
 class Boule {
     - x: int

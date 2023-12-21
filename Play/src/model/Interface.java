@@ -596,7 +596,7 @@ public class Interface extends JPanel implements Runnable{
     }*/
       if (gamestatestring=="rules"){
    
-       ImageIcon rulesImage = new ImageIcon("Play/src/model/rules.jpg"); // Remplacez par le chemin de votre image
+       ImageIcon rulesImage = new ImageIcon("Play/src/model/cc.PNG"); // Remplacez par le chemin de votre image
 
        // Dessiner l'image
        g2.drawImage(rulesImage.getImage(), 100, 100, null);

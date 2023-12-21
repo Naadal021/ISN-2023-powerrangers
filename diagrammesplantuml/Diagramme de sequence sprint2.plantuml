@@ -1,0 +1,28 @@
+@startuml
+!define LIGHTRED
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+actor User
+participant Interface
+participant PersoPrincipal
+participant KeyHandler
+
+User -> Interface: Start Game
+activate Interface
+Interface -> PersoPrincipal: new PersoPrincipal()
+activate PersoPrincipal
+Interface -> KeyHandler: initialize()
+activate KeyHandler
+
+loop Game Loop
+  User -> KeyHandler: Handle Input
+  KeyHandler -> PersoPrincipal: handleInput()
+  PersoPrincipal -> Interface: update()
+  Interface -> PersoPrincipal: getNewPosition()
+  Interface -> Interface: Repaint()
+end
+
+deactivate PersoPrincipal
+deactivate Interface
+deactivate KeyHandler
+@enduml

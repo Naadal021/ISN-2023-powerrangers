@@ -109,7 +109,7 @@ class Ogre{
 }
 Demon --> Mov 
 lutin --> Mov 
-mage --> Mov 
+mage --> Mov >
 CollisionChecker -->Mov
 PersoPrincipal --> Mov 
 Ogre --> Mov 

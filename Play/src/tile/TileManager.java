@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 import model.Interface;
-public class TileManager{
+public class TileManager extends Tile{
     Interface gp;
     public Tile[] tile;
     public int mapTileNum[][];

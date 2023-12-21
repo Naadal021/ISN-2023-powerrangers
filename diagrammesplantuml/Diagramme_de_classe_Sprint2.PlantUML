@@ -98,19 +98,14 @@ class TileManager {
   + draw(g2: Graphics2D): void
 }
 
-class Ennemis {
-  --
-  + (inherited) x: int
-  + (inherited) y: int
-  + (inherited) speed: int
-}
 
-Interface -- PersoPrincipal: persoPrincipal
-Interface -- KeyHandler: keyH
+
+Interface "1"--"1" PersoPrincipal: persoPrincipal
+Interface "1"-- "1" KeyHandler: keyH
 PersoPrincipal --|> Mov
-Ennemis --|> Mov
-Interface -- TileManager: tileM
-PersoPrincipal -- Boule
+
+Interface"1"-- "1"TileManager: tileM
+PersoPrincipal "1"--"1" Boule
 TileManager --|> Tile
 
 @enduml

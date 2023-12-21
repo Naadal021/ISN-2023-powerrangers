@@ -176,9 +176,7 @@ class Ennemies {
     int directionChangeInterval
     Interface inter
 } 
-class Ruleswindow{
-    RulesWindow(ImageIcon)
-}
+
 
 
 
@@ -188,14 +186,13 @@ PersoPrincipal --|> Mov
 Ennemies --|> Mov
 Interface "1"--"1" Gamelauncher
 TileManager --|> Tile
-
 Boule "1"--"1" PersoPrincipal
 Boule "1"--"1" Interface
-TileManager"1" --"1" Interface
-LifePoints"1" --"1" Interface
+TileManager "1" --"1" Interface
+LifePoints "1"--"1" Interface
 Interface "1"--"1" PersoPrincipal
-Interface "1"-- "4" Ennemies
-Interface"1" --"1" Ruleswindow
-CollisionChecker "1" -- "1"Ennemies
+Interface"4"--"1"Ennemies
+CollisionChecker "1"--"1" Ennemies
 CollisionChecker "1"--"1" PersoPrincipal
+
 @enduml

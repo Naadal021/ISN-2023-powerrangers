@@ -125,11 +125,33 @@ private ImageIcon[] runSpritesLeftOgre = {
             runSpritesRight = runSpritesRightmage;
         }
     }
+    private boolean isDead = false;
+
     public void setDeathValues(){
+
         x=0;
+
         y=0;
+
         icone=0;
+
+        
+
+        
+
     }
+
+    public boolean isDead() {
+
+    	setDeathValues();
+
+    	isDead=true;
+
+        return isDead;
+
+    }
+
+
     public void update() {
     	setaction();
     	collisionOn=false;
@@ -324,6 +346,25 @@ private ImageIcon[] runSpritesLeftOgre = {
         // Increment frame for the next iteration
         currentFrame++;
     }
+    public int getCurrentDirection() {
+
+    	return this.currentDirection;
+
+    	}
+
+
+
+    	public int getDirectionChangeInterval() {
+
+    	return this.directionChangeInterval;
+
+    	}
+
+    	public Object getX() {
+
+    	return this.x;
+
+    	}
 }
     
 

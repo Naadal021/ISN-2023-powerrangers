@@ -1,53 +1,32 @@
 @startuml
-!define HEADER_COLOR #3498DB
-
 actor User
-participant "Interface" as Interface << (C,HEADER_COLOR) >>
-participant "Ennemi" as Ennemi << (C,HEADER_COLOR) >>
+participant Interface
+participant PersoPrincipal
+participant Ennemi
 
-User -> Interface: Presses Arrow Key
-Interface -> Ennemi: Update Ennemi properties
-activate Ennemi
-Ennemi -> Interface: Get Ennemi position
-Ennemi --> Interface: Ennemi position
-deactivate Ennemi
+User -> Interface: Start Game
+activate Interface
+Interface -> PersoPrincipal: new PersoPrincipal()
+activate PersoPrincipal
 
-User -> Interface: Interacts with the game
-Interface -> Ennemi: Update Ennemi properties
-activate Ennemi
-Ennemi -> Interface: Get Ennemi position
-Ennemi --> Interface: Ennemi position
-deactivate Ennemi
+loop Game Loop
+  User -> Interface: Controls
+  Interface -> PersoPrincipal: update()
+  PersoPrincipal -> Ennemi: checkCollision()
+  activate Ennemi
+  Ennemi -> PersoPrincipal: interact()
+  deactivate Ennemi
+  PersoPrincipal -> Interface: updateCompteur()
+  Interface -> Interface: Check Game Over
+  alt Game Over
+    Interface -> Interface: endGame()
+    Interface -> User: Show Game Over Screen
+    break
+  else
+    Interface -> Interface: Repaint()
+  end
+end
 
-User -> Interface: Opens Rules Window
-Interface -> Ennemi: Update Ennemi properties
-activate Ennemi
-Ennemi -> Interface: Get Ennemi position
-Ennemi --> Interface: Ennemi position
-deactivate Ennemi
-
-User -> Interface: Interacts with the game
-Interface -> Ennemi: Update Ennemi properties
-activate Ennemi
-Ennemi -> Interface: Get Ennemi position
-Ennemi --> Interface: Ennemi position
-deactivate Ennemi
-
-User -> Interface: Restarts the game (Presses B)
-Interface -> Interface: Restart Game
-Interface -> Ennemi: Reset Ennemi position
-activate Ennemi
-Ennemi --> Interface: Ennemi position reset
-deactivate Ennemi
-
-User -> Interface: Game Over
-Interface -> Interface: Display Game Over
-Interface -> Ennemi: Ennemi Killed
-activate Ennemi
-Ennemi --> Interface: Ennemi Killed
-deactivate Ennemi
+deactivate PersoPrincipal
+deactivate Interface
 @enduml
-l
-
-
-

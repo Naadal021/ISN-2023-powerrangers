@@ -349,4 +349,33 @@ public void yellowflag() {
 	    // Increment frame for the next iteration
 	    currentFrame++;
 	}
+	public int getLifePoints() {
+
+		return damage_points;
+
+		}
+
+
+
+		public List<String> getColorsList() {
+
+		return colorsList;
+
+		}
+
+
+
+		public Object getDamageDemon() {
+
+		return damage_Demon;
+
+		}
+
+
+
+		public List<String> getFlagList() {
+
+		return flagList;
+
+		}
 }

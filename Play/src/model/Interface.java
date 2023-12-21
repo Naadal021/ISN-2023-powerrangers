@@ -319,7 +319,7 @@ public class Interface extends JPanel implements Runnable{
         }
         repaint();
     }
-    private void spawnBoules() {
+    public void spawnBoules() {
    
         if (boules != null) {
             boules = new ArrayList<>();
@@ -616,4 +616,35 @@ public class Interface extends JPanel implements Runnable{
 
     g2.dispose();
     }
+    public double getFlagRed() {
+
+    	return flagred;
+
+    	}
+
+
+
+    	public void setFlagRed(double flagred) {
+
+    	this.flagred = flagred;
+
+    	}
+
+    	public Ennemi getDemon() {
+
+    	return Demon;
+
+    	}
+
+    	public void setDemon(Ennemi Demon) {
+
+    	this.Demon=Demon;
+
+    	}
+
+    	public void addBoule(Boule boule) {
+
+    	boules.add(boule);
+
+    	}
 }

@@ -8,25 +8,33 @@ User -> Interface: Start Game
 activate Interface
 Interface -> PersoPrincipal: new PersoPrincipal()
 activate PersoPrincipal
-
-loop Game Loop
-  User -> Interface: Controls
-  Interface -> PersoPrincipal: update()
-  PersoPrincipal -> Ennemi: checkCollision()
-  activate Ennemi
-  Ennemi -> PersoPrincipal: interact()
-  deactivate Ennemi
-  PersoPrincipal -> Interface: updateCompteur()
-  Interface -> Interface: Check Game Over
-  alt Game Over
-    Interface -> Interface: endGame()
-    Interface -> User: Show Game Over Screen
-    break
+Interface -> User: Game Started
+User -> Interface: Controls
+Interface -> PersoPrincipal: update()
+PersoPrincipal -> Ennemi: checkCollision()
+activate Ennemi
+Ennemi -> PersoPrincipal: interact()
+deactivate Ennemi
+PersoPrincipal -> Interface: updateCompteur()
+deactivate PersoPrincipal
+Interface -> Interface: Check Game Over
+alt Game Over
+  Interface -> Interface: endGame()
+  User -> Interface: Show Game Over Screen
   else
-    Interface -> Interface: Repaint()
-  end
+  Interface -> Interface: Repaint()
 end
 
-deactivate PersoPrincipal
+User -> Interface: Presses B Key
+Interface -> Interface: Restart Game
+activate Interface
+Interface -> PersoPrincipal: Reset game state
+PersoPrincipal -> Ennemi: Reset Ennemi positions
+activate Ennemi
+Ennemi --> PersoPrincipal: Ennemi positions reset
+deactivate Ennemi
+PersoPrincipal --> Interface: Game state reset
+Interface -> Interface: Start Game
 deactivate Interface
+
 @enduml

@@ -1,10 +1,9 @@
 @startuml
-!define LIGHTRED
-!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
 actor User
 participant Interface
 participant PersoPrincipal
 participant Ennemi
+
 User -> Interface: Start Game
 activate Interface
 Interface -> PersoPrincipal: new PersoPrincipal()
@@ -15,7 +14,7 @@ loop Game Loop
   Interface -> PersoPrincipal: update()
   PersoPrincipal -> Ennemi: checkCollision()
   activate Ennemi
- Ennemi -> PersoPrincipal: interact()
+  Ennemi -> PersoPrincipal: interact()
   deactivate Ennemi
   PersoPrincipal -> Interface: updateCompteur()
   Interface -> Interface: Check Game Over

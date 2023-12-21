@@ -1,0 +1,230 @@
+@startuml
+!define DARKRED
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+class Boule {
+    - x: int
+    - y: int
+    - diametre: int = 30
+    - blue: ImageIcon
+    - green: ImageIcon
+    - red: ImageIcon
+    - yellow: ImageIcon
+    - flagIcons: ImageIcon[]
+    - currentIcon: ImageIcon
+    - nextFlagIndex: int = 0
+    
+    + getCurrentIconPath(): String
+    + Boule(x: int, y: int)
+    + getDiametre(): int
+    + draw(g2: Graphics2D): void
+    + getX(): int
+    + getY(): int
+
+    {static} - getNextFlagIndex(): int
+    {static} - setNextFlagIndex(index: int): void
+}
+
+class CollisionChecker {
+    - inter: Interface
+
+    + CollisionChecker(inter: Interface)
+    + checkTile(mov: Mov): void
+    + checkEntity(mov: Mov, target: Mov): int
+    + checkMonster(mov: Mov, target: Mov): int
+}
+
+class Gamelauncher {
+    class ActionListener
+    Method main()
+    Method launchGame()
+    Method showDialog()
+    Method CloseDialog()
+}
+
+class Interface {
+    int OriginalTitlesize
+    int scale
+    int titlesize
+    int boules
+    int random
+    int maxScreenCol
+    int maxScreenRow
+    int screenWidth
+    int screenHeight
+    Font Alkhemikal
+    Tile TileManager
+
+    int damage_points
+    int damage_Demon
+    int damage_Mage
+    int damage_Lutin
+    int damage_Ogre
+    ImageIcon[] flagIcons
+    Thread game
+    TileManager tileM
+    DecimalFormat dFormat
+    int FPS
+    List<Boule> originalBoules
+    List<Boule> boule_temp
+    Random random
+
+    double playtime
+    double flagred
+    double flaggreen
+    double flagblue
+    double flagyellow
+    JButton scorebutton
+    JTextField usernameField
+    static String USERNAME
+    boolean gamewon
+    List<ImageIcon> getFlagsList()
+    void run()
+    void restartGame()
+    void spawnBoules()
+    void updateCompteur()
+    void getdamage()
+    List<Boule> getBoules()
+    void removeBoule(Boule boule)
+    void play()
+    static void writeScoreToFile(String filePath, String playerName, double playtime)
+    void update()
+}
+
+class LifePoints {
+    - Inter: Interface
+    - keyH: KeyHandler
+    - c: int
+    - pp: PersoPrincipal
+    - Hearts: ImageIcon[]
+
+    + LifePoints(Inter: Interface)
+    + updateCompteur(): void
+    + draw(g2: Graphics2D, c: int): void
+}
+
+class Mov {
+    int x
+    int y
+    int speed
+    int direction
+    Rectangle solidArea
+    int solidAreaDefaultX
+    int solidAreaDefaultY
+    boolean collisionON
+}
+
+class PersoPrincipal {
+    ImageIcon[] runSpritesRight
+    ImageIcon[] idleSpritesRight
+    ImageIcon[] runSpritesLeft
+    ImageIcon[] idleSpritesLeft
+    List<String> flagList
+    List<String> flagList_temp
+    int currentFrame
+    boolean isRunning
+    int animationDelay
+    String coloString
+    String Currentdirection
+    int tempscompteur
+    int damage_points
+    int damage_Demon
+    int damage_Ogre
+    int damage_Mage
+    int damage_Lutin
+    int a
+    int a1
+    int a2
+    int a3
+
+    Interface inter
+    KeyHandler keyH
+
+    void setDefaultValues()
+    void update()
+    void transferAndEmpty()
+    String getcolor()
+    void redflag()
+    void blueflag()
+    void greenflag()
+    void yellowflag()
+    void interactDemon(int index)
+    void interactOgre(int index)
+    void interactLutin(int index)
+    void interactMage(int index)
+    void draw(Graphics2D g2)
+}
+
+class Tile {
+    BufferedImage image
+    boolean collision
+}
+
+class TileManager {
+    Interface gp
+    Tile tile
+    int mapTileNum
+}
+
+class Mage {
+    int runSprites
+    int currentFrame
+    int animationDelay
+    int currentDirection
+    int SpeedMultiplier
+    int random
+    int directionChangeTimer
+    int directionChangeInterval
+    Interface inter
+}
+
+class Demon {
+    int runSprites
+    int currentFrame
+    int animationDelay
+    int currentDirection
+    int SpeedMultiplier
+    int random
+    int directionChangeTimer
+    int directionChangeInterval
+    Interface inter
+}
+
+class Lutin {
+    int runSprites
+    int currentFrame
+    int animationDelay
+    int currentDirection
+    int SpeedMultiplier
+    int random
+    int directionChangeTimer
+    int directionChangeInterval
+    Interface inter
+}
+
+class Ogre {
+    int runSprites
+    int currentFrame
+    int animationDelay
+    int currentDirection
+    int SpeedMultiplier
+    int random
+    int directionChangeTimer
+    int directionChangeInterval
+    Interface inter
+}
+
+Demon --> Mov
+Lutin --> Mov
+Mage --> Mov
+CollisionChecker --> Mov
+PersoPrincipal --> Mov
+Ogre --> Mov
+Interface --> Gamelauncher
+TileManager --> Tile
+Mov --> Interface
+Boule --> PersoPrincipal
+Boule --> Interface
+Tile --> Interface
+LifePoints --> Interface
+
+@enduml

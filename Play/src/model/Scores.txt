@@ -1,14 +1,4 @@
-pression 45.25
-lmerd 33.80
-peach 32,60
-prevasive 43,63
-premed 30,05
-miaw 34,80
-p 33,85
-
-Enter Username press enter  39,90
-hamza1  33,33
-hamza2 42,88
-Enter Username press enter  32,28
-Enter Username press enter  48,98
-Enter Username press enter  31,12
+pression 75.25
+lmerd 73.80
+peach 72,60
+abdellahi 39,22

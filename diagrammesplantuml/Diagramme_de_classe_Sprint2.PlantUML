@@ -1,0 +1,116 @@
+@startuml
+!define DARKRED
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+class KeyHandler {
+  - keysPressed: Set<Integer>
+  - KEY_UP: static final int
+  - KEY_DOWN: static final int
+  - KEY_LEFT: static final int
+  - KEY_RIGHT: static final int
+  --
+  + keyPressed(e: KeyEvent): void
+  + keyReleased(e: KeyEvent): void
+  + isUpPressed(): boolean
+  + isDownPressed(): boolean
+  + isLeftPressed(): boolean
+  + isRightPressed(): boolean
+}
+
+class Mov {
+  - x: int
+  - y: int
+  - speed: int
+}
+
+class PersoPrincipal {
+  - runSprites: ImageIcon[]
+  - idleSprites: ImageIcon[]
+  - currentFrame: int
+  - isRunning: boolean
+  - animationDelay: int
+  - inter: Interface
+  - keyH: KeyHandler
+  --
+  + setDefaultValues(): void
+  + PersoPrincipal(inter: Interface, keyH: KeyHandler)
+  + update(): void
+  + checkCollisionWithBoules(): void
+  + intersects(boule: Boule): boolean
+  + draw(g2: Graphics2D): void
+}
+
+class Interface {
+  - OriginalTitleSize: int
+  - scale: int
+  - titleSize: int
+  - maxScreenCol: int
+  - maxscreenRow: int
+  - screenWidth: int
+  - screenHeight: int
+  - game: Thread
+  - tileM: TileManager
+  - FPS: int
+  - keyH: KeyHandler
+  - persoPrincipal: PersoPrincipal
+  - score: int
+  - boules: List<Boule>
+  - random: Random
+  - timer: Timer
+  - scoreLabel: JLabel
+  --
+  + Interface()
+  + startGame(): void
+  + run(): void
+  + spawnBoules(): void
+  + bouleSeChevauche(x: int, y: int): boolean
+  + getBoules(): List<Boule>
+  + removeBoule(boule: Boule): void
+  + update(): void
+  + paintComponent(g: Graphics): void
+  + incrementScore(): void
+}
+
+class Boule {
+  - x: int
+  - y: int
+  - diametre: static int
+  --
+  + Boule(x: int, y: int)
+  + getDiametre(): static int
+  + draw(g2: Graphics2D): void
+  + getX(): int
+  + getY(): int
+}
+
+class Tile {
+  - image: BufferedImage
+  - collision: boolean
+}
+
+class TileManager {
+  - gp: Interface
+  - tile: Tile[]
+  - mapTileNum: int[][]
+  --
+  + TileManager(gp: Interface)
+  + getTileimage(): void
+  + loadMap(): void
+  + draw(g2: Graphics2D): void
+}
+
+class Ennemis {
+  --
+  + (inherited) x: int
+  + (inherited) y: int
+  + (inherited) speed: int
+}
+
+Interface -- PersoPrincipal: persoPrincipal
+Interface -- KeyHandler: keyH
+PersoPrincipal --|> Mov
+Ennemis --|> Mov
+Interface -- TileManager: tileM
+PersoPrincipal -- Boule
+TileManager --|> Tile
+
+@enduml

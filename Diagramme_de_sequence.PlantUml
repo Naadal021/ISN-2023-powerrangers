@@ -1,0 +1,32 @@
+@startuml
+actor User
+participant Interface
+participant PersoPrincipal
+participant Ennemi
+
+User -> Interface: Start Game
+activate Interface
+Interface -> PersoPrincipal: new PersoPrincipal()
+activate PersoPrincipal
+
+loop Game Loop
+  User -> Interface: Controls
+  Interface -> PersoPrincipal: update()
+  PersoPrincipal -> Ennemi: checkCollision()
+  activate Ennemi
+  Ennemi -> PersoPrincipal: interact()
+  deactivate Ennemi
+  PersoPrincipal -> Interface: updateCompteur()
+  Interface -> Interface: Check Game Over
+  alt Game Over
+    Interface -> Interface: endGame()
+    Interface -> User: Show Game Over Screen
+    break
+  else
+    Interface -> Interface: Repaint()
+  end
+end
+
+deactivate PersoPrincipal
+deactivate Interface
+@enduml
